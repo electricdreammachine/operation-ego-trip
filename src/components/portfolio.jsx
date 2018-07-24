@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import styles from './portfolio.scss';
+import React, { Component } from 'react'
+import Hero from './hero'
+import styles from './portfolio.scss'
 
-class App extends Component {
+class Portfolio extends Component {
   render() {
     return (
       <div className={styles.app}>
         <header className={styles.appHeader}>
-          <img src={logo} className={styles.appLogo} alt="logo" />
-          <h1 className={styles.appTitle}>Welcome to React</h1>
+          <Hero />
         </header>
         <footer>
           butts <br />
@@ -31,8 +30,8 @@ class App extends Component {
           butts <br />
         </footer>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default Portfolio
