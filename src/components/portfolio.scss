@@ -1,5 +1,8 @@
+@import 'src/common/styles/variables';
+
 .app {
   text-align: center;
+  background-color: $background-color;
 }
 
 .app-logo {
@@ -8,10 +11,14 @@
 }
 
 .app-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
+  background: radial-gradient(
+    ellipse at top left,
+    rgba(lighten($background-color, 15%), 1) 0%,
+    rgba($background-color, 1) 70%
+  );
+  height: 100vh;
   color: white;
+  position: relative;
 }
 
 .app-title {
