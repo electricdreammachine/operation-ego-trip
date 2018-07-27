@@ -1,5 +1,11 @@
 @import './colors';
+@import './typography';
+
+$max-width: 1140px;
 
 $background-color: $dark-blue;
 $pattern-color: $turqoise;
 $accent-color: $gold;
+
+$nav-font: $primary-font;
+$wordmark-font: $secondary-font;

@@ -1,0 +1,14 @@
+@import 'src/common/styles/variables';
+
+@mixin centre-block() {
+    display: block;
+    margin: 0 auto;
+}
+
+@mixin set-primary-font() {
+    font-family: $primary-font;
+}
+
+@mixin set-secondary-font() {
+    font-family: $secondary-font;
+}
