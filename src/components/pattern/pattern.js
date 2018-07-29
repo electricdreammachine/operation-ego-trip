@@ -18,10 +18,10 @@ const createLinePattern = (lineBoundary, windowContext = window) => {
         const lineXPosition = calculateLinePosition(lines.length)
         const lineAtContainerBoundary = () => {
             //this is currently nonsense
-            const isLowerBoundary = lineXPosition > lineBoundary - (gutter) * 1.5 &&
-            lineXPosition < lineBoundary + (gutter) * 1.5
-            const isUpperBoundary = lineXPosition > lineBoundary - (gutter) * 1.5 &&
-            lineXPosition < lineBoundary + (gutter) * 1.5
+            const isLowerBoundary = lineXPosition > lineBoundary - gutter * 1.5 &&
+            lineXPosition < lineBoundary + gutter * 1.5
+            const isUpperBoundary = lineXPosition > (windowContext.innerWidth - lineBoundary) - gutter * 1.5 &&
+            lineXPosition < (windowContext.innerWidth - lineBoundary) + gutter * 1.5
 
             return  isLowerBoundary || isUpperBoundary
                 
@@ -45,12 +45,18 @@ const createLinePattern = (lineBoundary, windowContext = window) => {
     return lines
 }
 
-const findNearestLineToBoundary = (lineBoundary) => {
+const getLinePositions = (lineBoundary) => {
     const linePositions = [0]
 
     while (last(linePositions) < lineBoundary) {
         linePositions.push(calculateLinePosition(linePositions.length))
     }
+
+    return linePositions
+}
+
+const findNearestLineToBoundary = (lineBoundary) => {
+    const linePositions = getLinePositions(lineBoundary)
 
     const nearestLineToBoundary = pipe(
         slice(linePositions.length - 2, linePositions.length),
@@ -67,7 +73,19 @@ const findNearestLineToBoundary = (lineBoundary) => {
     return nearestLineToBoundary
 }
 
+const findOuterAccentBoundaries = (lineBoundary, windowContext = window) => {
+    const linePositions = getLinePositions(lineBoundary)
+    const leftOuterBoundary = last(linePositions) + 2
+    const rightOuterBoundary = windowContext.innerWidth - leftOuterBoundary - 2
+
+    return {
+        left: leftOuterBoundary,
+        right: rightOuterBoundary
+    }
+}
+
 export {
     createLinePattern as default,
     findNearestLineToBoundary,
+    findOuterAccentBoundaries,
 }

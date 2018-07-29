@@ -1,4 +1,5 @@
 import React, { Fragment, Component } from 'react'
+import PropTypes from 'prop-types'
 import { ifElse, isNil, prop, pipe, always, unless, defaultTo } from 'ramda'
 import createLinePattern, { findNearestLineToBoundary } from '../pattern'
 
@@ -11,6 +12,7 @@ class Hero extends Component {
             SVGNode: null,
             cutOutNode: null,
             cutOutNodeOffset: null,
+            lineBoundary: null,
         }
 
         this.getSVGNode = this.getSVGNode.bind(this)
@@ -30,13 +32,25 @@ class Hero extends Component {
 
             return {
                 cutOutNode: node,
+                lineBoundary,
                 cutOutNodeOffset
             }
         }
     ))
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        const { lineBoundary: oldLineBoundary } = prevState
+        const { lineBoundary: newLineBoundary } = this.state
+
+        if (oldLineBoundary !== newLineBoundary && oldLineBoundary !== undefined) {
+            this.props.setLineBoundary(newLineBoundary)
+        }
+    }
+
     render() {
+        const { pageYOffset: offsetTop } = window
+
         const cutOutNodeOffset = defaultTo(
             0,
             prop(['cutOutNodeOffset'])
@@ -70,10 +84,10 @@ class Hero extends Component {
                     const { top, right, bottom, left, width, height } = node.getBoundingClientRect()
                     return {
                         path:  [
-                            `M ${right - cutOutNodeOffset} ${top + height / 2}`,
-                            `L ${left + cutOutNodeOffset + width / 2} ${top}`,
-                            `L ${left + cutOutNodeOffset} ${top + height / 2}`,
-                            `L ${left + cutOutNodeOffset + width / 2} ${bottom}`,
+                            `M ${right} ${(top + offsetTop) + height / 2}`,
+                            `L ${left + width / 2} ${(top + offsetTop)}`,
+                            `L ${left} ${(top + offsetTop) + height / 2}`,
+                            `L ${left + width / 2} ${(bottom + offsetTop)}`,
                             'Z'
                         ].join(' '),
                         lineBoundary: left + width /2,
@@ -86,9 +100,7 @@ class Hero extends Component {
             <Fragment>
                 <svg className={styles.heroMask} ref={this.getSVGNode}>
                     <defs>
-                        <pattern id="star" viewBox={`0,0,${window.innerWidth},${window.innerHeight}`} width="100%" height="100%" patternUnits="userSpaceOnUse" preserveAspectRatio="xMinYMin meet"
-                        // dangerouslySetInnerHTML={{ __html: stringify(createLinePattern()) }}
-                         >
+                        <pattern id="star" viewBox={`0,0,${window.innerWidth},${window.innerHeight}`} width="100%" height="100%" patternUnits="userSpaceOnUse" preserveAspectRatio="xMinYMin meet"                         >
                          {createLinePattern(cutOutPath.lineBoundary)}
                          </pattern>
                     </defs>
@@ -109,6 +121,10 @@ class Hero extends Component {
             </Fragment>
         )
     }
+}
+
+Hero.propTypes = {
+    setLineBoundary: PropTypes.func,
 }
 
 export default Hero

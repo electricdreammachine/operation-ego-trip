@@ -1,1 +1,1 @@
-export { default, findNearestLineToBoundary } from './pattern'
+export { default, findNearestLineToBoundary, findOuterAccentBoundaries } from './pattern'
