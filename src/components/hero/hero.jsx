@@ -100,7 +100,7 @@ class Hero extends Component {
             <Fragment>
                 <svg className={styles.heroMask} ref={this.getSVGNode}>
                     <defs>
-                        <pattern id="star" viewBox={`0,0,${window.innerWidth},${window.innerHeight}`} width="100%" height="100%" patternUnits="userSpaceOnUse" preserveAspectRatio="xMinYMin meet"                         >
+                        <pattern id="star" viewBox={`0,0,${document.documentElement.clientWidth},${document.documentElement.clientHeight}`} width="100%" height="100%" patternUnits="userSpaceOnUse" preserveAspectRatio="xMinYMin meet"                         >
                          {createLinePattern(cutOutPath.lineBoundary)}
                          </pattern>
                     </defs>

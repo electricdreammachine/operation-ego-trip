@@ -7,21 +7,20 @@ const gutter = 10
 
 const calculateLinePosition = (lineNumber)  =>  1 + (lineNumber * gutter)
 
-const createLinePattern = (lineBoundary, windowContext = window) => {
+const createLinePattern = (lineBoundary, boundingElement = document.documentElement) => {
     const lines = []
 
     while (
         pipe(
             last,
             pathOr(0, ['props', 'x1'])
-        )(lines) < windowContext.innerWidth - (gutter + 1) || lines.length === 1) {
+        )(lines) < boundingElement.clientWidth - (gutter + 1) || lines.length === 1) {
         const lineXPosition = calculateLinePosition(lines.length)
         const lineAtContainerBoundary = () => {
-            //this is currently nonsense
             const isLowerBoundary = lineXPosition > lineBoundary - gutter * 1.5 &&
             lineXPosition < lineBoundary + gutter * 1.5
-            const isUpperBoundary = lineXPosition > (windowContext.innerWidth - lineBoundary) - gutter * 1.5 &&
-            lineXPosition < (windowContext.innerWidth - lineBoundary) + gutter * 1.5
+            const isUpperBoundary = lineXPosition > (boundingElement.clientWidth - lineBoundary) - gutter * 1.5 &&
+            lineXPosition < (boundingElement.clientWidth - lineBoundary) + gutter * 1.5
 
             return  isLowerBoundary || isUpperBoundary
                 
@@ -38,7 +37,7 @@ const createLinePattern = (lineBoundary, windowContext = window) => {
         }
         
         lines.push(
-            <line x1={lineXPosition} y1="0" x2={lineXPosition} y2={windowContext.innerHeight + 10} key={`line-${lines.length}`} style={strokeStyle} />
+            <line x1={lineXPosition} y1="0" x2={lineXPosition} y2={boundingElement.clientHeight + 10} key={`line-${lines.length}`} style={strokeStyle} />
         )
     }
 
@@ -73,10 +72,10 @@ const findNearestLineToBoundary = (lineBoundary) => {
     return nearestLineToBoundary
 }
 
-const findOuterAccentBoundaries = (lineBoundary, windowContext = window) => {
+const findOuterAccentBoundaries = (lineBoundary, boundingElement = document.documentElement) => {
     const linePositions = getLinePositions(lineBoundary)
     const leftOuterBoundary = last(linePositions) + 2
-    const rightOuterBoundary = windowContext.innerWidth - leftOuterBoundary - 2
+    const rightOuterBoundary = boundingElement.clientWidth - leftOuterBoundary - 2
 
     return {
         left: leftOuterBoundary,
