@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import PortfolioState, { Consumer } from '../store'
 import Hero from './hero'
 import Section from './section'
+import PillarsTemplate from './section/templates/pillars'
 import styles from './portfolio.scss'
 
 class Portfolio extends Component {
@@ -18,31 +19,11 @@ class Portfolio extends Component {
             <header className={styles.appHeader}>
               <Hero setLineBoundary={actions.setLineBoundary} />
             </header>
-            <Section lineBoundary={lineBoundary}/>
+            <Section />
             <Section
               template="pillars"
-              lineBoundary={lineBoundary}
             />
-            <footer>
-              butts <br />
-              butts <br />
-              butts <br />
-              butts <br />
-              butts <br />
-              butts <br />
-              butts <br />
-              butts <br />
-              butts <br />
-              butts <br />
-              butts <br />
-              butts <br />
-              butts <br />
-              butts <br />
-              butts <br />
-              butts <br />
-              butts <br />
-              butts <br />
-            </footer>
+            <PillarsTemplate />
           </div>
           )}
         </Consumer>
