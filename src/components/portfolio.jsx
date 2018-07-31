@@ -33,7 +33,7 @@ class Portfolio extends Component {
 }
 
 Portfolio.propTypes = {
-  boundingElement: PropTypes.element,
+  boundingElement: PropTypes.node,
 }
 
 export default Portfolio

@@ -112,6 +112,9 @@ class Hero extends Component {
                             <div className={styles.wordMarkWrapper} ref={this.getCutOutNode} style={{ 'left': cutOutNodeOffset + 'px' }}>
                                 <span className={styles.wordMark}>
                                     Oliver Smith
+                                    <span className={styles.tagline}>
+                                        Software Engineeer
+                                    </span>
                                 </span>
                             </div>
                         </li>

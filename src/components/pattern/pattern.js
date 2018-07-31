@@ -14,7 +14,7 @@ const createLinePattern = (lineBoundary, boundingElement = document.documentElem
         pipe(
             last,
             pathOr(0, ['props', 'x1'])
-        )(lines) < boundingElement.clientWidth - (gutter + 1) || lines.length === 1) {
+        )(lines) < boundingElement.clientWidth - (gutter + 1)) {
         const lineXPosition = calculateLinePosition(lines.length)
         const lineAtContainerBoundary = () => {
             const isLowerBoundary = lineXPosition > lineBoundary - gutter * 1.5 &&

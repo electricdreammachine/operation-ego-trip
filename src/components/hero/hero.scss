@@ -42,6 +42,15 @@
         transform: translate(-50%, -50%) rotate(-44.5deg);
     }
 
+    .tagline {
+        font-size: 0.7rem;
+        letter-spacing: 0.2rem;
+        color: $primary-text-color;
+        margin-top: 0.4rem;
+        opacity: 0.8;
+        display: block;
+    }
+
     &:before {
         content: '';
         display: block;

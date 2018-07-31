@@ -81,7 +81,7 @@ class PortfolioState extends Component {
 }
 
 PortfolioState.propTypes = {
-    boundingElement: PropTypes.element,
+    boundingElement: PropTypes.node,
 }
 
 export {
