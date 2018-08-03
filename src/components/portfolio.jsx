@@ -14,10 +14,14 @@ class Portfolio extends Component {
     return (
       <PortfolioState boundingElement={boundingElement}>
         <Consumer>
-          {({ state: { lineBoundary }, actions }) => (
+          {({ state: { lineBoundary, nearestLineToBoundary }, actions }) => (
             <div className={styles.app}>
             <header className={styles.appHeader}>
-              <Hero setLineBoundary={actions.setLineBoundary} />
+              <Hero
+                setLineBoundary={actions.setLineBoundary}
+                lineBoundary={lineBoundary}
+                nearestLineToBoundary={nearestLineToBoundary}
+              />
             </header>
             <Section />
             <Section

@@ -1,7 +1,7 @@
 import React, { Fragment, Component } from 'react'
 import PropTypes from 'prop-types'
-import { ifElse, isNil, prop, pipe, always, unless, defaultTo } from 'ramda'
-import createLinePattern, { findNearestLineToBoundary } from '../pattern'
+import { ifElse, isNil, prop, pipe, always, unless } from 'ramda'
+import createLinePattern from '../pattern'
 
 import styles from './hero.scss'
 
@@ -12,51 +12,52 @@ class Hero extends Component {
             SVGNode: null,
             cutOutNode: null,
             cutOutNodeOffset: null,
-            lineBoundary: null,
         }
 
         this.getSVGNode = this.getSVGNode.bind(this)
         this.getCutOutNode = this.getCutOutNode.bind(this)
     }
 
+    componentDidMount() {
+        this.watchForResize()
+    }
+
+    watchForResize() {
+        this._frameId = window.addEventListener('resize', this.getLineBoundary)
+    }
+
+    getLineBoundary = () => {
+        const { cutOutNode } = this.state
+
+        if (cutOutNode !== null) {
+            const { left, width } = this.state.cutOutNode.getBoundingClientRect()
+            const lineBoundary = left + width / 2
+
+            return this.props.setLineBoundary(lineBoundary)
+        }
+    }
+    
     getSVGNode(node) {
         requestIdleCallback(() => this.setState({ SVGNode : node }))
     }
 
     getCutOutNode(node) {
-        requestIdleCallback(() => this.setState(() => {
-            const { left, width } = node.getBoundingClientRect()
-            const lineBoundary = left + width / 2
-            const nearestLineToBoundary = findNearestLineToBoundary(lineBoundary)
-            const cutOutNodeOffset = Math.abs(nearestLineToBoundary) - Math.abs(lineBoundary + 1)
-
-            return {
-                cutOutNode: node,
-                lineBoundary,
-                cutOutNodeOffset
-            }
-        }
-    ))
+        requestIdleCallback(() => this.setState({ cutOutNode : node }, this.getLineBoundary))
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        const { lineBoundary: oldLineBoundary } = prevState
-        const { lineBoundary: newLineBoundary } = this.state
+    static getDerivedStateFromProps(nextProps) {
+        const { nearestLineToBoundary, lineBoundary } = nextProps
 
-        if (oldLineBoundary !== newLineBoundary && oldLineBoundary !== undefined) {
-            this.props.setLineBoundary(newLineBoundary)
+        return {
+            cutOutNodeOffset: Math.abs(nearestLineToBoundary) - Math.abs(lineBoundary + 1)
         }
     }
 
     render() {
         const { pageYOffset: offsetTop } = window
+        const { cutOutNodeOffset } = this.state
 
-        const cutOutNodeOffset = defaultTo(
-            0,
-            prop(['cutOutNodeOffset'])
-        )(this.state)
-
-        const trianglePath = pipe (
+        const trianglePath = pipe(
             prop(['SVGNode']),
             unless(
                 isNil,
