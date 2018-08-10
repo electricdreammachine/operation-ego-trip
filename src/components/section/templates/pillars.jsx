@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { pipe, prop, isNil, ifElse, always, last, pathOr, forEach } from 'ramda'
 import 'common/assets/images/leaf-motif-sprite.svg'
 import { Consumer } from '../../../store'
-import styles from './pillars.scss'
+import styles from './pillars.module.scss'
 
 const randomNumberInRange = (maximum, minimum) => Math.floor(Math.random() * (maximum - minimum + 1)) + minimum
 

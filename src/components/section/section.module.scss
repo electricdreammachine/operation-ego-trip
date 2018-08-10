@@ -1,0 +1,20 @@
+@import 'src/common/styles/mixins';
+@import 'src/common/styles/variables';
+
+.section {
+    margin-top: 50px;
+}
+
+.section-graphic {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+}
+
+.section-title {
+    @include set-secondary-font;
+    color: $accent-color;
+    font-size: 2rem;
+}

@@ -1,9 +1,11 @@
 import React, { Fragment, Component } from 'react'
 import PropTypes from 'prop-types'
+import root from 'window-or-global'
+
 import { ifElse, isNil, prop, pipe, always, unless } from 'ramda'
 import createLinePattern from '../pattern'
 
-import styles from './hero.scss'
+import styles from './hero.module.scss'
 
 class Hero extends Component {
     constructor() {
@@ -11,7 +13,8 @@ class Hero extends Component {
         this.state = {
             SVGNode: null,
             cutOutNode: null,
-            cutOutNodeOffset: null,
+            cutOutNodeOffset: 0,
+            offsetTop: 0,
         }
 
         this.getSVGNode = this.getSVGNode.bind(this)
@@ -19,11 +22,8 @@ class Hero extends Component {
     }
 
     componentDidMount() {
-        this.watchForResize()
-    }
-
-    watchForResize() {
-        this._frameId = window.addEventListener('resize', this.getLineBoundary)
+        this.setState({ offsetTop: root.pageYOffset })
+        root.addEventListener('resize', this.getLineBoundary)
     }
 
     getLineBoundary = () => {
@@ -54,8 +54,8 @@ class Hero extends Component {
     }
 
     render() {
-        const { pageYOffset: offsetTop } = window
-        const { cutOutNodeOffset } = this.state
+        const { cutOutNodeOffset, offsetTop } = this.state
+        const { boundingWidth, boundingHeight } = this.props
 
         const trianglePath = pipe(
             prop(['SVGNode']),
@@ -85,10 +85,10 @@ class Hero extends Component {
                     const { top, right, bottom, left, width, height } = node.getBoundingClientRect()
                     return {
                         path:  [
-                            `M ${right} ${(top + offsetTop) + height / 2}`,
-                            `L ${left + width / 2} ${(top + offsetTop)}`,
-                            `L ${left} ${(top + offsetTop) + height / 2}`,
-                            `L ${left + width / 2} ${(bottom + offsetTop)}`,
+                            `M ${right - cutOutNodeOffset} ${(top + offsetTop) + height / 2}`,
+                            `L ${left + cutOutNodeOffset + width / 2} ${(top + offsetTop)}`,
+                            `L ${left + cutOutNodeOffset} ${(top + offsetTop) + height / 2}`,
+                            `L ${left + cutOutNodeOffset + width / 2} ${(bottom + offsetTop)}`,
                             'Z'
                         ].join(' '),
                         lineBoundary: left + width /2,
@@ -101,8 +101,8 @@ class Hero extends Component {
             <Fragment>
                 <svg className={styles.heroMask} ref={this.getSVGNode}>
                     <defs>
-                        <pattern id="star" viewBox={`0,0,${document.documentElement.clientWidth},${document.documentElement.clientHeight}`} width="100%" height="100%" patternUnits="userSpaceOnUse" preserveAspectRatio="xMinYMin meet"                         >
-                         {createLinePattern(cutOutPath.lineBoundary)}
+                        <pattern id="star" viewBox={`0,0,${boundingWidth},${boundingHeight}`} width="100%" height="100%" patternUnits="userSpaceOnUse" preserveAspectRatio="xMinYMin meet"                         >
+                         {createLinePattern(cutOutPath.lineBoundary, boundingWidth, boundingHeight)}
                          </pattern>
                     </defs>
                     <path d={trianglePath + '' + cutOutPath.path} fill-rule="evenodd" style={{'fill':'url(#star)', 'strokeWidth':'0'}} />
@@ -129,6 +129,8 @@ class Hero extends Component {
 
 Hero.propTypes = {
     setLineBoundary: PropTypes.func,
+    boundingWidth: PropTypes.number,
+    boundingHeight: PropTypes.number,
 }
 
 export default Hero

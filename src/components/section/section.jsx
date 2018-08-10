@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import SectionHeader from './section-header'
 
-import styles from './section.scss'
+import styles from './section.module.scss'
 
 const Section = () => {
     return (

@@ -7,20 +7,20 @@ const gutter = 10
 
 const calculateLinePosition = (lineNumber)  =>  1 + (lineNumber * gutter)
 
-const createLinePattern = (lineBoundary, boundingElement = document.documentElement) => {
+const createLinePattern = (lineBoundary, width, height) => {
     const lines = []
 
     while (
         pipe(
             last,
             pathOr(0, ['props', 'x1'])
-        )(lines) < boundingElement.clientWidth - (gutter + 1)) {
+        )(lines) < width - (gutter + 1)) {
         const lineXPosition = calculateLinePosition(lines.length)
         const lineAtContainerBoundary = () => {
             const isLowerBoundary = lineXPosition > lineBoundary - gutter * 1.5 &&
             lineXPosition < lineBoundary + gutter * 1.5
-            const isUpperBoundary = lineXPosition > (boundingElement.clientWidth - lineBoundary) - gutter * 1.5 &&
-            lineXPosition < (boundingElement.clientWidth - lineBoundary) + gutter * 1.5
+            const isUpperBoundary = lineXPosition > (width - lineBoundary) - gutter * 1.5 &&
+            lineXPosition < (width - lineBoundary) + gutter * 1.5
 
             return  isLowerBoundary || isUpperBoundary
                 
@@ -37,7 +37,7 @@ const createLinePattern = (lineBoundary, boundingElement = document.documentElem
         }
         
         lines.push(
-            <line x1={lineXPosition} y1="0" x2={lineXPosition} y2={boundingElement.clientHeight + 10} key={`line-${lines.length}`} style={strokeStyle} />
+            <line x1={lineXPosition} y1="0" x2={lineXPosition} y2={height + 10} key={`line-${lines.length}`} style={strokeStyle} />
         )
     }
 
@@ -72,10 +72,10 @@ const findNearestLineToBoundary = (lineBoundary) => {
     return nearestLineToBoundary
 }
 
-const findOuterAccentBoundaries = (lineBoundary, boundingElement = document.documentElement) => {
+const findOuterAccentBoundaries = (lineBoundary, width) => {
     const linePositions = getLinePositions(lineBoundary)
     const leftOuterBoundary = last(linePositions) + 2
-    const rightOuterBoundary = boundingElement.clientWidth - leftOuterBoundary - 2
+    const rightOuterBoundary = width - leftOuterBoundary - 2
 
     return {
         left: leftOuterBoundary,

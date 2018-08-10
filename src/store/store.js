@@ -1,6 +1,7 @@
 import React, { createContext, Component } from 'react'
 import PropTypes from 'prop-types'
-import { createClient } from 'contentful'
+import root from 'window-or-global'
+// import { createClient } from 'contentful'
 
 import { findNearestLineToBoundary, findOuterAccentBoundaries } from '../components/pattern'
 
@@ -8,19 +9,18 @@ const Context = createContext()
 
 const { Provider, Consumer } = Context
 
-const contentfulClient = createClient({
-    space: process.env.REACT_APP_CONTENTFUL_SPACE_ID,
-    accessToken: process.env.REACT_APP_CONTENTFUL_KEY
-})
+// const contentfulClient = createClient({
+//     space: process.env.REACT_APP_CONTENTFUL_SPACE_ID,
+//     accessToken: process.env.REACT_APP_CONTENTFUL_KEY
+// })
 
 class PortfolioState extends Component {
-    constructor(props) {
-        super(props)
-
-        const { boundingElement } = props
+    constructor() {
+        super()
 
         this.state = {
-            boundingElement,
+            boundingWidth: 0,
+            boundingHeight: 0,
             lineBoundary: 0,
             nearestLineToBoundary: 0,
             outerAccentBoundaries: {
@@ -35,13 +35,26 @@ class PortfolioState extends Component {
     }
 
     componentDidMount() {
-        contentfulClient.getContentTypes()
-        .then(function (entries) {
-            console.log(entries)
-        })
+        this.setState({ boundingHeight: root.innerHeight })
     }
 
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.boundingElement !== null && nextProps.boundingElement !== prevState.boundingElement) {
+            return {
+                boundingWidth: nextProps.boundingElement.clientWidth,
+            }
+        }
+    }
+
+    // componentDidMount() {
+    //     contentfulClient.getContentTypes()
+    //     .then(function (entries) {
+    //         console.log(entries)
+    //     })
+    // }
+
     render() {
+        const { boundingWidth } = this.state
         return(
             <Provider
                 value={{
@@ -51,7 +64,7 @@ class PortfolioState extends Component {
                             const {
                                 left: leftOuterBoundary,
                                 right: rightOuterBoundary
-                            } = findOuterAccentBoundaries(lineBoundary)
+                            } = findOuterAccentBoundaries(lineBoundary, boundingWidth)
                             const nearestLineToBoundary = findNearestLineToBoundary(lineBoundary)
                             const lineDistance = leftOuterBoundary - nearestLineToBoundary
                             const leftInnerBoundary = nearestLineToBoundary - lineDistance - 2

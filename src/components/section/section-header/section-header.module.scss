@@ -1,0 +1,24 @@
+@import 'src/common/styles/mixins';
+@import 'src/common/styles/variables';
+
+.section-header {
+    position: relative;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.section-header-graphic {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+}
+
+.section-header-title {
+    @include set-secondary-font;
+    color: $accent-color;
+    font-size: 2rem;
+}
