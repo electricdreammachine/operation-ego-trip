@@ -1,6 +1,7 @@
 import React, { createContext, Component } from 'react'
 import PropTypes from 'prop-types'
 import root from 'window-or-global'
+import { StaticQuery, graphql } from 'gatsby'
 // import { createClient } from 'contentful'
 
 import { findNearestLineToBoundary, findOuterAccentBoundaries } from '../components/pattern'
@@ -56,39 +57,62 @@ class PortfolioState extends Component {
     render() {
         const { boundingWidth } = this.state
         return(
-            <Provider
-                value={{
-                    state: this.state,
-                    actions: {
-                        setLineBoundary: (lineBoundary) => {
-                            const {
-                                left: leftOuterBoundary,
-                                right: rightOuterBoundary
-                            } = findOuterAccentBoundaries(lineBoundary, boundingWidth)
-                            const nearestLineToBoundary = findNearestLineToBoundary(lineBoundary)
-                            const lineDistance = leftOuterBoundary - nearestLineToBoundary
-                            const leftInnerBoundary = nearestLineToBoundary - lineDistance - 2
-                            const rightInnerBoundary = rightOuterBoundary + (lineDistance*2) + 2
+            <StaticQuery
+                query={
+                    graphql`
+                        {
+                        allFiles: allFile {
+                          fileDefintions: edges {
+                            node {
+                              name
+                              relativePath
+                              extension
+                              base
+                            }
+                          }
+                        }
+                      }
+                    `
+                }
+                render={
+                    (data) =>
+                        <Provider
+                            value={{
+                                state: this.state,
+                                domain: data,
+                                actions: {
+                                    setLineBoundary: (lineBoundary) => {
+                                        const {
+                                            left: leftOuterBoundary,
+                                            right: rightOuterBoundary
+                                        } = findOuterAccentBoundaries(lineBoundary, boundingWidth)
+                                        const nearestLineToBoundary = findNearestLineToBoundary(lineBoundary)
+                                        const lineDistance = leftOuterBoundary - nearestLineToBoundary
+                                        const leftInnerBoundary = nearestLineToBoundary - lineDistance - 2
+                                        const rightInnerBoundary = rightOuterBoundary + (lineDistance*2) + 2
 
 
-                            this.setState({
-                                lineBoundary,
-                                nearestLineToBoundary,
-                                outerAccentBoundaries: {
-                                    leftOuterBoundary,
-                                    rightOuterBoundary,
-                                },
-                                innerAccentBoundaries: {
-                                    leftInnerBoundary,
-                                    rightInnerBoundary,
+                                        this.setState({
+                                            lineBoundary,
+                                            nearestLineToBoundary,
+                                            outerAccentBoundaries: {
+                                                leftOuterBoundary,
+                                                rightOuterBoundary,
+                                            },
+                                            innerAccentBoundaries: {
+                                                leftInnerBoundary,
+                                                rightInnerBoundary,
+                                            }
+                                        })
+                                    },
                                 }
-                            })
-                        },
-                    }
-                }}
+                            }}
+                        >
+                        {this.props.children}
+                    </Provider>
+                }
             >
-                {this.props.children}
-            </Provider>
+            </StaticQuery>
         )
     }
 }

@@ -7,5 +7,12 @@ module.exports = {
     'gatsby-plugin-resolve-src',
     'gatsby-plugin-svg-sprite',
     'gatsby-plugin-sass',
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/content`,
+        name: 'content',
+      },
+    },
   ],
 }
