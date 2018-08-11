@@ -10,6 +10,8 @@
     "gatsby-plugin-sass": "next",
     "gatsby-plugin-svg-sprite": "git+https://github.com/marcobiedermann/gatsby-plugin-svg-sprite.git",
     "gatsby-source-filesystem": "next",
+    "gatsby-transformer-json": "next",
+    "gatsby-transformer-remark": "next",
     "node-sass": "^4.9.2",
     "ramda": "^0.25.0",
     "react": "^16.4.1",

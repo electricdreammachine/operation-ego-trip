@@ -6,6 +6,8 @@ module.exports = {
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-resolve-src',
     'gatsby-plugin-svg-sprite',
+    `gatsby-transformer-json`,
+    `gatsby-transformer-remark`,
     'gatsby-plugin-sass',
     {
       resolve: `gatsby-source-filesystem`,
