@@ -1,19 +1,14 @@
 import React, { createContext, Component } from 'react'
 import PropTypes from 'prop-types'
 import root from 'window-or-global'
-import { StaticQuery, graphql } from 'gatsby'
-// import { createClient } from 'contentful'
+import { StaticQuery } from 'gatsby'
+import { query } from './query'
 
 import { findNearestLineToBoundary, findOuterAccentBoundaries } from '../components/pattern'
 
 const Context = createContext()
 
 const { Provider, Consumer } = Context
-
-// const contentfulClient = createClient({
-//     space: process.env.REACT_APP_CONTENTFUL_SPACE_ID,
-//     accessToken: process.env.REACT_APP_CONTENTFUL_KEY
-// })
 
 class PortfolioState extends Component {
     constructor() {
@@ -47,33 +42,11 @@ class PortfolioState extends Component {
         }
     }
 
-    // componentDidMount() {
-    //     contentfulClient.getContentTypes()
-    //     .then(function (entries) {
-    //         console.log(entries)
-    //     })
-    // }
-
     render() {
         const { boundingWidth } = this.state
         return(
             <StaticQuery
-                query={
-                    graphql`
-                        {
-                        allFiles: allFile {
-                          fileDefintions: edges {
-                            node {
-                              name
-                              relativePath
-                              extension
-                              base
-                            }
-                          }
-                        }
-                      }
-                    `
-                }
+                query={query}
                 render={
                     (data) =>
                         <Provider

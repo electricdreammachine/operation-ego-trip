@@ -1,0 +1,69 @@
+@import 'src/common/styles/variables';
+@import 'src/common/styles/mixins';
+
+.grid-wrapper {
+    padding-top: 20px;
+    max-width: $max-width;
+    @include centre-block;
+    position: relative;
+    display: grid;
+    height: 100%;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 8px 8px;
+    grid-template-areas:
+        "cell-1 cell-1 cell-2 cell-2 cell-3 cell-3"
+        "cell-1 cell-1 cell-2 cell-2 cell-3 cell-3"
+        "cell-1 cell-1 cell-4 cell-4 cell-5 cell-5"
+        "cell-1 cell-1 cell-4 cell-4 cell-5 cell-5"
+        "cell-7 cell-7 cell-7 cell-6 cell-6 cell-6"
+        "cell-7 cell-7 cell-7 cell-6 cell-6 cell-6"
+        "cell-8 cell-8 cell-8 cell-6 cell-6 cell-6"
+        "cell-8 cell-8 cell-8 cell-6 cell-6 cell-6";
+
+    &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(50%, 50%) rotate(45deg);
+        border: 4px solid $accent-color;
+    }
+
+    img { 
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        position: absolute;
+        top: 0; left: 0;
+        mix-blend-mode: exclusion;
+    }
+
+    div {
+        position: relative;
+        background: $dark-blue;
+        &:before {
+            content: '';
+            padding-top: 50%;
+            display: block;
+            position: relative;
+        }
+
+        &:after {
+            content: '';
+            width: 100%;
+            height: 100%;
+            display: block;
+            position: absolute;
+            top: 0; left: 0;
+        }
+    }
+
+    @for $i from 1 through 8 {
+        div:nth-child(#{$i}) {
+            grid-area: cell-#{$i};
+        }
+    }
+}

@@ -4,6 +4,8 @@ import 'common/assets/images/leaf-motif-sprite.svg'
 import { Consumer } from '../../../store'
 import styles from './pillars.module.scss'
 
+import ContactInformation from '../../contact-information'
+
 const randomNumberInRange = (maximum, minimum) => Math.floor(Math.random() * (maximum - minimum + 1)) + minimum
 
 class PillarsTemplate extends Component {
@@ -115,6 +117,7 @@ class PillarsTemplate extends Component {
                                 {this.setLeafPositions(width, height)}
                                 {this.setBranchPositions(nearestLineToBoundary, height, width)}
                             </svg>
+                            <ContactInformation />
                         </div>
                     )
                 }

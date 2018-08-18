@@ -6,6 +6,7 @@ import Hero from './hero'
 import Section from './section'
 import PillarsTemplate from './section/templates/pillars'
 import styles from './portfolio.module.scss'
+import GridTemplate from './section/templates/grid';
 
 class Portfolio extends Component {
   constructor() {
@@ -36,6 +37,7 @@ class Portfolio extends Component {
               />
             </header>
             <Section />
+            <GridTemplate />
             <Section
               template="pillars"
             />
