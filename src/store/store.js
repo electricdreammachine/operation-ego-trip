@@ -1,8 +1,7 @@
 import React, { createContext, Component } from 'react'
 import PropTypes from 'prop-types'
 import root from 'window-or-global'
-import { StaticQuery } from 'gatsby'
-import { query } from './query'
+import { StaticQuery, graphql } from 'gatsby'
 
 import { findNearestLineToBoundary, findOuterAccentBoundaries } from '../components/pattern'
 
@@ -46,7 +45,11 @@ class PortfolioState extends Component {
         const { boundingWidth } = this.state
         return(
             <StaticQuery
-                query={query}
+                query={
+                    graphql`
+                    query { ...contentQuery }
+                    `
+                }
                 render={
                     (data) =>
                         <Provider

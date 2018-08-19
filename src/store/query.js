@@ -1,7 +1,7 @@
-import { graphql } from 'gatsby'
+import { graphql } from "gatsby";
 
 export const query = graphql`
-{
+fragment contentQuery on Query {
     jobs: allContentfulJob {
       edges {
         node {
@@ -60,6 +60,20 @@ export const query = graphql`
             file {
               url
             }
+          }
+        }
+      }
+    }
+    contact: allContentfulContactInformation {
+      edges {
+        node {
+          contactBody {
+            contactBody
+          }
+          contactLinks {
+            networkName
+            url
+            username
           }
         }
       }
