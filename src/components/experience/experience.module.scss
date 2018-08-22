@@ -1,0 +1,46 @@
+@import 'src/common/styles/variables';
+@import 'src/common/styles/mixins';
+
+.experience-timeline {
+    max-width: $max-width;
+    @include centre-block;
+    margin-top: 50px;
+}
+
+.timeline-item {
+    display: grid;
+    height: 100%;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: ". .";
+}
+
+.timeline-time-period {
+    position: relative;
+    transform: rotate(45deg);
+    margin: 0 20px;
+    
+    &:before {
+        content: '';
+        display: block;
+        width: 100%;
+        padding-bottom: 100%;
+        border: 2px solid $accent-color;
+        box-sizing: border-box;
+    }
+}
+
+.timeline-times {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 100%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.timeline-item-details {
+    text-align: left;
+}

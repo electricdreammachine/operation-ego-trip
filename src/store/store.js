@@ -35,14 +35,33 @@ class PortfolioState extends Component {
 
     static getDerivedStateFromProps(nextProps, prevState) {
         if (nextProps.boundingElement !== null && nextProps.boundingElement !== prevState.boundingElement) {
+            const { lineBoundary, nearestLineToBoundary } = prevState
+            const boundingWidth = nextProps.boundingElement.clientWidth
+            const {
+                left: leftOuterBoundary,
+                right: rightOuterBoundary
+            } = findOuterAccentBoundaries(lineBoundary, boundingWidth)
+            const lineDistance = leftOuterBoundary - nearestLineToBoundary
+            const leftInnerBoundary = nearestLineToBoundary - lineDistance - 2
+            const rightInnerBoundary = rightOuterBoundary + (lineDistance*2) + 2
+
             return {
-                boundingWidth: nextProps.boundingElement.clientWidth,
+                boundingWidth,
+                outerAccentBoundaries: {
+                    leftOuterBoundary,
+                    rightOuterBoundary,
+                },
+                innerAccentBoundaries: {
+                    leftInnerBoundary,
+                    rightInnerBoundary,
+                }
             }
         }
+
+        return null
     }
 
     render() {
-        const { boundingWidth } = this.state
         return(
             <StaticQuery
                 query={
@@ -58,27 +77,13 @@ class PortfolioState extends Component {
                                 domain: data,
                                 actions: {
                                     setLineBoundary: (lineBoundary) => {
-                                        const {
-                                            left: leftOuterBoundary,
-                                            right: rightOuterBoundary
-                                        } = findOuterAccentBoundaries(lineBoundary, boundingWidth)
                                         const nearestLineToBoundary = findNearestLineToBoundary(lineBoundary)
-                                        const lineDistance = leftOuterBoundary - nearestLineToBoundary
-                                        const leftInnerBoundary = nearestLineToBoundary - lineDistance - 2
-                                        const rightInnerBoundary = rightOuterBoundary + (lineDistance*2) + 2
-
+                                        const lineOffset =  Math.abs(nearestLineToBoundary) - Math.abs(lineBoundary + 1)
 
                                         this.setState({
                                             lineBoundary,
                                             nearestLineToBoundary,
-                                            outerAccentBoundaries: {
-                                                leftOuterBoundary,
-                                                rightOuterBoundary,
-                                            },
-                                            innerAccentBoundaries: {
-                                                leftInnerBoundary,
-                                                rightInnerBoundary,
-                                            }
+                                            lineOffset,
                                         })
                                     },
                                 }

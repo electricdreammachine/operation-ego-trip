@@ -1,6 +1,12 @@
 @import 'src/common/styles/variables';
 @import 'src/common/styles/mixins';
 
+.contact-body {
+    color: $primary-text-color;
+    text-align: left;
+    padding: 0 120px;
+}
+
 .contact-info-wrapper {
     max-width: $max-width;
     @include centre-block;

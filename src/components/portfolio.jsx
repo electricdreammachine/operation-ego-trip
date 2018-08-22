@@ -6,7 +6,8 @@ import Hero from './hero'
 import Section from './section'
 import PillarsTemplate from './section/templates/pillars'
 import styles from './portfolio.module.scss'
-import GridTemplate from './section/templates/grid';
+import GridTemplate from './section/templates/grid'
+import Experience from './experience'
 
 class Portfolio extends Component {
   constructor() {
@@ -25,7 +26,7 @@ class Portfolio extends Component {
     return (
       <PortfolioState boundingElement={boundingElement}>
         <Consumer>
-          {({ state: { lineBoundary, nearestLineToBoundary, boundingWidth, boundingHeight }, actions }) => (
+          {({ state: { lineBoundary, lineOffset, nearestLineToBoundary, boundingWidth, boundingHeight }, actions }) => (
             <div className={styles.app}>
             <header className={styles.appHeader}>
               <Hero
@@ -34,8 +35,11 @@ class Portfolio extends Component {
                 nearestLineToBoundary={nearestLineToBoundary}
                 boundingWidth={boundingWidth}
                 boundingHeight={boundingHeight}
+                lineOffset={lineOffset}
               />
             </header>
+            <Section />
+            <Experience lineOffset={lineOffset} />
             <Section />
             <GridTemplate />
             <Section

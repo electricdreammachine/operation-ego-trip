@@ -32,7 +32,7 @@ class ContactInformation extends Component {
                         const contactInfo = edges[0].node
                         return(
                             <div className={styles.contactInfoWrapper}>
-                                <div>
+                                <div className={styles.contactBody}>
                                     {contactInfo.contactBody.contactBody}
                                 </div>
                                 <div className={styles.socialNetworks}>
