@@ -8,8 +8,6 @@
 }
 
 .contact-info-wrapper {
-    max-width: $max-width;
-    @include centre-block;
     height: 100%;
     display: flex;
     justify-content: space-around;

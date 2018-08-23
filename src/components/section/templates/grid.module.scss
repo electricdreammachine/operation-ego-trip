@@ -3,8 +3,6 @@
 
 .grid-wrapper {
     padding-top: 20px;
-    max-width: $max-width;
-    @include centre-block;
     position: relative;
     display: grid;
     height: 100%;

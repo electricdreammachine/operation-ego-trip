@@ -2,8 +2,10 @@ import React, { Fragment, Component } from 'react'
 import PropTypes from 'prop-types'
 import root from 'window-or-global'
 
-import { isNil, prop, pipe, unless } from 'ramda'
+import { isNil, prop, pipe, unless, propOr } from 'ramda'
 import { Pattern } from '../pattern'
+import FullBleedGraphic from '../full-bleed-graphic'
+import MaxWidthContainer from '../max-width-container';
 
 import styles from './hero.module.scss'
 
@@ -11,16 +13,14 @@ class Hero extends Component {
     constructor() {
         super()
         this.state = {
-            SVGNode: null,
             offsetTop: 0,
         }
 
-        this.getSVGNode = this.getSVGNode.bind(this)
+        this.SVGNode = React.createRef()
         this.cutOutNode = React.createRef()
     }
 
     componentDidMount() {
-        this.setState({ offsetTop: root.pageYOffset })
         this.getLineBoundary()
         root.addEventListener('resize', this.getLineBoundary)
     }
@@ -35,21 +35,18 @@ class Hero extends Component {
             return this.props.setLineBoundary(lineBoundary)
         }
     }
-    
-    getSVGNode(node) {
-        requestIdleCallback(() => this.setState({ SVGNode : node }))
-    }
-
-    // getCutOutNode(node) {
-    //     requestIdleCallback(() => this.setState({ cutOutNode : node }, this.getLineBoundary))
-    // }
 
     render() {
-        const { offsetTop } = this.state
         const { boundingWidth, boundingHeight, lineOffset, lineBoundary } = this.props
 
+        const offsetTop = propOr(
+            0,
+            'pageYOffset',
+            root
+        )
+
         const trianglePath = pipe(
-            prop(['SVGNode']),
+            prop(['current']),
             unless(
                 isNil,
                 (node) => {
@@ -62,7 +59,7 @@ class Hero extends Component {
                     ].join(' ')
                 }
             ),
-        )(this.state)
+        )(this.SVGNode)
 
         const cutOutPath = pipe(
             prop(['current']),
@@ -71,21 +68,19 @@ class Hero extends Component {
                 (node) => {
                     const { top, right, bottom, left, width, height } = node.getBoundingClientRect()
                     return [
-                        `M ${right} ${(top + offsetTop) + height / 2}`,
-                        `L ${left + width / 2} ${(top + offsetTop)}`,
-                        `L ${left} ${(top + offsetTop) + height / 2}`,
-                        `L ${left + width / 2} ${(bottom + offsetTop)}`,
+                        `M ${right - lineOffset} ${(top + offsetTop) + height / 2}`,
+                        `L ${left + lineOffset + width / 2} ${(top + offsetTop)}`,
+                        `L ${left + lineOffset} ${(top + offsetTop) + height / 2}`,
+                        `L ${left + lineOffset + width / 2} ${(bottom + offsetTop)}`,
                         'Z'
                     ].join(' ')
                 }
             ),
         )(this.cutOutNode)
 
-        console.log(lineBoundary)
-
         return (
             <Fragment>
-                <svg className={styles.heroMask} ref={this.getSVGNode}>
+                <FullBleedGraphic ref={this.SVGNode}>
                     <defs>
                         <Pattern
                             lineBoundary={lineBoundary}
@@ -95,8 +90,8 @@ class Hero extends Component {
                         />
                     </defs>
                     <path d={trianglePath + '' + cutOutPath} fill-rule="evenodd" style={{'fill':'url(#star)', 'strokeWidth':'0'}} />
-                </svg>
-                <nav className={styles.navWrapper}>
+                </FullBleedGraphic>
+                <MaxWidthContainer>
                     <ul className={styles.navList}>
                         <li>
                             <div className={styles.wordMarkWrapper} ref={this.cutOutNode} style={{ 'left': lineOffset + 'px' }}>
@@ -110,7 +105,7 @@ class Hero extends Component {
                         </li>
                         <li>Grid Two</li>
                     </ul>
-                </nav>
+                </MaxWidthContainer>
             </Fragment>
         )
     }

@@ -1,0 +1,11 @@
+@import 'src/common/styles/variables';
+@import 'src/common/styles/mixins';
+
+.max-width-container {
+    max-width: $max-width;
+    @include centre-block;
+}
+
+.max-height {
+    height: 100%;
+}

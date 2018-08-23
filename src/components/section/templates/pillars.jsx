@@ -5,23 +5,15 @@ import { Consumer } from '../../../store'
 import styles from './pillars.module.scss'
 
 import ContactInformation from '../../contact-information'
+import FullBleedGraphic from '../../full-bleed-graphic'
 
 const randomNumberInRange = (maximum, minimum) => Math.floor(Math.random() * (maximum - minimum + 1)) + minimum
 
 class PillarsTemplate extends Component {
     constructor() {
         super()
-        this.state = {
-            localBoundingElement: null,
-        }
-    }
-
-    getLocalBoundingElement = (node) => {
-        requestIdleCallback(() => {
-            this.setState({
-                localBoundingElement: node,
-            })
-        })
+        
+        this.localBoundingElement = React.createRef()
     }
 
     setLeafPositions = (elementWidth, height) => {
@@ -86,7 +78,7 @@ class PillarsTemplate extends Component {
 
     render() {
         const { height, width } = pipe(
-            prop(['localBoundingElement']),
+            prop(['current']),
             ifElse(
                 isNil,
                 always({
@@ -95,7 +87,7 @@ class PillarsTemplate extends Component {
                 }),
                 (node) => node.getBoundingClientRect()
             )
-        )(this.state)
+        )(this.localBoundingElement)
 
         return (
             <Consumer>
@@ -110,13 +102,13 @@ class PillarsTemplate extends Component {
                         rightInnerBoundary,
                     }
                 }}) => (
-                        <div className={styles.pillarsTemplate} ref={this.getLocalBoundingElement}>
-                            <svg className={styles.pillarsTemplateGraphic}>
+                        <div className={styles.pillarsTemplate} ref={this.localBoundingElement}>
+                            <FullBleedGraphic>
                                 <rect x={leftInnerBoundary} y="0" width={leftOuterBoundary - leftInnerBoundary} height="100%" style={{'fill':'url(#star)', 'strokeWidth':'0'}} />
                                 <rect x={rightOuterBoundary} y="0" width={rightInnerBoundary - rightOuterBoundary} height="100%" style={{'fill':'url(#star)', 'strokeWidth':'0'}} />
                                 {this.setLeafPositions(width, height)}
                                 {this.setBranchPositions(nearestLineToBoundary, height, width)}
-                            </svg>
+                            </FullBleedGraphic>
                             <ContactInformation />
                         </div>
                     )

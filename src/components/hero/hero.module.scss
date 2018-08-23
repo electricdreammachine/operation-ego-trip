@@ -1,21 +1,6 @@
 @import 'src/common/styles/variables';
 @import 'src/common/styles/mixins';
 
-.hero-mask {
-    // uses viewport units to counteract scrollbars
-    // relative units are calculated after scrollbars
-    height:100vh;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.nav-wrapper {
-    max-width: $max-width;
-    @include centre-block;
-}
-
 .nav-list {
     @include set-primary-font;
     display: grid;
