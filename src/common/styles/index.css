@@ -1,4 +1,5 @@
 /* @import '/assets/fonts/kiona'; */
+@import url('https://fonts.googleapis.com/css?family=Scope+One');
 
 html, body {
   height: 100%;
@@ -19,7 +20,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font: 16px "Bitter" !important;
+  font: 18px "Scope One" !important;
 }
 
 html, body, div, span, applet, object, iframe,

@@ -32,9 +32,8 @@ export const findNearestLineToBoundary = (lineBoundary) => {
     return nearestLineToBoundary
 }
 
-export const findOuterAccentBoundaries = (lineBoundary, width) => {
-    console.log(lineBoundary, width)
-    const linePositions = getLinePositions(lineBoundary)
+export const findOuterAccentBoundaries = (nearestLineToBoundary, width) => {
+    const linePositions = getLinePositions(nearestLineToBoundary + gutter)
     const leftOuterBoundary = last(linePositions) + 2
     const rightOuterBoundary = width - leftOuterBoundary - 2
 

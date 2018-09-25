@@ -1,7 +1,19 @@
 import React, { Component } from 'react'
 import { map } from 'ramda'
+import { format as formatDate } from 'date-fns'
 import styles from './experience.module.scss'
 import { Consumer } from '../../store'
+
+const FormattedDate = ({ date }) => (
+    <div className={styles.timelineDate}>
+        <span className={styles.timelineDateMonth}>
+            {formatDate(date, 'MMM')}
+        </span>
+        <span className={styles.timelineDateYear}>
+            {formatDate(date, 'YYYY')}
+        </span>
+    </div>
+)
 
 class Experience extends Component {
     render() {
@@ -14,25 +26,26 @@ class Experience extends Component {
                         return(
                             <ol className={styles.experienceTimeline}>
                                { map(({node: job}) => (<li className={styles.timelineItem}>
-                                    <div className={styles.timelineTimePeriod} style={{ 'left': lineOffset + 'px' }}>
-                                        <div className={styles.timelineTimes}>
-                                            <span>
-                                                {job.startDate}
-                                            </span>
-                                            <span>
-                                                {job.endDate}
-                                            </span>
+                                    <div style={{ 'left': lineOffset + 'px' }}>
+                                        <div className={styles.timelineTimePeriod}>
+                                            <div className={styles.timelineTimes}>
+                                                <FormattedDate date={job.startDate}/>
+                                                <div className={styles.timelineDateDivider} />
+                                                <FormattedDate date={job.endDate}/>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className={styles.timelineItemDetails}>
-                                        <p>{job.employer}</p>
-                                        <p>{job.jobTitle}</p>
-                                        <p>{job.description.description}</p>
-                                        <div>
-                                            <p>Projects</p>
-                                            <ul>
+                                        <div className={styles.roleDetails}>
+                                            <h3 className={styles.employer}>{job.employer}</h3>
+                                            <p className={styles.jobTitle}>{job.jobTitle}</p>
+                                        </div>
+                                        <p className={styles.jobDescription}>{job.description.description}</p>
+                                        <div className={styles.projectsWrapper}>
+                                            <p className={styles.projectsHeader}>Projects:</p>
+                                            <ul className={styles.projectsList}>
                                                 {map(project =>
-                                                    <li>{project.name}</li>,
+                                                    <li className={styles.projectLinkWrapper}><img src={project.image.file.url} /></li>,
                                                     job.projects
                                                 )}
                                             </ul>

@@ -33,19 +33,21 @@ class PortfolioState extends Component {
         this.setState({ boundingHeight: root.innerHeight })
     }
 
-    static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.boundingElement !== null && nextProps.boundingElement !== prevState.boundingElement) {
-            const { lineBoundary, nearestLineToBoundary } = prevState
-            const boundingWidth = nextProps.boundingElement.clientWidth
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.boundingElement !== null && prevProps.boundingElement !== this.props.boundingElement ||
+            prevState.lineBoundary !== this.state.lineBoundary
+        ) {
+            const { lineBoundary, nearestLineToBoundary } = this.state
+            const boundingWidth = this.props.boundingElement.clientWidth
             const {
                 left: leftOuterBoundary,
                 right: rightOuterBoundary
-            } = findOuterAccentBoundaries(lineBoundary, boundingWidth)
+            } = findOuterAccentBoundaries(nearestLineToBoundary, boundingWidth)
             const lineDistance = leftOuterBoundary - nearestLineToBoundary
             const leftInnerBoundary = nearestLineToBoundary - lineDistance - 2
             const rightInnerBoundary = rightOuterBoundary + (lineDistance*2) + 2
 
-            return {
+            this.setState({
                 boundingWidth,
                 outerAccentBoundaries: {
                     leftOuterBoundary,
@@ -55,10 +57,8 @@ class PortfolioState extends Component {
                     leftInnerBoundary,
                     rightInnerBoundary,
                 }
-            }
+            })
         }
-
-        return null
     }
 
     render() {

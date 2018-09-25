@@ -1,5 +1,6 @@
 import React, { Fragment, Component } from 'react'
 import PropTypes from 'prop-types'
+import { throttle } from 'throttle-debounce'
 import root from 'window-or-global'
 
 import { isNil, prop, pipe, unless, propOr } from 'ramda'
@@ -68,10 +69,10 @@ class Hero extends Component {
                 (node) => {
                     const { top, right, bottom, left, width, height } = node.getBoundingClientRect()
                     return [
-                        `M ${right - lineOffset} ${(top + offsetTop) + height / 2}`,
-                        `L ${left + lineOffset + width / 2} ${(top + offsetTop)}`,
-                        `L ${left + lineOffset} ${(top + offsetTop) + height / 2}`,
-                        `L ${left + lineOffset + width / 2} ${(bottom + offsetTop)}`,
+                        `M ${right} ${(top + offsetTop) + height / 2}`,
+                        `L ${left + width / 2} ${(top + offsetTop)}`,
+                        `L ${left} ${(top + offsetTop) + height / 2}`,
+                        `L ${left + width / 2} ${(bottom + offsetTop)}`,
                         'Z'
                     ].join(' ')
                 }
@@ -91,7 +92,7 @@ class Hero extends Component {
                     </defs>
                     <path d={trianglePath + '' + cutOutPath} fill-rule="evenodd" style={{'fill':'url(#star)', 'strokeWidth':'0'}} />
                 </FullBleedGraphic>
-                <MaxWidthContainer>
+                <MaxWidthContainer className={styles.gridInherit}>
                     <ul className={styles.navList}>
                         <li>
                             <div className={styles.wordMarkWrapper} ref={this.cutOutNode} style={{ 'left': lineOffset + 'px' }}>
@@ -105,6 +106,9 @@ class Hero extends Component {
                         </li>
                         <li>Grid Two</li>
                     </ul>
+                    <div className={styles.introduction}>
+                        Beepity boop
+                    </div>
                 </MaxWidthContainer>
             </Fragment>
         )

@@ -39,8 +39,96 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    align-items: center;
+
+    > div {
+        flex: 1 1 auto;
+    }
+
+    .timeline-date-divider {
+        background: $accent-color;
+        width: 2px;
+    }
 }
 
 .timeline-item-details {
     text-align: left;
+    padding-left: 4rem;
+}
+
+.timeline-date {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-transform: uppercase;
+    color: $primary-text-color;
+    font-size: 1.15rem;
+    @include set-secondary-font;
+    
+    .timeline-date-month {
+        color: $accent-color;
+    }
+}
+
+.role-details {
+    margin-bottom: 1.5rem;
+}
+
+.employer {
+    color: $accent-color;
+    @include set-secondary-font;
+    font-size: 1.5rem;
+    font-weight: 300;
+    position: relative;
+    left: -0.1rem;
+}
+
+.job-title {
+    color: $primary-text-color;
+    @include set-primary-font;
+    font-size: 1rem;
+    line-height: 1.4rem;
+    font-weight: 300;
+}
+
+.job-description {
+    color: $primary-text-color;
+    @include set-primary-font;
+    font-size: 1rem;
+    line-height: 1.25rem;
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+}
+
+.projects-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.projects-header {
+    color: $accent-color;
+    font-size: 1.15rem;
+    @include set-secondary-font;
+}
+
+.projects-list {
+    margin-left: 40px;
+}
+
+.project-link-wrapper {
+    width: 65px;
+    height: 65px;
+    position: relative;
+    border: 2px solid $accent-color;
+    transform: rotate(45deg);
+    overflow: hidden;
+
+    img {
+        position: absolute;
+        object-fit: cover;
+        display: block;
+        height: 100%;
+        width: 100%;
+        transform: rotate(-45deg) scale(1.5);
+    }
 }

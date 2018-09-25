@@ -4,11 +4,12 @@ import classNames from 'classnames'
 
 import styles from './max-width-container.module.scss'
 
-const MaxWidthContainer = ({ maxHeight, children }) => (
+const MaxWidthContainer = ({ maxHeight, className, children }) => (
     <div className={
         classNames(
             styles.maxWidthContainer,
-            { [styles.maxHeight]: maxHeight }
+            { [styles.maxHeight]: maxHeight },
+            className
         )
     }>
         {children}
@@ -17,10 +18,12 @@ const MaxWidthContainer = ({ maxHeight, children }) => (
 
 MaxWidthContainer.propTypes = {
     maxHeight: PropTypes.bool,
+    className: PropTypes.style,
 }
 
 MaxWidthContainer.defaultProps = {
     maxHeight: false,
+    className: null,
 }
 
 export default MaxWidthContainer

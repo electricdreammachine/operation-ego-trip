@@ -5,8 +5,18 @@
     @include set-primary-font;
     display: grid;
     height: 100%;
-    grid-template-columns: 1fr 4fr;
-    grid-template-rows: 1fr;
+    // grid-template-columns: 1fr 4fr;
+    grid: inherit;
+    grid-area: 1 / 1 / 4 / 4;
+}
+
+.grid-inherit {
+    grid: inherit;
+    display: grid;
+}
+
+.introduction {
+    grid-area: 2 / 2 / 2 / 2;
 }
 
 .word-mark-wrapper {
@@ -14,6 +24,7 @@
     margin-top: 100px;
     transform: rotate(44.5deg);
     box-sizing: border-box;
+    text-align: center;
 
     .word-mark {
         @include set-secondary-font;
