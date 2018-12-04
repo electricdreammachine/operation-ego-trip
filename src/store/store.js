@@ -37,7 +37,9 @@ class PortfolioState extends Component {
         if (this.props.boundingElement !== null && prevProps.boundingElement !== this.props.boundingElement ||
             prevState.lineBoundary !== this.state.lineBoundary
         ) {
-            const { lineBoundary, nearestLineToBoundary } = this.state
+            const { lineBoundary } = this.state
+            const nearestLineToBoundary = findNearestLineToBoundary(lineBoundary)
+            const lineOffset =  Math.abs(nearestLineToBoundary) - Math.abs(lineBoundary + 1)
             const boundingWidth = this.props.boundingElement.clientWidth
             const {
                 left: leftOuterBoundary,
@@ -49,6 +51,8 @@ class PortfolioState extends Component {
 
             this.setState({
                 boundingWidth,
+                nearestLineToBoundary,
+                lineOffset,
                 outerAccentBoundaries: {
                     leftOuterBoundary,
                     rightOuterBoundary,
@@ -76,16 +80,9 @@ class PortfolioState extends Component {
                                 state: this.state,
                                 domain: data,
                                 actions: {
-                                    setLineBoundary: (lineBoundary) => {
-                                        const nearestLineToBoundary = findNearestLineToBoundary(lineBoundary)
-                                        const lineOffset =  Math.abs(nearestLineToBoundary) - Math.abs(lineBoundary + 1)
-
-                                        this.setState({
-                                            lineBoundary,
-                                            nearestLineToBoundary,
-                                            lineOffset,
-                                        })
-                                    },
+                                    setLineBoundary: (lineBoundary) => 
+                                        this.setState({ lineBoundary })
+                                    ,
                                 }
                             }}
                         >

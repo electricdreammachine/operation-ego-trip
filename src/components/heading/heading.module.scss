@@ -1,0 +1,13 @@
+@import 'src/common/styles/variables';
+@import 'src/common/styles/mixins';
+
+.heading {
+  color: $accent-color;
+  @include set-secondary-font;
+  font-size: 1.5rem;
+  font-weight: 300;
+
+  &.text-sized {
+    font-size: 1.25rem;
+  }
+}

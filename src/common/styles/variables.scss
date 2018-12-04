@@ -6,7 +6,7 @@ $max-width: 1140px;
 $background-color: $dark-blue;
 $pattern-color: $turqoise;
 $accent-color: $gold;
-$link-color: $turqoise;
+$link-color: mix(white, lighten($turqoise, 10%), 25%);
 
 $primary-text-color: $light-grey;
 

@@ -4,6 +4,8 @@ import { format as formatDate } from 'date-fns'
 import styles from './experience.module.scss'
 import { Consumer } from '../../store'
 
+import Heading from '../heading'
+
 const FormattedDate = ({ date }) => (
     <div className={styles.timelineDate}>
         <span className={styles.timelineDateMonth}>
@@ -37,7 +39,7 @@ class Experience extends Component {
                                     </div>
                                     <div className={styles.timelineItemDetails}>
                                         <div className={styles.roleDetails}>
-                                            <h3 className={styles.employer}>{job.employer}</h3>
+                                            <Heading className={styles.employer}>{job.employer}</Heading>
                                             <p className={styles.jobTitle}>{job.jobTitle}</p>
                                         </div>
                                         <p className={styles.jobDescription}>{job.description.description}</p>

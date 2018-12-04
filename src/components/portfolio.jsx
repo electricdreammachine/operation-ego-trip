@@ -8,6 +8,7 @@ import PillarsTemplate from './section/templates/pillars'
 import styles from './portfolio.module.scss'
 import GridTemplate from './section/templates/grid'
 import Experience from './experience'
+import Skills from './skills'
 
 class Portfolio extends Component {
   constructor() {
@@ -40,6 +41,10 @@ class Portfolio extends Component {
             </header>
             <Section />
             <Experience lineOffset={lineOffset} />
+            <Section
+              template="pillars"
+            />
+            <Skills />
             <Section />
             <GridTemplate />
             <Section

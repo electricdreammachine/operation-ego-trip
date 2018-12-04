@@ -1,0 +1,15 @@
+@import 'src/common/styles/variables';
+
+.text {
+  color: $primary-text-color;
+
+  a {
+    color: $link-color;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  p + p {
+    margin-top: 2rem;
+  }
+}

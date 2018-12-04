@@ -6,7 +6,8 @@ import root from 'window-or-global'
 import { isNil, prop, pipe, unless, propOr } from 'ramda'
 import { Pattern } from '../pattern'
 import FullBleedGraphic from '../full-bleed-graphic'
-import MaxWidthContainer from '../max-width-container';
+import MaxWidthContainer from '../max-width-container'
+import Introduction from '../introduction'
 
 import styles from './hero.module.scss'
 
@@ -69,10 +70,10 @@ class Hero extends Component {
                 (node) => {
                     const { top, right, bottom, left, width, height } = node.getBoundingClientRect()
                     return [
-                        `M ${right} ${(top + offsetTop) + height / 2}`,
-                        `L ${left + width / 2} ${(top + offsetTop)}`,
-                        `L ${left} ${(top + offsetTop) + height / 2}`,
-                        `L ${left + width / 2} ${(bottom + offsetTop)}`,
+                        `M ${right - lineOffset} ${(top + offsetTop) + height / 2}`,
+                        `L ${(left + lineOffset) + width / 2} ${(top + offsetTop)}`,
+                        `L ${left + lineOffset} ${(top + offsetTop) + height / 2}`,
+                        `L ${(left + lineOffset) + width / 2} ${(bottom + offsetTop)}`,
                         'Z'
                     ].join(' ')
                 }
@@ -106,9 +107,9 @@ class Hero extends Component {
                         </li>
                         <li>Grid Two</li>
                     </ul>
-                    <div className={styles.introduction}>
+                    <Introduction className={styles.introduction}>
                         Beepity boop
-                    </div>
+                    </Introduction>
                 </MaxWidthContainer>
             </Fragment>
         )

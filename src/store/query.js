@@ -2,6 +2,20 @@ import { graphql } from "gatsby";
 
 export const query = graphql`
 fragment contentQuery on Query {
+    intro: allContentfulIntroduction {
+      edges {
+        node {
+          mainContentBody {
+            mainContentBody
+          }
+        introductionAdditionalContent {
+          additionalContentItem: childContentfulAdditionalIntroductionContentMainContentBodyTextNode {
+            mainContentBody
+          }
+        }
+        }
+      }
+    } 
     jobs: allContentfulJob {
       edges {
         node {
@@ -26,6 +40,21 @@ fragment contentQuery on Query {
                 contentType
               }
             }
+          }
+        }
+      }
+    }
+    skillGroups: allContentfulSkillGroup {
+      edges {
+        node {
+          name
+          description: childContentfulSkillGroupDescriptionTextNode {
+            string: description
+          }
+          proficiencyLevel
+          skillSet {
+            name
+            skills
           }
         }
       }
@@ -68,7 +97,9 @@ fragment contentQuery on Query {
       edges {
         node {
           contactBody {
-            contactBody
+            childMarkdownRemark {
+              html
+            }
           }
           contactLinks {
             networkName

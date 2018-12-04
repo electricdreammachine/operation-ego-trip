@@ -16,26 +16,11 @@
 }
 
 .timeline-time-period {
-    position: relative;
-    transform: rotate(45deg);
-    margin: 0 20px;
-    
-    &:before {
-        content: '';
-        display: block;
-        width: 100%;
-        padding-bottom: 100%;
-        border: 2px solid $accent-color;
-        box-sizing: border-box;
-    }
+    @include diamond-block();
 }
 
 .timeline-times {
-    position: absolute;
-    top: 50%;
-    left: 50%;
     height: 100%;
-    transform: translate(-50%, -50%) rotate(-45deg);
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -75,10 +60,6 @@
 }
 
 .employer {
-    color: $accent-color;
-    @include set-secondary-font;
-    font-size: 1.5rem;
-    font-weight: 300;
     position: relative;
     left: -0.1rem;
 }
