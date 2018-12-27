@@ -1,16 +1,17 @@
+
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-
+import 'common/styles/index.css'
 import PortfolioState, { Consumer } from '../store'
-import Hero from './hero'
-import Section from './section'
-import PillarsTemplate from './section/templates/pillars'
+import Hero from '../components/hero'
+import Section from '../components/section'
+import PillarsTemplate from '../components/section/templates/pillars'
 import styles from './portfolio.module.scss'
-import GridTemplate from './section/templates/grid'
-import Experience from './experience'
-import Skills from './skills'
+import GridTemplate from '../components/section/templates/grid'
+import Experience from '../components/experience'
+import Skills from '../components/skills'
 
-class Portfolio extends Component {
+class Art extends Component {
   constructor() {
     super()
     this.state = {
@@ -40,12 +41,6 @@ class Portfolio extends Component {
               />
             </header>
             <Section />
-            <Experience lineOffset={lineOffset} />
-            <Section
-              template="pillars"
-            />
-            <Skills />
-            <Section />
             <GridTemplate />
             <Section
               template="pillars"
@@ -59,8 +54,8 @@ class Portfolio extends Component {
   }
 }
 
-Portfolio.propTypes = {
+Art.propTypes = {
   boundingElement: PropTypes.node,
 }
 
-export default Portfolio
+export default Art

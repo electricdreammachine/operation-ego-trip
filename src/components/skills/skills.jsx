@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { map, sortBy, path, pipe, reverse } from 'ramda'
 import styles from './skills.module.scss'
 import 'common/assets/images/tree-motif-sprite.svg'
@@ -9,7 +10,6 @@ import SkillGroup from './skill-group'
 
 class Skills extends Component {
     render() {
-        const { lineOffset } = this.props
         return (
             <Consumer>
                 {({ domain: { skillGroups: {
@@ -30,6 +30,7 @@ class Skills extends Component {
                                     <SkillGroup 
                                         {...skillGroup.node}
                                         className={styles.skillGroup}
+                                        lineOffset={this.props.lineOffset}
                                     />
                                 ),
                                     sortedGroups
@@ -42,6 +43,10 @@ class Skills extends Component {
             </Consumer>
         )
     }
+}
+
+Skills.propTypes = {
+    lineOffset: PropTypes.number,
 }
 
 export default Skills

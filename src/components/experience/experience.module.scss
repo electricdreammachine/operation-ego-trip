@@ -4,7 +4,7 @@
 .experience-timeline {
     max-width: $max-width;
     @include centre-block;
-    margin-top: 50px;
+    margin-top: 5rem;
 }
 
 .timeline-item {
@@ -13,10 +13,11 @@
     grid-template-columns: 1fr 4fr;
     grid-template-rows: 1fr;
     grid-template-areas: ". .";
+    margin-bottom: 5rem;
 }
 
 .timeline-time-period {
-    @include diamond-block();
+    @include diamond-block($max-width: 200px);
 }
 
 .timeline-times {
@@ -39,6 +40,7 @@
 .timeline-item-details {
     text-align: left;
     padding-left: 4rem;
+    padding-top: 0.75rem;
 }
 
 .timeline-date {
@@ -65,51 +67,17 @@
 }
 
 .job-title {
-    color: $primary-text-color;
-    @include set-primary-font;
-    font-size: 1rem;
+    color: $primary-text-color !important;
     line-height: 1.4rem;
-    font-weight: 300;
 }
 
 .job-description {
-    color: $primary-text-color;
-    @include set-primary-font;
-    font-size: 1rem;
-    line-height: 1.25rem;
-    margin-bottom: 1.5rem;
-    font-weight: 300;
-}
-
-.projects-wrapper {
-    display: flex;
-    align-items: center;
+    margin-bottom: 1rem;
 }
 
 .projects-header {
     color: $accent-color;
     font-size: 1.15rem;
+    margin-bottom: 1rem;
     @include set-secondary-font;
-}
-
-.projects-list {
-    margin-left: 40px;
-}
-
-.project-link-wrapper {
-    width: 65px;
-    height: 65px;
-    position: relative;
-    border: 2px solid $accent-color;
-    transform: rotate(45deg);
-    overflow: hidden;
-
-    img {
-        position: absolute;
-        object-fit: cover;
-        display: block;
-        height: 100%;
-        width: 100%;
-        transform: rotate(-45deg) scale(1.5);
-    }
 }

@@ -6,20 +6,23 @@ import Heading from '../heading'
 
 import styles from './skills.module.scss'
 
-const SkillGroup = ({ proficiencyLevel, skillSet, name }) => (
+const SkillGroup = ({ proficiencyLevel, skillSet, name, lineOffset }) => (
   <div className={styles.skillGroup}>
-      <div className={styles.skillGroupProficiencyIconWrapper}>
+    <div>
+      <div className={styles.skillGroupProficiencyIconWrapper} style={{ 'left': lineOffset + 'px' }}>
         <svg className={styles.skillGroupProficiencyIcon}>
             <use xlinkHref={`#tree-motif-sprite_proficiency-level-${proficiencyLevel}`} key={`#tree-motif-sprite_${proficiencyLevel}`}/>
         </svg>
         <Heading className={styles.skillGroupHeading}>{name}</Heading>
       </div>
-      <SkillSet skills={skillSet} />
+    </div>
+    <SkillSet skills={skillSet} />
   </div>
 )
 
 SkillGroup.propTypes = {
   proficiencyLevel: PropTypes.number,
+  lineOffset: PropTypes.number,
 }
 
 export default SkillGroup

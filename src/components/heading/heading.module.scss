@@ -6,6 +6,7 @@
   @include set-secondary-font;
   font-size: 1.5rem;
   font-weight: 300;
+  display: block;
 
   &.text-sized {
     font-size: 1.25rem;

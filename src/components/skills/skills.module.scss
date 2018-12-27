@@ -2,19 +2,22 @@
 
 .skill-group-wrapper {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   margin-top: 5rem;
 }
 
 .skill-group {
-  flex: 0 1 33%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  height: 100%;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: ". .";
+  margin: 3rem 0;
 
-  & + .skill-group {
-    margin-left: 5%;
-  }
+  // & + .skill-group {
+  //   margin-left: 5%;
+  // }
 }
 
 .skill-group-heading {
@@ -22,17 +25,27 @@
 }
 
 .skill-set {
-  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+
+  > :nth-child(even) {
+    flex: 1 1 60%;
+  }
+
+  > :nth-child(odd) {
+    flex: 0 1 40%;
+    padding-right: 10px;
+    text-align: right;
+  }
 
   dt + dd {
-    margin-top: 1.75rem;
+    margin-top: 1rem;
   }
 }
 
 .skill-group-proficiency-icon-wrapper {
-  @include diamond-block();
-  max-width: 200px;
-  margin-bottom: 4rem;
+  @include diamond-block($max-width: 200px);
   width: 100%;
 }
 

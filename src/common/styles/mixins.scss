@@ -13,10 +13,11 @@
     font-family: $secondary-font;
 }
 
-@mixin diamond-block() {
+@mixin diamond-block($max-width: 999px) {
     position: relative;
     transform: rotate(45deg);
-    margin: 0 20px;
+    margin: 0 auto;
+    max-width: $max-width;
 
     > * {
         position: absolute;
