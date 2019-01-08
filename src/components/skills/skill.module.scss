@@ -2,6 +2,11 @@
 
 .skill {
     display: inline-block;
-    padding: 3px;
-    border: 1px solid $text-color;
+    padding: 3px 8px;
+    border: 1px solid $primary-text-color;
+    // text-transform: uppercase;
+
+    &+ .skill {
+        margin-left: 15px;
+    }
 }

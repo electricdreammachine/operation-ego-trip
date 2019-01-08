@@ -16,7 +16,9 @@ const SkillGroup = ({ proficiencyLevel, skillSet, name, lineOffset }) => (
         <Heading className={styles.skillGroupHeading}>{name}</Heading>
       </div>
     </div>
-    <SkillSet skills={skillSet} />
+    <div className={styles.skillSetWrapper}>
+      <SkillSet skills={skillSet} />
+    </div>
   </div>
 )
 

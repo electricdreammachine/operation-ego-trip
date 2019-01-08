@@ -7,6 +7,7 @@ import styles from './experience.module.scss'
 import { Consumer } from '../../store'
 
 import Heading from '../heading'
+import { Skill } from '../skills'
 import Text from '../text'
 
 const FormattedDate = ({ date }) => isNil(date)
@@ -56,13 +57,16 @@ class Experience extends Component {
                   </div>
                   <Text className={styles.jobDescription}>{job.description.description}</Text>
                   <div>
-                    <Heading textSized className={styles.projectsHeader}>Projects</Heading>
+                    <Heading textSized className={styles.projectsHeader}>Key project</Heading>
                     <ul className={styles.projectsList}>
                       {map(({ name, description, skillsUsed }) =>
                         <li className={styles.projectLinkWrapper}>
                           <Heading textSized className={styles.jobTitle}>{name}</Heading>
                           <Text> {ReactHtmlParser(description.childMarkdownRemark.html)}</Text>
-                          {skillsUsed}
+                          {map(
+                            skillName => <Skill>{skillName}</Skill>,
+                            skillsUsed
+                          )}
                         </li>,
                         job.projects
                       )}

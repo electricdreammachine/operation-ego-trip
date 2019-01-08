@@ -1,10 +1,12 @@
 import React from 'react'
 import styles from './skill.module.scss'
 
+import Text from '../text'
+
 const Skills = ({ children }) => (
-    <span className={styles.skill}>
+    <Text className={styles.skill}>
         {children}
-    </span>
+    </Text>
 )
 
 export default Skills

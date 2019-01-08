@@ -1,1 +1,7 @@
-export { default } from './skills.jsx'
+import skills from './skills'
+import Skill from './skill'
+
+export {
+  skills as default,
+  Skill,
+}

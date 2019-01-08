@@ -105,7 +105,7 @@ class Hero extends Component {
                                 </span>
                             </div>
                         </li>
-                        <li>Grid Two</li>
+                        {/* <li>Grid Two</li> */}
                     </ul>
                     <Introduction className={styles.introduction}>
                         Beepity boop

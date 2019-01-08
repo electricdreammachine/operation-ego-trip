@@ -12,35 +12,50 @@
   height: 100%;
   grid-template-columns: 1fr 4fr;
   grid-template-rows: 1fr;
-  grid-template-areas: ". .";
-  margin: 3rem 0;
-
-  // & + .skill-group {
-  //   margin-left: 5%;
-  // }
+  margin-bottom: 4rem;
+  
+  &:nth-of-type(n + 2) {
+    margin-top: 4rem;
+  }
 }
 
 .skill-group-heading {
   white-space: nowrap;
 }
 
-.skill-set {
+.skill-set-wrapper {
+  padding-left: 4rem;
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
+  flex-direction: column;
+  justify-content: space-around;
+}
 
-  > :nth-child(even) {
-    flex: 1 1 60%;
-  }
+.skill-set {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas:
+  "dd-1 dd-3 dd-5"
+  "dt-1 dt-3 dt-5"
+  "dd-2 dd-4 dd-6"
+  "dt-2 dt-4 dt-6";
 
-  > :nth-child(odd) {
-    flex: 0 1 40%;
-    padding-right: 10px;
-    text-align: right;
-  }
-
-  dt + dd {
+  dd:nth-of-type(even) {
     margin-top: 1rem;
+  }
+
+  dt {
+    line-height: 1;
+    margin-top: 0.2rem;
+  }
+
+  @for $i from 1 to 6 {
+    dd:nth-of-type(#{$i}) {
+      grid-area: dd-#{$i}
+    }
+
+    dt:nth-of-type(#{$i}) {
+      grid-area: dt-#{$i}
+    }
   }
 }
 

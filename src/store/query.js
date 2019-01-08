@@ -6,11 +6,15 @@ fragment contentQuery on Query {
     edges {
       node {
         mainContentBody {
-          mainContentBody
+          childMarkdownRemark {
+            html
+          }
         }
       introductionAdditionalContent {
         additionalContentItem: childContentfulAdditionalIntroductionContentMainContentBodyTextNode {
-          mainContentBody
+          childMarkdownRemark {
+            htmlAst
+          }
         }
       }
       }

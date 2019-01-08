@@ -1,17 +1,15 @@
 .introduction-wrapper {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .additional-introduction-content {
-    display: flex;   
+    display: flex;
 }
 
 .additional-content-item {
-    flex: 1 0 auto;
-
     &+.additional-content-item {
-        margin-left: 30px;
+        margin-left: 3.5rem;
     }
 }

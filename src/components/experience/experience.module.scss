@@ -69,6 +69,7 @@
 .job-title {
     color: $primary-text-color !important;
     line-height: 1.4rem;
+    margin-bottom: 1rem;
 }
 
 .job-description {
@@ -78,6 +79,6 @@
 .projects-header {
     color: $accent-color;
     font-size: 1.15rem;
-    margin-bottom: 1rem;
+    // margin-bottom: 1rem;
     @include set-secondary-font;
 }
