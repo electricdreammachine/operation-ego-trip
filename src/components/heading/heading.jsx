@@ -24,7 +24,7 @@ const Heading = ({children, headingLevel, className, textSized}) => {
 
   return createElement(
     headingLevel,
-    { className: styles.heading },
+    { className: classNames(styles.heading, className) },
     children
   )
 }

@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import 'common/styles/index.css'
+import 'common/styles/index.scss'
 import PortfolioState, { Consumer } from 'store'
 import { Hero, Art, Contact } from 'sections'
 

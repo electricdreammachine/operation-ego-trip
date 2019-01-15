@@ -1,5 +1,6 @@
 import React from 'react'
-import { Consumer } from '../../../store'
+import { Consumer } from 'store'
+import Heading from '../../heading'
 import styles from './section-header.module.scss'
 
 const SectionHeader = ({
@@ -19,7 +20,7 @@ const SectionHeader = ({
                             <rect x="0" y="0" width={leftOuterBoundary} height="100%" style={{'fill':'url(#star)', 'strokeWidth':'0'}} />
                             <rect x={rightOuterBoundary} y="0" width={boundingWidth - rightOuterBoundary} height="100%" style={{'fill':'url(#star)', 'strokeWidth':'0'}} />
                         </svg>
-                        <span className={styles.sectionHeaderTitle}>{children}</span>
+                        <Heading headingLevel="h2" className={styles.sectionHeaderTitle}>{children}</Heading>
                     </header>
                 )
             }
