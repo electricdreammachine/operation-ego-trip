@@ -4,5 +4,5 @@ import Pattern from './pattern'
 export {
     findNearestLineToBoundary,
     findOuterAccentBoundaries,
-    Pattern
+    Pattern as default,
 }

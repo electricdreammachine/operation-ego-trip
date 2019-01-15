@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
-import { map, isNil } from 'ramda'
+import { map, isNil, addIndex } from 'ramda'
 import { format as formatDate } from 'date-fns'
+import classnames from 'classnames'
 import ReactHtmlParser from 'react-html-parser'
 import arraySort from 'array-sort'
-import styles from './experience.module.scss'
-import { Consumer } from '../../store'
+import { Badge, Heading, Text } from 'components'
+import { Consumer } from 'store'
 
-import Heading from '../heading'
-import { Skill } from '../skills'
-import Text from '../text'
+import styles from './experience.module.scss'
 
 const FormattedDate = ({ date }) => isNil(date)
   ? (
@@ -37,10 +36,15 @@ class Experience extends Component {
           edges: jobs
         } } }) => {
           const sortedJobs = arraySort(jobs, 'node.startDate', { reverse: true })
-          console.log(sortedJobs)
           return (
             <ol className={styles.experienceTimeline}>
-              {map(({ node: job }) => (<li className={styles.timelineItem}>
+              {addIndex(map)(({ node: job }, index) => {
+                const isCompact = index > 1
+                return (
+                <li className={classnames(
+                  styles.timelineItem,
+                  { [styles.timelineItemCompact]: isCompact }
+                )}>
                 <div>
                   <div className={styles.timelineTimePeriod} style={{ 'left': lineOffset + 'px' }}>
                     <div className={styles.timelineTimes}>
@@ -55,25 +59,30 @@ class Experience extends Component {
                     <Heading className={styles.employer}>{job.employer}</Heading>
                     <Heading textSized className={styles.jobTitle}>{job.jobTitle}</Heading>
                   </div>
-                  <Text className={styles.jobDescription}>{job.description.description}</Text>
-                  <div>
-                    <Heading textSized className={styles.projectsHeader}>Key project</Heading>
-                    <ul className={styles.projectsList}>
-                      {map(({ name, description, skillsUsed }) =>
-                        <li className={styles.projectLinkWrapper}>
-                          <Heading textSized className={styles.jobTitle}>{name}</Heading>
-                          <Text> {ReactHtmlParser(description.childMarkdownRemark.html)}</Text>
-                          {map(
-                            skillName => <Skill>{skillName}</Skill>,
-                            skillsUsed
-                          )}
-                        </li>,
-                        job.projects
-                      )}
-                    </ul>
-                  </div>
+                  <Text className={styles.jobDescription}>{ReactHtmlParser(job.description.childMarkdownRemark.html)}</Text>
+                  {
+                    !isNil(job.projects) ? 
+                    (<div>
+                      <Heading textSized className={styles.projectsHeader}>Key project</Heading>
+                      <ul className={styles.projectsList}>
+                        {map(({ name, description, skillsUsed }) => (
+                          <li className={styles.projectLinkWrapper}>
+                            <Heading textSized className={styles.jobTitle}>{name}</Heading>
+                            <Text> {ReactHtmlParser(description.childMarkdownRemark.html)}</Text>
+                            {map(
+                              skillName => <Badge>{skillName}</Badge>,
+                              skillsUsed
+                            )}
+                          </li>
+                          ),
+                          job.projects
+                        )}
+                      </ul>
+                    </div>)
+                    : null
+                  }
                 </div>
-              </li>),
+              </li>)},
                 sortedJobs)
               }
             </ol>

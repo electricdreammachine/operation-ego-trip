@@ -1,6 +1,14 @@
 /* @import '/assets/fonts/kiona'; */
 @import url('https://fonts.googleapis.com/css?family=Scope+One');
 
+@font-face {
+	font-family: 'Kiona';
+	src: url('/src/common/assets/fonts/kiona/kiona-regular-webfont.woff2') format('woff2'),
+			 url('/src/common/assets/fonts/kiona/kiona-regular-webfont.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
 html, body {
   height: 100%;
 }

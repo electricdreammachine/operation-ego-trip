@@ -2,14 +2,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import 'common/styles/index.css'
-import PortfolioState, { Consumer } from '../store'
-import Hero from '../components/hero'
-import Section from '../components/section'
-import PillarsTemplate from '../components/section/templates/pillars'
+import PortfolioState, { Consumer } from 'store'
+import { Hero, Experience, Skills, Contact } from 'sections'
+
 import styles from './portfolio.module.scss'
-import GridTemplate from '../components/section/templates/grid'
-import Experience from '../components/experience'
-import Skills from '../components/skills'
 
 class Index extends Component {
   constructor() {
@@ -30,7 +26,6 @@ class Index extends Component {
         <Consumer>
           {({ state: { lineBoundary, lineOffset, nearestLineToBoundary, boundingWidth, boundingHeight }, actions }) => (
             <div className={styles.app}>
-            <header className={styles.appHeader}>
               <Hero
                 setLineBoundary={actions.setLineBoundary}
                 lineBoundary={lineBoundary}
@@ -38,19 +33,13 @@ class Index extends Component {
                 boundingWidth={boundingWidth}
                 boundingHeight={boundingHeight}
                 lineOffset={lineOffset}
+                className={styles.appHeader}
+                elementType="header"
               />
-            </header>
-            <Section />
-            <Experience lineOffset={lineOffset} />
-            <Section
-              template="pillars"
-            />
-            <Skills lineOffset={lineOffset}/>
-            <Section
-              template="pillars"
-            />
-            <PillarsTemplate />
-          </div>
+              <Experience lineOffset={lineOffset} name="Experience" />
+              <Skills lineOffset={lineOffset} name="Skills" />
+              <Contact name="Contact" />
+            </div>
           )}
         </Consumer>
       </PortfolioState>

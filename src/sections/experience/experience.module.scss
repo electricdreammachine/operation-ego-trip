@@ -14,6 +14,52 @@
     grid-template-rows: 1fr;
     grid-template-areas: ". .";
     margin-bottom: 5rem;
+    
+    &:last-of-type:not(.timeline-item-compact) {
+        margin-bottom: 3rem;
+    }
+}
+
+.timeline-item-compact {
+    // align-items: center;
+
+    &:nth-last-of-type(2) {
+        .timeline-time-period {
+
+            @include diamond-block($max-width: 160px);
+            
+            &:before {
+                opacity: 0.6;
+            }
+        }
+    }
+
+    &:last-of-type {
+        .timeline-time-period {
+
+            @include diamond-block($max-width: 140px);
+            
+            &:before {
+                opacity: 0.3;
+            }
+        }
+    }
+
+    .timeline-times {
+        justify-content: space-evenly;
+
+        > div {
+            flex: 0 0 auto;
+        }
+
+        .timeline-date-divider {
+            flex: 0.1 0 auto;
+        }
+    }
+
+    .timeline-item-details {
+        padding-top: 0;
+    }
 }
 
 .timeline-time-period {

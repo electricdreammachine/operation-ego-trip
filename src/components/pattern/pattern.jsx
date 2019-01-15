@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { last, pipe, pathOr } from 'ramda'
-import { calculateLinePosition, gutter,  } from './pattern-utils'
+import { calculateLinePosition, gutter } from './pattern-utils'
 
 import styles from './pattern.scss'
 

@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { map } from 'ramda'
-import { Consumer } from '../../../store'
-import MaxWidthContainer from '../../max-width-container'
+import { Consumer } from 'store'
+import { MaxWidthContainer } from 'components/'
 
-import styles from './grid.module.scss'
+import styles from './art.module.scss'
 
 class GridTemplate extends Component {
     render() {
@@ -19,7 +19,7 @@ class GridTemplate extends Component {
                             { map(
                                 ({ piece }) => (
                                     <div>
-                                        <img src={piece.fullImage.file.url} />
+                                        <img src={piece.fullImage.file.url} alt={piece.title} />
                                     </div>
                                 ),
                                 pieces

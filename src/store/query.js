@@ -28,7 +28,9 @@ fragment contentQuery on Query {
         endDate
         jobTitle
         description {
-          description
+          childMarkdownRemark {
+            html
+          }
         }
         projects {
           name
@@ -47,8 +49,10 @@ fragment contentQuery on Query {
     edges {
       node {
         name
-        description: childContentfulSkillGroupDescriptionTextNode {
-          string: description
+        description {
+          childMarkdownRemark {
+            html
+          }
         }
         proficiencyLevel
         skillSet {

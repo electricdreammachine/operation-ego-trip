@@ -2,14 +2,13 @@ import React, { Component } from 'react'
 import { map } from 'ramda'
 import ReactHtmlParser from 'react-html-parser'
 import 'common/assets/images/social-icons-sprite.svg'
+import { Consumer } from 'store'
+import { Text, MaxWidthContainer } from 'components'
 import styles from './contact-information.module.scss'
-import { Consumer } from '../../store'
-import MaxWidthContainer from '../max-width-container'
-import Text from '../text'
 
 const UsernameDisplay = ({ username }) => {
-    if (/\w+\@/.test(username)) {
-        const parts = username.split(/(\@)/)
+    if (/\w+@/.test(username)) {
+        const parts = username.split(/(@)/)
 
         return(
             <span className={styles.emailAddress}>

@@ -1,13 +1,9 @@
 import React, { Fragment, Component } from 'react'
 import PropTypes from 'prop-types'
-import { throttle } from 'throttle-debounce'
 import root from 'window-or-global'
-
 import { isNil, prop, pipe, unless, propOr } from 'ramda'
-import { Pattern } from '../pattern'
-import FullBleedGraphic from '../full-bleed-graphic'
-import MaxWidthContainer from '../max-width-container'
-import Introduction from '../introduction'
+import { Pattern, FullBleedGraphic, MaxWidthContainer } from 'components'
+import Introduction from './introduction'
 
 import styles from './hero.module.scss'
 
@@ -24,18 +20,29 @@ class Hero extends Component {
 
     componentDidMount() {
         this.getLineBoundary()
-        root.addEventListener('resize', this.getLineBoundary)
+        root.requestAnimationFrame(this.loop)
+    }
+
+    loop = () => {
+        this.getLineBoundary()
+        return setTimeout(root.requestAnimationFrame(this.loop), 50)
     }
 
     getLineBoundary = () => {
         const { cutOutNode } = this
 
         if (cutOutNode.current !== null) {
+            const { lineOffset = 0 } = this.props
             const { left, width } = this.cutOutNode.current.getBoundingClientRect()
-            const lineBoundary = left + width / 2
+            const lineBoundary = Math.round((left - lineOffset + width / 2) * 10) / 10
 
-            return this.props.setLineBoundary(lineBoundary)
+            if (lineBoundary !== this.props.lineBoundary) {
+                return this.props.setLineBoundary(lineBoundary)
+            }
+
+            return null
         }
+        return null
     }
 
     render() {
@@ -70,7 +77,7 @@ class Hero extends Component {
                 (node) => {
                     const { top, right, bottom, left, width, height } = node.getBoundingClientRect()
                     return [
-                        `M ${right - lineOffset} ${(top + offsetTop) + height / 2}`,
+                        `M ${right + lineOffset} ${(top + offsetTop) + height / 2}`,
                         `L ${(left + lineOffset) + width / 2} ${(top + offsetTop)}`,
                         `L ${left + lineOffset} ${(top + offsetTop) + height / 2}`,
                         `L ${(left + lineOffset) + width / 2} ${(bottom + offsetTop)}`,

@@ -1,8 +1,7 @@
-import React, { createElement } from 'react'
-import { isNil, prop, find, contains, pipe, equals } from 'ramda'
+import { createElement } from 'react'
+import { prop, find, contains, pipe, equals } from 'ramda'
 
-import Heading from '../heading'
-import Text from '../text'
+import { Heading, Text } from 'components'
 
 const components = [
   {

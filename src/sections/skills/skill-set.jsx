@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { map, isNil, join } from 'ramda'
+import { Heading, Text } from 'components'
+
 import styles from './skills.module.scss'
-import Heading from '../heading'
-import Text from '../text'
 
 const SkillSet = ({ skills }) => {
   if (isNil(skills)) return null

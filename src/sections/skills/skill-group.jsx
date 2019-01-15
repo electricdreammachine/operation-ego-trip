@@ -1,12 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import ReactHtmlParser from 'react-html-parser'
+import { pathOr } from 'ramda'
+import { Text, Heading } from 'components'
 
 import SkillSet from './skill-set'
-import Heading from '../heading'
-
 import styles from './skills.module.scss'
 
-const SkillGroup = ({ proficiencyLevel, skillSet, name, lineOffset }) => (
+const SkillGroup = ({ proficiencyLevel, skillSet, name, description, lineOffset }) => (
   <div className={styles.skillGroup}>
     <div>
       <div className={styles.skillGroupProficiencyIconWrapper} style={{ 'left': lineOffset + 'px' }}>
@@ -16,8 +17,13 @@ const SkillGroup = ({ proficiencyLevel, skillSet, name, lineOffset }) => (
         <Heading className={styles.skillGroupHeading}>{name}</Heading>
       </div>
     </div>
-    <div className={styles.skillSetWrapper}>
-      <SkillSet skills={skillSet} />
+    <div className={styles.skillInformationWrapper}>
+      <Text className={styles.skillGroupDescription}>
+        {ReactHtmlParser(pathOr('', ['childMarkdownRemark' ,'html'], description))}
+      </Text>
+      <div className={styles.skillSetWrapper}>
+        <SkillSet skills={skillSet} />
+      </div>
     </div>
   </div>
 )

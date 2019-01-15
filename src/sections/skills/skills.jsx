@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { map, sortBy, path, pipe, reverse } from 'ramda'
-import styles from './skills.module.scss'
 import 'common/assets/images/tree-motif-sprite.svg'
-import MaxWidthContainer from '../max-width-container'
-import { Consumer } from '../../store'
+import { MaxWidthContainer } from 'components'
+import { Consumer } from 'store'
 
+import styles from './skills.module.scss'
 import SkillGroup from './skill-group'
 
 class Skills extends Component {

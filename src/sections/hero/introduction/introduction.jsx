@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import ReactHtmlParser from 'react-html-parser'
 import { map } from 'ramda'
 import classNames from 'classnames'
+import { Consumer } from 'store'
 
 import { mapElementToComponent } from './map-element-to-component'
 import styles from './introduction.module.scss'
 
-import { Consumer } from '../../store'
 
 const Introduction = ({ className }) => (
   <Consumer>

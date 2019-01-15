@@ -13,6 +13,7 @@
   grid-template-columns: 1fr 4fr;
   grid-template-rows: 1fr;
   margin-bottom: 4rem;
+  align-items: center;
   
   &:nth-of-type(n + 2) {
     margin-top: 4rem;
@@ -23,8 +24,15 @@
   white-space: nowrap;
 }
 
-.skill-set-wrapper {
+.skill-information-wrapper {
   padding-left: 4rem;
+}
+
+.skill-group-description {
+  margin-bottom: 1.5rem;
+}
+
+.skill-set-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -33,11 +41,8 @@
 .skill-set {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-areas:
-  "dd-1 dd-3 dd-5"
-  "dt-1 dt-3 dt-5"
-  "dd-2 dd-4 dd-6"
-  "dt-2 dt-4 dt-6";
+  grid-template-rows: auto auto auto auto;
+  grid-auto-flow: column;
 
   dd:nth-of-type(even) {
     margin-top: 1rem;
@@ -46,16 +51,6 @@
   dt {
     line-height: 1;
     margin-top: 0.2rem;
-  }
-
-  @for $i from 1 to 6 {
-    dd:nth-of-type(#{$i}) {
-      grid-area: dd-#{$i}
-    }
-
-    dt:nth-of-type(#{$i}) {
-      grid-area: dt-#{$i}
-    }
   }
 }
 

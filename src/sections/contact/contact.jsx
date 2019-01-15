@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { pipe, prop, isNil, ifElse, always, last, pathOr, forEach } from 'ramda'
 import 'common/assets/images/leaf-motif-sprite.svg'
-import { Consumer } from '../../../store'
-import styles from './pillars.module.scss'
+import { Consumer } from 'store'
+import { FullBleedGraphic } from 'components'
 
-import ContactInformation from '../../contact-information'
-import FullBleedGraphic from '../../full-bleed-graphic'
+import styles from './contact.module.scss'
+import ContactInformation from './contact-information'
 
 const randomNumberInRange = (maximum, minimum) => Math.floor(Math.random() * (maximum - minimum + 1)) + minimum
 

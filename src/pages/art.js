@@ -2,16 +2,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import 'common/styles/index.css'
-import PortfolioState, { Consumer } from '../store'
-import Hero from '../components/hero'
-import Section from '../components/section'
-import PillarsTemplate from '../components/section/templates/pillars'
-import styles from './portfolio.module.scss'
-import GridTemplate from '../components/section/templates/grid'
-import Experience from '../components/experience'
-import Skills from '../components/skills'
+import PortfolioState, { Consumer } from 'store'
+import { Hero, Art, Contact } from 'sections'
 
-class Art extends Component {
+import styles from './portfolio.module.scss'
+
+class ArtPage extends Component {
   constructor() {
     super()
     this.state = {
@@ -40,12 +36,8 @@ class Art extends Component {
                 lineOffset={lineOffset}
               />
             </header>
-            <Section />
-            <GridTemplate />
-            <Section
-              template="pillars"
-            />
-            <PillarsTemplate />
+            <Art />
+            <Contact />
           </div>
           )}
         </Consumer>
@@ -58,4 +50,4 @@ Art.propTypes = {
   boundingElement: PropTypes.node,
 }
 
-export default Art
+export default ArtPage
