@@ -2,16 +2,27 @@
 @import 'src/common/styles/mixins';
 
 .nav-list {
-    @include set-primary-font;
+  @include set-primary-font;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include set-mid-breakpoint {
     display: grid;
     height: 100%;
     grid: inherit;
     grid-area: 1 / 1 / 4 / 4;
+  }
 }
 
 .grid-inherit {
+  display: flex;
+  flex-direction: column;
+
+  @include set-mid-breakpoint {
     grid: inherit;
     display: grid;
+  }
 }
 
 .introduction {
@@ -19,38 +30,46 @@
 }
 
 .word-mark-wrapper {
-    position: relative;
-    margin-top: 100px;
-    transform: rotate(44.5deg);
+  position: relative;
+  margin-top: 100px;
+  transform: rotate(44.5deg);
+  box-sizing: border-box;
+  text-align: center;
+  max-width: 230px;
+
+  .word-mark {
+    @include set-secondary-font;
+    font-size: 2rem;
+    color: $accent-color;
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-44.5deg);
+  }
+
+  .tagline {
+    font-size: 0.7rem;
+    letter-spacing: 0.2rem;
+    color: $primary-text-color;
+    margin-top: 0.4rem;
+    opacity: 0.8;
+    display: block;
+  }
+
+  &:before {
+    content: '';
+    display: block;
+    width: 100%;
+    padding-bottom: 100%;
+    border: 2px solid $accent-color;
     box-sizing: border-box;
-    text-align: center;
+  }
+}
 
-    .word-mark {
-        @include set-secondary-font;
-        font-size: 2rem;
-        color: $accent-color;
-        position: absolute;
-        width: 100%;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) rotate(-44.5deg);
-    }
-
-    .tagline {
-        font-size: 0.7rem;
-        letter-spacing: 0.2rem;
-        color: $primary-text-color;
-        margin-top: 0.4rem;
-        opacity: 0.8;
-        display: block;
-    }
-
-    &:before {
-        content: '';
-        display: block;
-        width: 100%;
-        padding-bottom: 100%;
-        border: 2px solid $accent-color;
-        box-sizing: border-box;
-    }
+.navigation-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 1rem;
 }

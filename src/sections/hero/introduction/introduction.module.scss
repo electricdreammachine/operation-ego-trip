@@ -1,3 +1,6 @@
+@import 'src/common/styles/mixins';
+
+
 .introduction-wrapper {
     display: flex;
     flex-direction: column;
@@ -6,10 +9,15 @@
 
 .additional-introduction-content {
     display: flex;
-}
+    flex-direction: column;
 
-.additional-content-item {
-    &+.additional-content-item {
-        margin-left: 5rem;
+    @include set-max-breakpoint {
+        flex-direction: row;
+
+        .additional-content-item {
+            &+.additional-content-item {
+                margin-left: 5rem;
+            }
+        }
     }
 }

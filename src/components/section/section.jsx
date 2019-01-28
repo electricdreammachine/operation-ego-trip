@@ -1,4 +1,4 @@
-import React, { createElement, Fragment } from 'react'
+import React, { Component, createElement, Fragment, createRef } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { isEmpty } from 'ramda'
@@ -7,7 +7,18 @@ import SectionHeader from './section-header'
 
 import styles from './section.module.scss'
 
-const Section = ({ children, elementType, className, name }) => {
+export class Section extends Component {
+  constructor() {
+    super()
+    this.sectionRef = createRef()
+  }
+
+  componentDidMount() {
+    this.props.registerSection(this.props.name, this.sectionRef.current)
+  }
+    
+  render() {
+    const { children, elementType, className, name } = this.props
     let header = null
 
     if (!isEmpty(name)) {
@@ -19,15 +30,16 @@ const Section = ({ children, elementType, className, name }) => {
     }
 
     return createElement(
-        elementType,
-        { className: classnames(styles.section, className) },
-        (
-        <Fragment>
-            {header}
-            {children}
-        </Fragment>
-        )
+      elementType,
+      { className: classnames(styles.section, className), ref: this.sectionRef },
+      (
+      <Fragment>
+          {header}
+          {children}
+      </Fragment>
+      )
     )
+  }
 }
 
 Section.propTypes = {

@@ -24,7 +24,7 @@ class Index extends Component {
     return (
       <PortfolioState boundingElement={boundingElement}>
         <Consumer>
-          {({ state: { lineBoundary, lineOffset, nearestLineToBoundary, boundingWidth, boundingHeight }, actions }) => (
+          {({ state: { lineBoundary, lineOffset, nearestLineToBoundary, boundingWidth, boundingHeight, sections }, actions }) => (
             <div className={styles.app}>
               <Hero
                 setLineBoundary={actions.setLineBoundary}
@@ -35,6 +35,7 @@ class Index extends Component {
                 lineOffset={lineOffset}
                 className={styles.appHeader}
                 elementType="header"
+                sections={sections}
               />
               <Experience lineOffset={lineOffset} name="Experience" />
               <Skills lineOffset={lineOffset} name="Skills" />

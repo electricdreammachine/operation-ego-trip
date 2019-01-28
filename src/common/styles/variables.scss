@@ -2,6 +2,11 @@
 @import './typography';
 
 $max-width: 1140px;
+$breakpoints: (
+  min: $max-width / 2,
+  mid: $max-width + ($max-width / 2) / 2,  
+  max: $max-width,
+);
 
 $background-color: $dark-blue;
 $pattern-color: $turqoise;

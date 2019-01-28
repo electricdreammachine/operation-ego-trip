@@ -18,6 +18,7 @@
     "gatsby-transformer-json": "next",
     "gatsby-transformer-remark": "next",
     "gh-pages": "^2.0.1",
+    "intersection": "0.0.1",
     "node-sass": "^4.9.2",
     "ramda": "^0.25.0",
     "react": "^16.4.2",

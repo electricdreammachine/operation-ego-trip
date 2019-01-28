@@ -1,9 +1,11 @@
 import React, { Fragment, Component } from 'react'
 import PropTypes from 'prop-types'
 import root from 'window-or-global'
-import { isNil, prop, pipe, unless, propOr } from 'ramda'
+import { complement, isNil, all } from 'ramda'
 import { Pattern, FullBleedGraphic, MaxWidthContainer } from 'components'
+import { createShapes } from './create-shapes'
 import Introduction from './introduction'
+import Navigation from './navigation'
 
 import styles from './hero.module.scss'
 
@@ -11,7 +13,11 @@ class Hero extends Component {
     constructor() {
         super()
         this.state = {
-            offsetTop: 0,
+          offsetTop: 0,
+          paths: {
+            trianglePath: null,
+            cutOutPath: null,
+          },
         }
 
         this.SVGNode = React.createRef()
@@ -23,9 +29,22 @@ class Hero extends Component {
         root.requestAnimationFrame(this.loop)
     }
 
+    componentDidUpdate(prevProps) {
+      if (prevProps.lineOffset !== this.props.lineOffset) {
+        const { trianglePath, cutOutPath } = createShapes(
+          this.SVGNode.current,
+          this.cutOutNode.current,
+          this.props.lineOffset,
+          root
+        )
+
+        this.setState({ paths: { trianglePath, cutOutPath } })
+      }
+    }
+
     loop = () => {
         this.getLineBoundary()
-        return setTimeout(root.requestAnimationFrame(this.loop), 50)
+        return setTimeout(root.requestAnimationFrame(this.loop), 100)
     }
 
     getLineBoundary = () => {
@@ -34,10 +53,10 @@ class Hero extends Component {
         if (cutOutNode.current !== null) {
             const { lineOffset = 0 } = this.props
             const { left, width } = this.cutOutNode.current.getBoundingClientRect()
-            const lineBoundary = Math.round((left - lineOffset + width / 2) * 10) / 10
+            const lineBoundary = (left - lineOffset) + width / 2
 
-            if (lineBoundary !== this.props.lineBoundary) {
-                return this.props.setLineBoundary(lineBoundary)
+            if (Math.round(lineBoundary) !== Math.round(this.props.lineBoundary)) {
+                return this.props.setLineBoundary(Math.round(lineBoundary))
             }
 
             return null
@@ -46,46 +65,13 @@ class Hero extends Component {
     }
 
     render() {
-        const { boundingWidth, boundingHeight, lineOffset, lineBoundary } = this.props
+        const { boundingWidth, boundingHeight, lineOffset, lineBoundary, sections } = this.props
+        const { paths: { trianglePath, cutOutPath } } = this.state
 
-        const offsetTop = propOr(
-            0,
-            'pageYOffset',
-            root
-        )
-
-        const trianglePath = pipe(
-            prop(['current']),
-            unless(
-                isNil,
-                (node) => {
-                    const { height } = node.getBoundingClientRect()
-                    return [
-                        `M 0 0`,
-                        `L ${height} 0`,
-                        `L 0 ${height}`,
-                        'Z'
-                    ].join(' ')
-                }
-            ),
-        )(this.SVGNode)
-
-        const cutOutPath = pipe(
-            prop(['current']),
-            unless(
-                isNil,
-                (node) => {
-                    const { top, right, bottom, left, width, height } = node.getBoundingClientRect()
-                    return [
-                        `M ${right + lineOffset} ${(top + offsetTop) + height / 2}`,
-                        `L ${(left + lineOffset) + width / 2} ${(top + offsetTop)}`,
-                        `L ${left + lineOffset} ${(top + offsetTop) + height / 2}`,
-                        `L ${(left + lineOffset) + width / 2} ${(bottom + offsetTop)}`,
-                        'Z'
-                    ].join(' ')
-                }
-            ),
-        )(this.cutOutNode)
+        let Path = null
+        if (all(complement(isNil), [trianglePath, cutOutPath])) {
+          Path = <path d={trianglePath + '' + cutOutPath} fill-rule="nonzero" style={{'fill':'url(#star)', 'strokeWidth':'0'}} />
+        }
 
         return (
             <Fragment>
@@ -98,7 +84,7 @@ class Hero extends Component {
                             patternId="star"
                         />
                     </defs>
-                    <path d={trianglePath + '' + cutOutPath} fill-rule="evenodd" style={{'fill':'url(#star)', 'strokeWidth':'0'}} />
+                  {Path}
                 </FullBleedGraphic>
                 <MaxWidthContainer className={styles.gridInherit}>
                     <ul className={styles.navList}>
@@ -112,7 +98,9 @@ class Hero extends Component {
                                 </span>
                             </div>
                         </li>
-                        {/* <li>Grid Two</li> */}
+                        <li className={styles.navigationWrapper}>
+                            <Navigation sections={sections} />
+                        </li>
                     </ul>
                     <Introduction className={styles.introduction}>
                         Beepity boop

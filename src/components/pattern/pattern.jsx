@@ -7,7 +7,7 @@ import styles from './pattern.scss'
 
 class Pattern extends Component {
   render() {
-    const { boundingHeight, boundingWidth, lineBoundary, patternId } = this.props 
+    const { boundingWidth, lineBoundary, patternId } = this.props 
     const lines = []
 
     while (
@@ -37,12 +37,12 @@ class Pattern extends Component {
         }
         
         lines.push(
-            <line x1={lineXPosition} y1="0" x2={lineXPosition} y2={boundingHeight + 10} key={`line-${lines.length}`} style={strokeStyle} />
+            <line x1={lineXPosition} y1="0" x2={lineXPosition} y2="100%" key={`line-${lines.length}`} style={strokeStyle} />
         )
     }
 
     return (
-        <pattern id={patternId} viewBox={`0,0,${boundingWidth},${boundingHeight}`} width="100%" height="100%" patternUnits="userSpaceOnUse" preserveAspectRatio="xMinYMin meet">
+        <pattern id={patternId} width="100%" height="100%" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse" preserveAspectRatio="xMinYMin meet">
             {lines}
         </pattern>
     )
@@ -53,7 +53,6 @@ Pattern.propTypes = {
     patternId: PropTypes.string,
     lineBoundary: PropTypes.number,
     boundingWidth: PropTypes.number,
-    boundingHeight: PropTypes.number,
 }
 
 export default Pattern

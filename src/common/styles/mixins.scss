@@ -1,37 +1,61 @@
 @import 'src/common/styles/variables';
 
 @mixin centre-block() {
-    display: block;
-    margin: 0 auto;
+  display: block;
+  margin: 0 auto;
 }
 
 @mixin set-primary-font() {
-    font-family: $primary-font;
+  font-family: $primary-font;
 }
 
 @mixin set-secondary-font() {
-    font-family: $secondary-font;
+  font-family: $secondary-font;
+}
+
+@mixin create-media-query($minSize) {
+  @media screen and (min-width: $minSize) {
+    @content;
+  }
+}
+
+@mixin set-min-breakpoint() {
+  @include create-media-query(map-get($breakpoints, 'min')) {
+    @content;
+  }
+}
+
+@mixin set-mid-breakpoint() {
+  @include create-media-query(map-get($breakpoints, 'mid')) {
+    @content;
+  }
+}
+
+@mixin set-max-breakpoint() {
+  @include create-media-query(map-get($breakpoints, 'max')) {
+    @content;
+  }
 }
 
 @mixin diamond-block($max-width: 999px) {
-    position: relative;
-    transform: rotate(45deg);
-    margin: 0 auto;
-    max-width: $max-width;
+  position: relative;
+  transform: rotate(45deg);
+  margin: 0 auto;
+  max-width: $max-width;
 
-    > * {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) rotate(-45deg);
-    }
-    
-    &:before {
-        content: '';
-        display: block;
-        width: 100%;
-        padding-bottom: 100%;
-        border: 2px solid $accent-color;
-        box-sizing: border-box;
-    }
+  > * {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+  
+  &:before {
+    content: '';
+    display: block;
+    width: 100%;
+    padding-bottom: 100%;
+    border: 2px solid $accent-color;
+    box-sizing: border-box;
+  }
 }

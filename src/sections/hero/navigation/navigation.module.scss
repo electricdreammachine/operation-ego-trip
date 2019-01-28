@@ -1,0 +1,21 @@
+@import 'src/common/styles/variables';
+@import 'src/common/styles/mixins';
+
+.navigation {
+  display: flex;
+}
+
+.nav-item {
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+
+  .nav-item-text {
+    color: $link-color;
+  }
+
+  & + .nav-item {
+    margin-left: 2rem;
+  }
+}

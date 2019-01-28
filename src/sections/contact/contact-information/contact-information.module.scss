@@ -8,10 +8,13 @@
 
 .contact-info-wrapper {
     height: 100%;
-    padding: 0 240px;
     display: flex;
     justify-content: space-around;
     flex-direction: column;
+
+    @include set-max-breakpoint {
+        padding: 0 240px;
+    }
 }
 
 .social-networks { 

@@ -4,24 +4,15 @@
   background-color: $background-color;
 }
 
-.app-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
 .app-header {
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: minmax(230px, 1fr) 4fr;
   grid-template-rows: 1fr 0.6fr;
   background: radial-gradient(
     ellipse at top left,
     rgba(lighten($background-color, 20%), 1) 0%,
     rgba($background-color, 1) 70%
   );
-  height: 100vh;
+  min-height: 100vh;
   color: white;
   position: relative;
-}
-
-.app-title {
-  font-size: 1.5em;
 }

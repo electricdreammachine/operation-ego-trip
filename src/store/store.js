@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import root from 'window-or-global'
 import { StaticQuery, graphql } from 'gatsby'
 
+import { registerSection } from './register-section'
 import { findNearestLineToBoundary, findOuterAccentBoundaries } from '../components/pattern'
 
 const Context = createContext()
@@ -25,7 +26,8 @@ class PortfolioState extends Component {
             innerAccentBoundaries: {
                 leftInnerBoundary: 0,
                 rightInnerBoundary: 0,
-            }
+            },
+            sections: [],
         }
     }
 
@@ -37,9 +39,10 @@ class PortfolioState extends Component {
         if ((this.props.boundingElement !== null && prevProps.boundingElement !== this.props.boundingElement) ||
             (prevState.lineBoundary !== this.state.lineBoundary)
         ) {
+            console.log('this happening?')
             const { lineBoundary } = this.state
             const nearestLineToBoundary = findNearestLineToBoundary(lineBoundary)
-            const lineOffset =  Math.abs(nearestLineToBoundary) - Math.abs(lineBoundary + 1)
+            const lineOffset = Math.abs(nearestLineToBoundary) - Math.abs(lineBoundary)
             const boundingWidth = this.props.boundingElement.clientWidth
             const {
                 left: leftOuterBoundary,
@@ -83,6 +86,8 @@ class PortfolioState extends Component {
                                     setLineBoundary: (lineBoundary) => 
                                         this.setState({ lineBoundary })
                                     ,
+                                    registerSection: (sectionName, sectionNode) =>
+                                        this.setState(registerSection(sectionName, sectionNode))
                                 }
                             }}
                         >
