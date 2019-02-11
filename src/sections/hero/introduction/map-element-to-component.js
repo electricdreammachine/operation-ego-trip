@@ -2,12 +2,13 @@ import { createElement } from 'react'
 import { prop, find, contains, pipe, equals } from 'ramda'
 
 import { Heading, Text } from 'components'
+import styles from './introduction.module.scss'
 
 const components = [
   {
     component: children => createElement(
       Text,
-      null,
+      { className: styles.text },
       children
     ),
     element: ['p'],

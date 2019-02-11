@@ -4,6 +4,12 @@
 .max-width-container {
     max-width: $max-width;
     @include centre-block;
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    @include set-max-breakpoint {
+        padding: 0;
+    }
 }
 
 .max-height {

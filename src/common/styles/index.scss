@@ -1,4 +1,4 @@
-@import url('/assets/fonts/kiona');
+@import url('../assets/fonts/kiona/index.scss');
 @import url('https://fonts.googleapis.com/css?family=Scope+One');
 
 html, body {
@@ -20,7 +20,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font: 18px "Scope One" !important;
+  font: 18px "Scope One";
 }
 
 html, body, div, span, applet, object, iframe,

@@ -36,6 +36,7 @@
   box-sizing: border-box;
   text-align: center;
   max-width: 230px;
+  width: 100%;
 
   .word-mark {
     @include set-secondary-font;
@@ -68,8 +69,14 @@
 }
 
 .navigation-wrapper {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
   padding-right: 1rem;
+  padding: .1rem 0 .4rem;
+  margin-top: 5rem;
+
+  @include set-mid-breakpoint {
+    position: static;
+    background: none;
+    padding: 0;
+    margin-top: 0;
+  }
 }

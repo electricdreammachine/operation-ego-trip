@@ -103,7 +103,7 @@ class PillarsTemplate extends Component {
                     }
                 }}) => (
                         <div className={styles.pillarsTemplate} ref={this.localBoundingElement}>
-                            <FullBleedGraphic>
+                            <FullBleedGraphic className={styles.graphic}>
                                 <rect x={leftInnerBoundary} y="0" width={leftOuterBoundary - leftInnerBoundary} height="100%" style={{'fill':'url(#star)', 'strokeWidth':'0'}} />
                                 <rect x={rightOuterBoundary} y="0" width={rightInnerBoundary - rightOuterBoundary} height="100%" style={{'fill':'url(#star)', 'strokeWidth':'0'}} />
                                 {this.setLeafPositions(width, height)}

@@ -3,6 +3,13 @@
 
 .navigation {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include set-min-breakpoint {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
 }
 
 .nav-item {
@@ -16,6 +23,11 @@
   }
 
   & + .nav-item {
-    margin-left: 2rem;
+    margin-top: 1rem;
+
+    @include set-min-breakpoint {
+      margin-top: 0;
+      margin-left: 2rem;
+    }
   }
 }

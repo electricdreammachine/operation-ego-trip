@@ -19,7 +19,7 @@ const intersectsWithinBounds = ({ left, height, width, top }) => intersect => {
   return xAxisWithinBounds && yAxisWithinBounds
 }
 
-export const createShapes = ( svgContainerNode, cutOutTemplateNode, lineOffset, rootElement ) => {
+export const createShapes = ( svgContainerNode, cutOutTemplateNode, lineBoundary, boundingWidth, rootElement ) => {
   if (any(isNil, [svgContainerNode, cutOutTemplateNode])) {
     return {
       trianglePath: null,
@@ -27,6 +27,7 @@ export const createShapes = ( svgContainerNode, cutOutTemplateNode, lineOffset, 
     }
   }
 
+  const percentageXAxisCutOut = 100 * lineBoundary / boundingWidth
   const { height: windowHeight } = svgContainerNode.getBoundingClientRect()
   const intersectsInCutOutNodeBounds = intersectsWithinBounds(cutOutTemplateNode.getBoundingClientRect())
   const offsetTop = propOr(
@@ -35,12 +36,23 @@ export const createShapes = ( svgContainerNode, cutOutTemplateNode, lineOffset, 
     rootElement
   )
 
-  const trianglePath = (nodeHeight => [
+  const trianglePath = [
+    (nodeHeight => [
       `M 0 0`,
       `L ${nodeHeight} 0`,
       `L 0 ${nodeHeight}`,
       'Z'
-  ].join(' '))(windowHeight)
+    ].join(' '))(windowHeight),
+    ((fullWidth, { top, height }) => [
+      `M 0 0`,
+      `L ${fullWidth} 0`,
+      `L ${fullWidth} ${top + height}`,
+      `L 0 ${top + height}`,
+      'Z'
+    ].join(' '))(boundingWidth, cutOutTemplateNode.getBoundingClientRect())
+  ][percentageXAxisCutOut >= 45 && percentageXAxisCutOut <=55 ? 1 : 0]
+
+  console.log(100*lineBoundary/boundingWidth)
 
   const cutOutPath = (({ top, right, bottom, left, width, height }) => {
     const triangleHypotenuse = { start: { x: 0, y: windowHeight }, end: { x: windowHeight, y: 0 } }

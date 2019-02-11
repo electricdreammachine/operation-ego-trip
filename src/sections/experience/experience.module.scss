@@ -2,13 +2,17 @@
 @import 'src/common/styles/mixins';
 
 .experience-timeline {
-  max-width: $max-width;
-  @include centre-block;
-  margin-top: 5rem;
+  margin-top: 2rem;
+
+  @include set-mid-breakpoint {
+      margin-top: 5rem;
+  }
 }
 
 .timeline-item {
-  @include set-min-breakpoint {
+  margin-bottom: 3rem;
+
+  @include set-mid-breakpoint {
     display: grid;
     height: 100%;
     grid-template-columns: 1fr 4fr;
@@ -23,65 +27,81 @@
 }
 
 .timeline-item-compact {
-    // align-items: center;
+    @include set-mid-breakpoint {
 
-    &:nth-last-of-type(2) {
-        .timeline-time-period {
+        &:nth-last-of-type(2) {
+            .timeline-time-period {
 
-            @include diamond-block($max-width: 160px);
-            
-            &:before {
-                opacity: 0.6;
+                @include diamond-block($max-width: 160px);
+                
+                &:before {
+                    opacity: 0.6;
+                }
             }
         }
-    }
 
-    &:last-of-type {
-        .timeline-time-period {
+        &:last-of-type {
+            .timeline-time-period {
 
-            @include diamond-block($max-width: 160px);
-            
-            &:before {
-                opacity: 0.3;
+                @include diamond-block($max-width: 160px);
+                
+                &:before {
+                    opacity: 0.3;
+                }
             }
         }
-    }
 
-    .timeline-times {
-        justify-content: space-evenly;
-
-        > div {
-            flex: 0 0 auto;
+        .timeline-times {
+            justify-content: space-evenly;
+    
+            > div {
+                flex: 0 0 auto;
+            }
+    
+            .timeline-date-divider {
+                flex: 0.1 0 auto;
+            }
         }
-
-        .timeline-date-divider {
-            flex: 0.1 0 auto;
+    
+        .timeline-item-details {
+            padding-top: 0;
         }
-    }
-
-    .timeline-item-details {
-        padding-top: 0;
     }
 }
 
 .timeline-time-period {
-    @include diamond-block($max-width: 200px);
+    @include set-mid-breakpoint {
+        @include diamond-block($max-width: 200px);
+    }
 }
 
 .timeline-times {
-    height: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
     align-items: center;
-
-    > div {
-        flex: 1 1 auto;
-    }
 
     .timeline-date-divider {
         background: $accent-color;
-        width: 2px;
+        height: 2px;
+        width: 1.5rem;
+        margin: 0 1rem;
+    }
+
+    @include set-mid-breakpoint {
+        height: 100%;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+
+        > div {
+            flex: 1 1 auto;
+        }
+    
+        .timeline-date-divider {
+            background: $accent-color;
+            width: 2px;
+        }
     }
 }
 
@@ -89,22 +109,30 @@
   text-align: left;
   padding-top: 0.75rem;
 
-  @include set-min-breakpoint {
+  @include set-mid-breakpoint {
     padding-left: 4rem;
   }
 }
 
 .timeline-date {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     text-transform: uppercase;
     color: $primary-text-color;
     font-size: 1.15rem;
     @include set-secondary-font;
     
+    @include set-mid-breakpoint {
+        flex-direction: column;
+        justify-content: center;
+    }
+    
     .timeline-date-month {
         color: $accent-color;
+        margin-right: 0.5rem;
+            
+        @include set-mid-breakpoint {
+            margin-right: 0;
+        }
     }
 }
 
@@ -132,4 +160,13 @@
     font-size: 1.15rem;
     // margin-bottom: 1rem;
     @include set-secondary-font;
+}
+
+.skills-wrapper {
+    margin-left:  -15px;
+
+    > * {
+        margin-left: 15px;
+        margin-bottom: 15px;
+    }
 }

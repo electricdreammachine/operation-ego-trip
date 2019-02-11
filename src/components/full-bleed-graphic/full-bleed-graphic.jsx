@@ -1,11 +1,16 @@
 import React from 'react'
-// import PropTypes from 'prop-types'
+import classnames from 'classnames'
 
 import styles from './full-bleed-graphic.module.scss'
 
 const FullBleedGraphic = React.forwardRef(
-    ({ children }, ref) => (
-        <svg className={styles.fullBleedGraphic} ref={ref}>
+    ({ children, className }, ref) => (
+        <svg className={
+            classnames(
+                styles.fullBleedGraphic,
+                className
+            )
+        } ref={ref}>
             {children}
         </svg>
     )

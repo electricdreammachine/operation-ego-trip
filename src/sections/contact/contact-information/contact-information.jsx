@@ -43,7 +43,9 @@ class ContactInformation extends Component {
                                             <a className={styles.socialNetwork} href={url}>
                                                 <div className={styles.accountDetails}>
                                                     <span>{networkName}</span>
-                                                    <UsernameDisplay username={username} />
+                                                    <Text isLink>
+                                                        <UsernameDisplay username={username} />
+                                                    </Text>
                                                 </div>
                                                 <svg className={styles.icon}>
                                                     <use xlinkHref={`#social-icons-sprite_${networkName.toLowerCase()}`} key={networkName}/>

@@ -22,4 +22,12 @@
     @include set-secondary-font;
     color: $accent-color;
     font-size: 2rem;
+    padding: .3rem;
+    background: $background-color;
+    position: relative;
+
+    @include set-mid-breakpoint {
+        background: none;
+        padding-bottom: 0;
+    }
 }

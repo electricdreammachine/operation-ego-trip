@@ -4,7 +4,7 @@ import ReactHtmlParser from 'react-html-parser'
 import { map } from 'ramda'
 import classNames from 'classnames'
 import { Consumer } from 'store'
-
+import { Text } from 'components'
 import { mapElementToComponent } from './map-element-to-component'
 import styles from './introduction.module.scss'
 
@@ -13,9 +13,9 @@ const Introduction = ({ className }) => (
   <Consumer>
     {({ domain: { intro: { edges: [{ node: { mainContentBody, introductionAdditionalContent } }] } } }) =>
       <div className={classNames(className, styles.introductionWrapper)}>
-        <div>
+        <Text>
             {ReactHtmlParser(mainContentBody.childMarkdownRemark.html)}
-        </div>
+        </Text>
         <div className={styles.additionalIntroductionContent}>
           {map(
             ({ additionalContentItem }) => (

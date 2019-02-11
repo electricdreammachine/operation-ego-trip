@@ -34,7 +34,8 @@ class Hero extends Component {
         const { trianglePath, cutOutPath } = createShapes(
           this.SVGNode.current,
           this.cutOutNode.current,
-          this.props.lineOffset,
+          this.props.lineBoundary,
+          this.props.boundingWidth,
           root
         )
 
@@ -87,21 +88,19 @@ class Hero extends Component {
                   {Path}
                 </FullBleedGraphic>
                 <MaxWidthContainer className={styles.gridInherit}>
-                    <ul className={styles.navList}>
-                        <li>
-                            <div className={styles.wordMarkWrapper} ref={this.cutOutNode} style={{ 'left': lineOffset + 'px' }}>
-                                <span className={styles.wordMark}>
-                                    Oliver Smith
-                                    <span className={styles.tagline}>
-                                        Software Engineeer
-                                    </span>
+                    <div className={styles.navList}>
+                        <div className={styles.wordMarkWrapper} ref={this.cutOutNode} style={{ 'left': lineOffset + 'px' }}>
+                            <span className={styles.wordMark}>
+                                Oliver Smith
+                                <span className={styles.tagline}>
+                                    Software Engineeer
                                 </span>
-                            </div>
-                        </li>
-                        <li className={styles.navigationWrapper}>
+                            </span>
+                        </div>
+                        <div className={styles.navigationWrapper}>
                             <Navigation sections={sections} />
-                        </li>
-                    </ul>
+                        </div>
+                    </div>
                     <Introduction className={styles.introduction}>
                         Beepity boop
                     </Introduction>
