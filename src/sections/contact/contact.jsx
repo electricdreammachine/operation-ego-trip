@@ -106,8 +106,8 @@ class PillarsTemplate extends Component {
                             <FullBleedGraphic className={styles.graphic}>
                                 <rect x={leftInnerBoundary} y="0" width={leftOuterBoundary - leftInnerBoundary} height="100%" style={{'fill':'url(#star)', 'strokeWidth':'0'}} />
                                 <rect x={rightOuterBoundary} y="0" width={rightInnerBoundary - rightOuterBoundary} height="100%" style={{'fill':'url(#star)', 'strokeWidth':'0'}} />
-                                {this.setLeafPositions(width, height)}
-                                {this.setBranchPositions(nearestLineToBoundary, height, width)}
+                                {/* {this.setLeafPositions(width, height)}
+                                {this.setBranchPositions(nearestLineToBoundary, height, width)} */}
                             </FullBleedGraphic>
                             <ContactInformation />
                         </div>

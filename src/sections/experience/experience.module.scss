@@ -118,7 +118,7 @@
     display: flex;
     text-transform: uppercase;
     color: $primary-text-color;
-    font-size: 1.15rem;
+    font-size: 1rem;
     @include set-secondary-font;
     
     @include set-mid-breakpoint {
@@ -157,7 +157,7 @@
 
 .projects-header {
     color: $accent-color;
-    font-size: 1.15rem;
+    font-size: 1rem;
     // margin-bottom: 1rem;
     @include set-secondary-font;
 }

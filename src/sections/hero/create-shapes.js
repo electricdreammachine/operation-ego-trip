@@ -55,7 +55,10 @@ export const createShapes = ( svgContainerNode, cutOutTemplateNode, lineBoundary
   console.log(100*lineBoundary/boundingWidth)
 
   const cutOutPath = (({ top, right, bottom, left, width, height }) => {
-    const triangleHypotenuse = { start: { x: 0, y: windowHeight }, end: { x: windowHeight, y: 0 } }
+    const intersectLine = percentageXAxisCutOut >= 45 && percentageXAxisCutOut <=55
+      ? { start: { x: 0, y: windowHeight }, end: { x: windowHeight, y: windowHeight } }
+      : { start: { x: 0, y: windowHeight }, end: { x: windowHeight, y: 0 } }
+
     const anchors = {
       start: { x: right, y: (top + offsetTop) + height / 2 },
       top: { x: (left + width / 2), y: top + offsetTop },
@@ -63,17 +66,20 @@ export const createShapes = ( svgContainerNode, cutOutTemplateNode, lineBoundary
       bottom: { x: (left + width / 2), y: bottom + offsetTop },
     }
     const intersects = {
-      start: describe({ start: anchors.start, end: anchors.top }, triangleHypotenuse),
-      top: describe({ start: anchors.top, end: anchors.left }, triangleHypotenuse),
-      left: describe({ start: anchors.left, end: anchors.top }, triangleHypotenuse),
-      bottom: describe({ start: anchors.bottom, end: anchors.left }, triangleHypotenuse),
+      start: describe({ start: anchors.start, end: anchors.top }, intersectLine),
+      top: describe({ start: anchors.top, end: anchors.left }, intersectLine),
+      left: describe({ start: anchors.left, end: anchors.top }, intersectLine),
+      bottom: describe({ start: anchors.bottom, end: anchors.left }, intersectLine),
     }
 
     const points = mergeAll(map(
       (anchorName) => {
         const intersectForAnchor = prop([anchorName], intersects)
 
+        console.log(intersectForAnchor)
+
         if (intersectsInCutOutNodeBounds(intersectForAnchor.intersection)) {
+          console.log('detecting intersect')
           return {
             [anchorName]: intersectForAnchor.intersection,
           }

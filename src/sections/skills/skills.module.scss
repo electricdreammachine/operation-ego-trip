@@ -59,7 +59,9 @@
   }
 
   dd {
+    align-self: end;
     &, dt {
+      padding-right: .4rem;
       &:nth-of-type(n + 2) {
         margin-top: 1rem;
         

@@ -26,7 +26,8 @@ class Hero extends Component {
 
     componentDidMount() {
         this.getLineBoundary()
-        root.requestAnimationFrame(this.loop)
+        root.requestIdleCallback(this.loop)
+        window.addEventListener('orientationchange', () => root.location.reload())
     }
 
     componentDidUpdate(prevProps) {
@@ -45,7 +46,7 @@ class Hero extends Component {
 
     loop = () => {
         this.getLineBoundary()
-        return setTimeout(root.requestAnimationFrame(this.loop), 100)
+        return root.requestIdleCallback(this.loop)
     }
 
     getLineBoundary = () => {
@@ -69,9 +70,11 @@ class Hero extends Component {
         const { boundingWidth, boundingHeight, lineOffset, lineBoundary, sections } = this.props
         const { paths: { trianglePath, cutOutPath } } = this.state
 
+        console.log(trianglePath, cutOutPath)
+
         let Path = null
         if (all(complement(isNil), [trianglePath, cutOutPath])) {
-          Path = <path d={trianglePath + '' + cutOutPath} fill-rule="nonzero" style={{'fill':'url(#star)', 'strokeWidth':'0'}} />
+          Path = <path d={trianglePath + '' + cutOutPath} style={{'fill':'url(#star)', 'strokeWidth':'0'}} />
         }
 
         return (

@@ -4,11 +4,11 @@
 .heading {
   color: $accent-color;
   @include set-secondary-font;
-  font-size: 1.5rem;
+  font-size: 1.35rem;
   font-weight: 300;
   display: block;
 
   &.text-sized {
-    font-size: 1.25rem;
+    font-size: 1.175rem;
   }
 }
