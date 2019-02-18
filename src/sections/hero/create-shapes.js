@@ -52,8 +52,6 @@ export const createShapes = ( svgContainerNode, cutOutTemplateNode, lineBoundary
     ].join(' '))(boundingWidth, cutOutTemplateNode.getBoundingClientRect())
   ][percentageXAxisCutOut >= 45 && percentageXAxisCutOut <=55 ? 1 : 0]
 
-  console.log(100*lineBoundary/boundingWidth)
-
   const cutOutPath = (({ top, right, bottom, left, width, height }) => {
     const intersectLine = percentageXAxisCutOut >= 45 && percentageXAxisCutOut <=55
       ? { start: { x: 0, y: windowHeight }, end: { x: windowHeight, y: windowHeight } }
@@ -76,10 +74,7 @@ export const createShapes = ( svgContainerNode, cutOutTemplateNode, lineBoundary
       (anchorName) => {
         const intersectForAnchor = prop([anchorName], intersects)
 
-        console.log(intersectForAnchor)
-
         if (intersectsInCutOutNodeBounds(intersectForAnchor.intersection)) {
-          console.log('detecting intersect')
           return {
             [anchorName]: intersectForAnchor.intersection,
           }

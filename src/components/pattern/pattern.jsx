@@ -19,10 +19,8 @@ class Pattern extends Component {
         const lineAtContainerBoundary = () => {
             const isLowerBoundary = lineXPosition > lineBoundary - gutter * 1.5 &&
             lineXPosition < lineBoundary + gutter * 1.5
-            const isUpperBoundary = lineXPosition > (boundingWidth - lineBoundary) - gutter * 1.5 &&
+            const isUpperBoundary = lineXPosition >= (boundingWidth - lineBoundary) - gutter * 1.5 &&
             lineXPosition < (boundingWidth - lineBoundary) + gutter * 1.5
-
-            if(lineXPosition === 1181) console.log(isLowerBoundary, isUpperBoundary)
 
             return  isLowerBoundary || isUpperBoundary 
         }

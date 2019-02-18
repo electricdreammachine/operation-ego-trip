@@ -39,7 +39,6 @@ class PortfolioState extends Component {
         if ((this.props.boundingElement !== null && prevProps.boundingElement !== this.props.boundingElement) ||
             (prevState.lineBoundary !== this.state.lineBoundary)
         ) {
-            console.log('this happening?')
             const { lineBoundary } = this.state
             const nearestLineToBoundary = findNearestLineToBoundary(lineBoundary)
             const lineOffset = Math.abs(nearestLineToBoundary) - Math.abs(lineBoundary)

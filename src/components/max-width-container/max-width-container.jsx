@@ -18,7 +18,7 @@ const MaxWidthContainer = ({ maxHeight, className, children }) => (
 
 MaxWidthContainer.propTypes = {
     maxHeight: PropTypes.bool,
-    className: PropTypes.style,
+    className: PropTypes.string,
 }
 
 MaxWidthContainer.defaultProps = {

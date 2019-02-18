@@ -70,8 +70,6 @@ class Hero extends Component {
         const { boundingWidth, boundingHeight, lineOffset, lineBoundary, sections } = this.props
         const { paths: { trianglePath, cutOutPath } } = this.state
 
-        console.log(trianglePath, cutOutPath)
-
         let Path = null
         if (all(complement(isNil), [trianglePath, cutOutPath])) {
           Path = <path d={trianglePath + '' + cutOutPath} style={{'fill':'url(#star)', 'strokeWidth':'0'}} />

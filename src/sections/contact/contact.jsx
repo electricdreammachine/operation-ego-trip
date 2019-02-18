@@ -41,7 +41,7 @@ class PillarsTemplate extends Component {
     }
 
     setBranchPositions = (nearestLineToBoundary, elementHeight, elementWidth) => {
-        const heightInterval = 300
+        const heightInterval = 200
         const calculateNextBranchPosition = (lineNumber)  =>  1 + (lineNumber * heightInterval)
         const leftBranches = []
         const rightBranches = []
@@ -54,20 +54,27 @@ class PillarsTemplate extends Component {
 
             forEach(
                 (id) => {
-                    const isFlipped = Math.random() > 0.5
-                    const leftBranchXPosition = randomNumberInRange(nearestLineToBoundary-20, nearestLineToBoundary - 30)
-                    const rightBranchXPosition = elementWidth - leftBranchXPosition - 50
+                    const randomisedLeftXPosition = randomNumberInRange(nearestLineToBoundary - 20, nearestLineToBoundary - 30)
                     const yOffset = randomNumberInRange(80, - 80)
-                    const rotation = `rotate(${randomNumberInRange(15, -5)} ${leftBranchXPosition + 50} ${branchYPosition + 100})`
-                    const leftBranchTransform = isFlipped ? `scale(-1, 1) translate(-${(nearestLineToBoundary) * 2}, ${yOffset})` : `transform(0, ${yOffset})`
-                    const rightBranchTransform = isFlipped ? `transform(0, ${yOffset})` : `scale(-1, 1) translate(-${(rightBranchXPosition * 2) + 50}, ${yOffset})`
+                    const props = {
+                        left: {
+                            xPosition: randomisedLeftXPosition,
+                            yPosition: branchYPosition,
+                            transform: `scale(-1, 1) translate(-${(nearestLineToBoundary) * 2}, ${yOffset}) rotate(${randomNumberInRange(15, -5)} ${randomisedLeftXPosition + 50} ${branchYPosition + 100})`
+                        },
+                        right: {
+                            xPosition: elementWidth - randomisedLeftXPosition - 40,
+                            yPosition: branchYPosition,
+                            transform: `translate(0, ${yOffset}) rotate(${randomNumberInRange(15, -5)} ${elementWidth - randomisedLeftXPosition - 40} ${branchYPosition + 100})`
+                        }
+                    }
 
                     leftBranches.push(
-                        <use x={leftBranchXPosition} y={branchYPosition} width={100} height={200} transform={`${leftBranchTransform} ${rotation}`} xlinkHref={`#${id}`} key={`${id}-left-${leftBranches.length}`}/>
+                        <use x={props['left'].xPosition} y={props['left'].yPosition} width={80} height={170} transform={props['left'].transform} xlinkHref={`#${id}`} key={`${id}-left-${leftBranches.length}`}/>
                     )
 
                     rightBranches.push(
-                        <use x={rightBranchXPosition} y={branchYPosition} width={100} height={200} transform={`${rightBranchTransform} ${rotation}`} xlinkHref={`#${id}`} key={`${id}-right-${rightBranches.length}`}/>
+                        <use x={props['right'].xPosition} y={props['right'].yPosition} width={80} height={170} transform={props['right'].transform} xlinkHref={`#${id}`} key={`${id}-right-${rightBranches.length}`}/>
                     )
                 }
             )(['leaf-motif-sprite_outlined-leaves', 'leaf-motif-sprite_solid-leaves'])
@@ -106,8 +113,8 @@ class PillarsTemplate extends Component {
                             <FullBleedGraphic className={styles.graphic}>
                                 <rect x={leftInnerBoundary} y="0" width={leftOuterBoundary - leftInnerBoundary} height="100%" style={{'fill':'url(#star)', 'strokeWidth':'0'}} />
                                 <rect x={rightOuterBoundary} y="0" width={rightInnerBoundary - rightOuterBoundary} height="100%" style={{'fill':'url(#star)', 'strokeWidth':'0'}} />
-                                {/* {this.setLeafPositions(width, height)}
-                                {this.setBranchPositions(nearestLineToBoundary, height, width)} */}
+                                {this.setLeafPositions(width, height)}
+                                {this.setBranchPositions(nearestLineToBoundary, height, width)}
                             </FullBleedGraphic>
                             <ContactInformation />
                         </div>
