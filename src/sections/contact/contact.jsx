@@ -3,11 +3,10 @@ import { pipe, prop, isNil, ifElse, always, last, pathOr, forEach } from 'ramda'
 import 'common/assets/images/leaf-motif-sprite.svg'
 import { Consumer } from 'store'
 import { FullBleedGraphic } from 'components'
+import { randomNumberInRange } from 'common/utils/random-number-in-range'
 
 import styles from './contact.module.scss'
 import ContactInformation from './contact-information'
-
-const randomNumberInRange = (maximum, minimum) => Math.floor(Math.random() * (maximum - minimum + 1)) + minimum
 
 class PillarsTemplate extends Component {
     constructor() {
@@ -99,7 +98,7 @@ class PillarsTemplate extends Component {
         return (
             <Consumer>
                 {({ state: {
-                    nearestLineToBoundary,
+                    boundingWidth,
                     outerAccentBoundaries: {
                         leftOuterBoundary,
                         rightOuterBoundary,
@@ -111,10 +110,10 @@ class PillarsTemplate extends Component {
                 }}) => (
                         <div className={styles.pillarsTemplate} ref={this.localBoundingElement}>
                             <FullBleedGraphic className={styles.graphic}>
-                                <rect x={leftInnerBoundary} y="0" width={leftOuterBoundary - leftInnerBoundary} height="100%" style={{'fill':'url(#star)', 'strokeWidth':'0'}} />
-                                <rect x={rightOuterBoundary} y="0" width={rightInnerBoundary - rightOuterBoundary} height="100%" style={{'fill':'url(#star)', 'strokeWidth':'0'}} />
+                                <rect x={0} y="0" width={leftOuterBoundary} height="100%" style={{'fill':'url(#star)', 'strokeWidth':'0'}} />
+                                <rect x={rightOuterBoundary} y="0" width={boundingWidth - rightOuterBoundary} height="100%" style={{'fill':'url(#star)', 'strokeWidth':'0'}} />
                                 {this.setLeafPositions(width, height)}
-                                {this.setBranchPositions(nearestLineToBoundary, height, width)}
+                                {/* {this.setBranchPositions(nearestLineToBoundary, height, width)} */}
                             </FullBleedGraphic>
                             <ContactInformation />
                         </div>

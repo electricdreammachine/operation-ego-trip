@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import { map } from 'ramda'
 import { Heading } from 'components'
 
@@ -9,8 +9,8 @@ const scrollToNode = node => window.scroll({
   behavior: 'smooth'
 })
 
-const Navigation = ({ sections }) => (
-  <nav className={styles.navigation}>
+const Navigation = forwardRef(({ sections }, ref) => (
+  <nav className={styles.navigation} ref={ref}>
     {
       map(
         ({ name, node }) => (
@@ -24,7 +24,7 @@ const Navigation = ({ sections }) => (
       )
     }
   </nav>  
-)
+))
 
 Navigation.defaultProps = {
   sections: [],

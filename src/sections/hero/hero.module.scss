@@ -76,12 +76,19 @@
   }
 }
 
+.hero-graphic {
+  transform: translate3d(0, 0, 0);
+  perspective: 1000;
+}
+
 .navigation-wrapper {
   padding-right: 1rem;
   padding: .1rem 0 .4rem;
   margin-top: 5rem;
 
   @include set-mid-breakpoint {
+    display: flex;
+    justify-content: flex-end;
     position: static;
     background: none;
     padding: 0;

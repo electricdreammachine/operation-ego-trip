@@ -13,7 +13,7 @@
     flex-direction: column;
 
     @include set-max-breakpoint {
-        padding: 0 240px;
+        padding: 0 200px;
     }
 }
 
@@ -38,6 +38,7 @@
     align-items: center;
     position: relative;
     flex: 0 1 45%;
+    max-width: 300px;
     word-break: break-all;
     text-decoration: none;
     color: $link-color;

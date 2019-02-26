@@ -7,8 +7,7 @@
   align-items: center;
 
   @include set-min-breakpoint {
-    flex-direction: row;
-    justify-content: flex-end;
+    display: inline-block;
   }
 }
 

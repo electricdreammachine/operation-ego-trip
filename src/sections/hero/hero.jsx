@@ -6,7 +6,8 @@ import { Pattern, FullBleedGraphic, MaxWidthContainer } from 'components'
 import { createShapes } from './create-shapes'
 import Introduction from './introduction'
 import Navigation from './navigation'
-
+import Animation from './animation'
+ 
 import styles from './hero.module.scss'
 
 class Hero extends Component {
@@ -22,12 +23,30 @@ class Hero extends Component {
 
         this.SVGNode = React.createRef()
         this.cutOutNode = React.createRef()
+        this.navigationNode = React.createRef()
     }
 
     componentDidMount() {
         this.getLineBoundary()
         root.requestIdleCallback(this.loop)
         window.addEventListener('orientationchange', () => root.location.reload())
+
+        // setTimeout(() => {
+        //     const path = anime.path('.buttspath')
+        //     anime({
+        //         targets: '#butts',
+        //         translateX: path('x'),
+        //         translateY: path('y'),
+        //         rotate: path('angle'),
+        //         duration: 15000,
+        //         opacity: {
+        //             value: 0,
+        //             duration: 10000,
+        //         },
+        //         loop: true,
+        //         easing: 'easeInOutQuad'
+        //       })
+        // }, 1000)
     }
 
     componentDidUpdate(prevProps) {
@@ -66,6 +85,19 @@ class Hero extends Component {
         return null
     }
 
+    // animationPath() {
+    //     const { cutOutNode: { current: start }, navigationNode: { current: end }, SVGNode: { current: container } } = this
+        
+    //     if (!isNil(start) && !isNil(end)) {
+    //         return (<AnimationPath
+    //             topBound={0}
+    //             bottomBound={container.getBoundingClientRect().bottom}
+    //             leftBound={end.getBoundingClientRect().left + 500}
+    //             rightBound={end.getBoundingClientRect().right}
+    //         />)
+    //     }
+    // }
+
     render() {
         const { boundingWidth, boundingHeight, lineOffset, lineBoundary, sections } = this.props
         const { paths: { trianglePath, cutOutPath } } = this.state
@@ -77,7 +109,7 @@ class Hero extends Component {
 
         return (
             <Fragment>
-                <FullBleedGraphic ref={this.SVGNode}>
+                <FullBleedGraphic className={styles.heroGraphic} ref={this.SVGNode}>
                     <defs>
                         <Pattern
                             lineBoundary={lineBoundary}
@@ -88,6 +120,10 @@ class Hero extends Component {
                     </defs>
                   {Path}
                 </FullBleedGraphic>
+                <Animation
+                    xAxisBoundingElement={this.navigationNode.current}
+                    yAxisBoundingElement={this.SVGNode.current}
+                />
                 <MaxWidthContainer className={styles.gridInherit}>
                     <div className={styles.navList}>
                         <div className={styles.wordMarkWrapper} ref={this.cutOutNode} style={{ 'left': lineOffset + 'px' }}>
@@ -99,7 +135,7 @@ class Hero extends Component {
                             </span>
                         </div>
                         <div className={styles.navigationWrapper}>
-                            <Navigation sections={sections} />
+                            <Navigation sections={sections} ref={this.navigationNode}/>
                         </div>
                     </div>
                     <Introduction className={styles.introduction}>

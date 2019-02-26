@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { last, pipe, pathOr } from 'ramda'
 import { calculateLinePosition, gutter } from './pattern-utils'
 
 import styles from './pattern.scss'
 
-class Pattern extends Component {
+class Pattern extends PureComponent {
   render() {
     const { boundingWidth, lineBoundary, patternId } = this.props 
     const lines = []
