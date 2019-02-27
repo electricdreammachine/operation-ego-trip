@@ -17,7 +17,7 @@ class Pattern extends PureComponent {
         )(lines) < boundingWidth - (gutter + 1)) {
         const lineXPosition = calculateLinePosition(lines.length)
         const lineAtContainerBoundary = () => {
-            const isLowerBoundary = lineXPosition > lineBoundary - gutter * 1.5 &&
+            const isLowerBoundary = lineXPosition >= lineBoundary - gutter * 1.5 &&
             lineXPosition < lineBoundary + gutter * 1.5
             const isUpperBoundary = lineXPosition >= (boundingWidth - lineBoundary) - gutter * 1.5 &&
             lineXPosition < (boundingWidth - lineBoundary) + gutter * 1.5

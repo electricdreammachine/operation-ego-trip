@@ -69,13 +69,13 @@ class Experience extends Component {
                           {map(({ name, description, skillsUsed }) => (
                             <li className={styles.projectLinkWrapper}>
                               <Heading textSized className={styles.jobTitle}>{name}</Heading>
-                              <Text> {ReactHtmlParser(description.childMarkdownRemark.html)}</Text>
                               <div className={styles.skillsWrapper}>
                                 {map(
                                   skillName => <Badge>{skillName}</Badge>,
                                   skillsUsed
                                 )}
                               </div>
+                              <Text> {ReactHtmlParser(description.childMarkdownRemark.html)}</Text>
                             </li>
                             ),
                             job.projects

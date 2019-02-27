@@ -21,6 +21,10 @@
     margin: 1rem 0;
     padding-left: 1rem;
 
+    @include set-mid-breakpoint {
+      margin: 1rem 0 1rem -1rem;
+    }
+
     li {
       position: relative;
 

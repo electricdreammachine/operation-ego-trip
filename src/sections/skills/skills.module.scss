@@ -59,16 +59,10 @@
   }
 
   dd {
-    align-self: end;
-    &, dt {
-      padding-right: .4rem;
-      &:nth-of-type(n + 2) {
-        margin-top: 1rem;
-        
-        @include set-min-breakpoint {
-          margin-top: 0;
-        }
-      }
+    padding-right: .4rem;
+
+    @include set-min-breakpoint {
+      align-self: end;
     }
 
     &:nth-of-type(even) {
@@ -78,11 +72,18 @@
     }
   }
 
+  
+  dd, dt {
+    &:nth-of-type(n + 2) {
+      margin-top: 1rem;
+    }
+  }
+
   dt {
     line-height: 1;
     
     @include set-min-breakpoint {
-      margin-top: 0.2rem;
+      margin: 0.2rem 0 0.5rem !important;
     }
   }
 }
