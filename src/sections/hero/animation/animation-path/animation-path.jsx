@@ -25,8 +25,8 @@ const AnimationPath = forwardRef(({
       const YCoord = currentYAxis + alternateCurveInterval
       const fuzzyYCoord = randomNumberInRange(YCoord + 100, YCoord - 100)
       const fuzzyXCoord = sum([paths.length, invertDirection ? 1 : 0]) % 2 === 0
-        ? randomNumberInRange(XCoord + alternateCurveInterval / 2 + 100 , XCoord + alternateCurveInterval / 2 - 100)
-        : randomNumberInRange(XCoord - alternateCurveInterval / 2 + 100 , XCoord - alternateCurveInterval / 2 - 100)
+        ? randomNumberInRange(XCoord + (alternateCurveInterval / 2 + 100) , XCoord + (alternateCurveInterval / 2))
+        : randomNumberInRange(XCoord - (alternateCurveInterval / 2), XCoord - (alternateCurveInterval / 2 + 100))
       
       const newCurve = {
         commandPoint: { x: pathOr(XCoord, ['lineCoords', 'x'], last(paths)), y: fuzzyYCoord },
