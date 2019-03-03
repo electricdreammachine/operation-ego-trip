@@ -1,52 +1,43 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { map, sortBy, path, pipe, reverse } from 'ramda'
 import 'common/assets/images/tree-motif-sprite.svg'
 import { MaxWidthContainer } from 'components'
-import { Consumer } from 'store'
 
 import styles from './skills.module.scss'
 import SkillGroup from './skill-group'
 
-class Skills extends Component {
-    render() {
-        return (
-            <Consumer>
-                {({ domain: { skillGroups: {
-                    edges: skillGroups
-                } } }) => {
-                    const sortedGroups = pipe(
-                        sortBy(path(['node', 'proficiencyLevel'])),
-                        reverse,
-                    )(skillGroups)
+const Skills = ({ skillGroups }) => {
+  const sortedGroups = pipe(
+    sortBy(path(['node', 'proficiencyLevel'])),
+    reverse,
+  )(skillGroups)
 
-                    return(
-                        <MaxWidthContainer
-                            className={styles.skillGroupWrapper}
-                        >
-                            {
-                                map(
-                                    (skillGroup) => (
-                                    <SkillGroup 
-                                        {...skillGroup.node}
-                                        className={styles.skillGroup}
-                                        lineOffset={this.props.lineOffset}
-                                    />
-                                ),
-                                    sortedGroups
-                                )
-                            }
-                        </MaxWidthContainer>
-                        )
-                    }
-                }
-            </Consumer>
+  return (
+    <MaxWidthContainer
+      className={styles.skillGroupWrapper}
+    >
+      {
+        map(
+          (skillGroup) => (
+            <SkillGroup
+              {...skillGroup.node}
+              className={styles.skillGroup}
+            />
+          ),
+          sortedGroups
         )
-    }
+      }
+    </MaxWidthContainer>
+  )
 }
 
 Skills.propTypes = {
-    lineOffset: PropTypes.number,
+  skillGroups: PropTypes.array,
+}
+
+Skills.defaultProsp = {
+  skillGroups: [],
 }
 
 export default Skills

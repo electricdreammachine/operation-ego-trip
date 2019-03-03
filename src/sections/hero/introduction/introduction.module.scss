@@ -1,39 +1,35 @@
 @import 'src/common/styles/mixins';
 
 .text {
-    margin-top: .2rem;
+  margin-top: .2rem;
 }
 
 .introduction-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    margin-top: 2rem;
-
-    // @include set-mid-breakpoint {
-    //     margin-top: ;
-    // }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-top: 2rem;
 }
 
 .additional-introduction-content {
-    display: flex;
-    flex-direction: column;
-    margin: 1.5rem 0 2rem;
-
+  display: flex;
+  flex-direction: column;
+  margin: 1.5rem 0 2rem;
+  
+  .additional-content-item {
+    &+.additional-content-item {
+      margin-top: 1rem;
+    }
+  }
+  
+  @include set-max-breakpoint {
+    flex-direction: row;
+    
     .additional-content-item {
-        &+.additional-content-item {
-            margin-top: 1rem;
-        }
+      &+.additional-content-item {
+        margin-left: 4rem;
+        margin-top: 0;
+      }
     }
-
-    @include set-max-breakpoint {
-        flex-direction: row;
-
-        .additional-content-item {
-            &+.additional-content-item {
-                margin-left: 4rem;
-                margin-top: 0;
-            }
-        }
-    }
+  }
 }

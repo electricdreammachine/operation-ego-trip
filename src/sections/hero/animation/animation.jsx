@@ -23,32 +23,32 @@ class Animation extends Component {
     const { xAxisBoundingElement: currentXAxisBoundingElement, yAxisBoundingElement: currentYAxisBoundingElement } = this.props
     const { xAxisBoundingElement: previousXAxisBoundingElement, yAxisBoundingElement: previousYAxisBoundingElement } = prevProps
     if (and(
-        any(isNil, [previousXAxisBoundingElement, previousYAxisBoundingElement]),
-        all(complement(isNil), [currentXAxisBoundingElement, currentYAxisBoundingElement])
-      )) {
-        setTimeout(() => {
-          forEach(
-            index => {
-              const path = anime.path(this[`animation-path-${index}`].current)
-              anime({
-                  targets: this[`animated-leaf-${index}`].current,
-                  translateX: path('x'),
-                  translateY: path('y'),
-                  rotate: path('angle'),
-                  duration: 15000,
-                  opacity: {
-                      value: 0,
-                      duration: 10000,
-                  },
-                  loop: true,
-                  delay: 500 * index,
-                  easing: 'easeInOutQuad'
-                })
-            },
-            range(0, this.props.numberOfAnimatedLeaves)
-          )
-          }, 1000)
-      }
+      any(isNil, [previousXAxisBoundingElement, previousYAxisBoundingElement]),
+      all(complement(isNil), [currentXAxisBoundingElement, currentYAxisBoundingElement])
+    )) {
+      forEach(
+        index => {
+          const path = anime.path(this[`animation-path-${index}`].current)
+
+          setTimeout(() => {
+            anime({
+              targets: this[`animated-leaf-${index}`].current,
+              translateX: path('x'),
+              translateY: path('y'),
+              rotate: path('angle'),
+              duration: 15000,
+              opacity: {
+                value: 0,
+                duration: 10000,
+              },
+              loop: true,
+              easing: 'easeInOutQuad'
+            })
+          }, 2000 * index)
+        },
+        range(0, this.props.numberOfAnimatedLeaves)
+      )
+    }
   }
 
   render() {
@@ -60,7 +60,7 @@ class Animation extends Component {
 
     const animations = map(
       index => ({
-        path:(
+        path: (
           <AnimationPath
             ref={this[`animation-path-${index}`]}
             topBound={top}

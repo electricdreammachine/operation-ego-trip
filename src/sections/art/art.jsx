@@ -1,36 +1,22 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { map } from 'ramda'
-import { Consumer } from 'store'
 import { MaxWidthContainer } from 'components/'
 
 import styles from './art.module.scss'
 
-class GridTemplate extends Component {
-    render() {
-        return (
-            <Consumer>
-                {({ domain: {
-                    art: {
-                        pieces
-                    }
-                }}) => (
-                    <MaxWidthContainer>
-                        <div className={styles.gridWrapper}>
-                            { map(
-                                ({ piece }) => (
-                                    <div>
-                                        <img src={piece.fullImage.file.url} alt={piece.title} />
-                                    </div>
-                                ),
-                                pieces
-                            )}
-                        </div>
-                    </MaxWidthContainer>
-                    )
-                }
-            </Consumer>
-        )
-    }
-}
+const GridTemplate = ({ art }) => (
+  <MaxWidthContainer>
+    <div className={styles.gridWrapper}>
+      {map(
+        ({ piece }) => (
+          <div>
+            <img src={piece.fullImage.file.url} alt={piece.title} />
+          </div>
+        ),
+        art
+      )}
+    </div>
+  </MaxWidthContainer>
+)
 
 export default GridTemplate

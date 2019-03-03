@@ -2,93 +2,93 @@
 @import 'src/common/styles/mixins';
 
 .contact-body {
-    color: $primary-text-color;
-    text-align: left;
+  color: $primary-text-color;
+  text-align: left;
 }
 
 .contact-info-wrapper {
-    height: 100%;
-    display: flex;
-    justify-content: space-around;
-    flex-direction: column;
-
-    @include set-max-breakpoint {
-        padding: 0 200px;
-    }
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  
+  @include set-max-breakpoint {
+    padding: 0 200px;
+  }
 }
 
 .social-networks { 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
-    @include set-min-breakpoint {
-        padding: 5rem 0;
-        flex-direction: row-reverse;
-        flex-wrap: wrap-reverse;
-        justify-content: space-evenly;
-    }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  @include set-min-breakpoint {
+    padding: 5rem 0;
+    flex-direction: row-reverse;
+    flex-wrap: wrap-reverse;
+    justify-content: space-evenly;
+  }
 }
 
 .social-network {
-    margin: 5rem 0;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    max-width: 300px;
-    width: 100%;
-    word-break: break-all;
-    text-decoration: none;
-    color: $link-color;
-    padding: 15px;
-
-    @include set-min-breakpoint {
-        margin: 0 0 20px;
-        flex: 0 1 45%;
-    }
-    
-    &:before {
-        content: '';
-        display: block;
-        position: absolute;
-        width: 70%;
-        padding-top: 69%;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) rotate(45deg);
-        border: 2px solid $turqoise;
-    }
+  margin: 5rem 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  max-width: 300px;
+  width: 100%;
+  word-break: break-all;
+  text-decoration: none;
+  color: $link-color;
+  padding: 15px;
+  
+  @include set-min-breakpoint {
+    margin: 0 0 20px;
+    flex: 0 1 45%;
+  }
+  
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 70%;
+    padding-top: 69%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    border: 2px solid $turqoise;
+  }
 }
 
 .account-details {
-    min-height: 40px;
-    > span {
-        &:first-child {
-            color: $primary-text-color;
-            font-size: 0.8rem;
-            line-height: 1.5rem;
-            @include set-secondary-font;
-        }
-
-        &.email-address {
-            span:nth-child(2) {
-                line-height: 1rem;
-                font-size: 1rem;
-            }
-        }
+  min-height: 40px;
+  > span {
+    &:first-child {
+      color: $primary-text-color;
+      font-size: 0.8rem;
+      line-height: 1.5rem;
+      @include set-secondary-font;
     }
-
-    span {
-        display: block;
+    
+    &.email-address {
+      span:nth-child(2) {
+        line-height: 1rem;
+        font-size: 1rem;
+      }
     }
+  }
+  
+  span {
+    display: block;
+  }
 }
 
 .icon {
-    fill: $turqoise;
-    max-height: 35px;
-    max-width: 35px;
-    margin-top: 10px;
+  fill: $turqoise;
+  max-height: 35px;
+  max-width: 35px;
+  margin-top: 10px;
 }

@@ -39,10 +39,10 @@ export const mapElementToComponent = (element = null) => {
   if (!equals('element', prop('type', element))) return null
 
   const {
-      tagName,
-      children: [
-        { value }
-      ]
+    tagName,
+    children: [
+      { value }
+    ]
   } = element
 
   const component = getComponentFromElementName(tagName, components)

@@ -4,14 +4,14 @@ import Section from './section'
 
 const asSection = Component => ({ name, elementType, className, ...props}) => (
   <Consumer>
-    {({ actions: { registerSection } }) => (
+    {({ actions: { registerSection }, actions, state }) => (
       <Section
         elementType={elementType}
         name={name}
         className={className}
         registerSection={registerSection}
       >
-        <Component {...props} />
+        <Component {...props} {...state} {...actions} />
       </Section>
     )}
   </Consumer>

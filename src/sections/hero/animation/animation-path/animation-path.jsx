@@ -15,7 +15,7 @@ const AnimationPath = forwardRef(({
   invertDirection,
 }, ref) => {
   if (any(isNil, [topBound, leftBound, rightBound, bottomBound])) return null
-  const XCoord = randomNumberInRange(rightBound, leftBound)
+  const XStart = randomNumberInRange(rightBound, leftBound)
 
   const paths = []
 
@@ -24,13 +24,13 @@ const AnimationPath = forwardRef(({
     currentYAxis => {
       const YCoord = currentYAxis + alternateCurveInterval
       const fuzzyYCoord = randomNumberInRange(YCoord + 100, YCoord - 100)
-      const fuzzyXCoord = sum([paths.length, invertDirection ? 1 : 0]) % 2 === 0
-        ? randomNumberInRange(XCoord + (alternateCurveInterval / 2 + 100) , XCoord + (alternateCurveInterval / 2))
-        : randomNumberInRange(XCoord - (alternateCurveInterval / 2), XCoord - (alternateCurveInterval / 2 + 100))
+      const XCoord = sum([paths.length, invertDirection ? 1 : 0]) % 2 === 0
+        ? pathOr(XStart, ['lineCoords', 'x'], last(paths)) + alternateCurveInterval
+        : pathOr(XStart, ['lineCoords', 'x'], last(paths)) - alternateCurveInterval
       
       const newCurve = {
-        commandPoint: { x: pathOr(XCoord, ['lineCoords', 'x'], last(paths)), y: fuzzyYCoord },
-        lineCoords: { x: fuzzyXCoord, y: fuzzyYCoord },
+        commandPoint: { x: pathOr(XStart, ['lineCoords', 'x'], last(paths)), y: fuzzyYCoord - alternateCurveInterval / 4 },
+        lineCoords: { x: XCoord, y: fuzzyYCoord },
       }
 
       paths.push(newCurve)
@@ -42,7 +42,7 @@ const AnimationPath = forwardRef(({
   return (
     <path
       ref={ref}
-      d={[[`M ${XCoord}, 0`], map(makeCubicBezierCurvePath, paths)].join(' ')}
+      d={[[`M ${XStart}, 0`], map(makeCubicBezierCurvePath, paths)].join(' ')}
       style={{ 'strokeWidth':'0', 'fill': 'none'}}
     />
   )
@@ -51,7 +51,7 @@ const AnimationPath = forwardRef(({
 
 AnimationPath.defaultProps = {
   topBound: 0,
-  alternateCurveInterval: 300,
+  alternateCurveInterval: 250,
 }
 
 AnimationPath.propTypes = {

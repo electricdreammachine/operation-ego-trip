@@ -1,0 +1,7 @@
+@import 'src/common/styles/mixins';
+
+.aligned-diamond-block {
+  @include set-mid-breakpoint {
+      @include diamond-block($max-width: 200px);
+  }
+}

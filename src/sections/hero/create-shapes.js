@@ -5,7 +5,7 @@ const intersectsWithinBounds = ({ left, height, width, top }) => intersect => {
   const xAxisWithinBounds = allPass(
     [
       xCoord => xCoord > left,
-      xCoord => xCoord < left + width, 
+      xCoord => xCoord < left + width,
     ]
   )(intersect.x)
 
@@ -19,7 +19,7 @@ const intersectsWithinBounds = ({ left, height, width, top }) => intersect => {
   return xAxisWithinBounds && yAxisWithinBounds
 }
 
-export const createShapes = ( svgContainerNode, cutOutTemplateNode, lineBoundary, boundingWidth, rootElement ) => {
+export const createShapes = (svgContainerNode, cutOutTemplateNode, lineBoundary, boundingWidth, rootElement) => {
   if (any(isNil, [svgContainerNode, cutOutTemplateNode])) {
     return {
       trianglePath: null,
@@ -50,10 +50,10 @@ export const createShapes = ( svgContainerNode, cutOutTemplateNode, lineBoundary
       `L 0 ${top + height}`,
       'Z'
     ].join(' '))(boundingWidth, cutOutTemplateNode.getBoundingClientRect())
-  ][percentageXAxisCutOut >= 45 && percentageXAxisCutOut <=55 ? 1 : 0]
+  ][percentageXAxisCutOut >= 45 && percentageXAxisCutOut <= 55 ? 1 : 0]
 
   const cutOutPath = (({ top, right, bottom, left, width, height }) => {
-    const intersectLine = percentageXAxisCutOut >= 45 && percentageXAxisCutOut <=55
+    const intersectLine = percentageXAxisCutOut >= 45 && percentageXAxisCutOut <= 55
       ? { start: { x: 0, y: windowHeight }, end: { x: windowHeight, y: windowHeight } }
       : { start: { x: 0, y: windowHeight }, end: { x: windowHeight, y: 0 } }
 

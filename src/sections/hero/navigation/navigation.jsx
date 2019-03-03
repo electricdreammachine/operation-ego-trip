@@ -23,7 +23,7 @@ const Navigation = forwardRef(({ sections }, ref) => (
         sections
       )
     }
-  </nav>  
+  </nav>
 ))
 
 Navigation.defaultProps = {

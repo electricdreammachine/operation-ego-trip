@@ -1,5 +1,4 @@
 import React, { createContext, Component } from 'react'
-import PropTypes from 'prop-types'
 import root from 'window-or-global'
 import { StaticQuery, graphql } from 'gatsby'
 
@@ -11,99 +10,99 @@ const Context = createContext()
 const { Provider, Consumer } = Context
 
 class PortfolioState extends Component {
-    constructor() {
-        super()
+  constructor() {
+    super()
 
-        this.state = {
-            boundingWidth: 0,
-            boundingHeight: 0,
-            lineBoundary: 0,
-            nearestLineToBoundary: 0,
-            outerAccentBoundaries: {
-                leftOuterBoundary: 0,
-                rightOuterBoundary: 0,
-            },
-            innerAccentBoundaries: {
-                leftInnerBoundary: 0,
-                rightInnerBoundary: 0,
-            },
-            sections: [],
+    this.state = {
+      boundingElement: null,
+      boundingWidth: 0,
+      boundingHeight: 0,
+      lineBoundary: 0,
+      nearestLineToBoundary: 0,
+      outerAccentBoundaries: {
+        leftOuterBoundary: 0,
+        rightOuterBoundary: 0,
+      },
+      innerAccentBoundaries: {
+        leftInnerBoundary: 0,
+        rightInnerBoundary: 0,
+      },
+      sections: [],
+    }
+  }
+
+  componentDidMount() {
+    this.setState({
+      boundingHeight: root.innerHeight,
+      boundingElement: document.documentElement,
+    })
+  }
+
+  componentDidUpdate(_, prevState) {
+    if ((this.state.boundingElement !== null && prevState.boundingElement !== this.state.boundingElement) ||
+      (prevState.lineBoundary !== this.state.lineBoundary)
+    ) {
+      const { lineBoundary } = this.state
+      const nearestLineToBoundary = findNearestLineToBoundary(lineBoundary)
+      const lineOffset = Math.abs(nearestLineToBoundary) - Math.abs(lineBoundary)
+      const boundingWidth = this.state.boundingElement.clientWidth
+      const {
+        left: leftOuterBoundary,
+        right: rightOuterBoundary
+      } = findOuterAccentBoundaries(nearestLineToBoundary, boundingWidth)
+      const lineDistance = leftOuterBoundary - nearestLineToBoundary
+      const leftInnerBoundary = nearestLineToBoundary - lineDistance - 2
+      const rightInnerBoundary = rightOuterBoundary + (lineDistance * 2) + 2
+
+      this.setState({
+        boundingWidth,
+        nearestLineToBoundary,
+        lineOffset,
+        outerAccentBoundaries: {
+          leftOuterBoundary,
+          rightOuterBoundary,
+        },
+        innerAccentBoundaries: {
+          leftInnerBoundary,
+          rightInnerBoundary,
         }
+      })
     }
+  }
 
-    componentDidMount() {
-        this.setState({ boundingHeight: root.innerHeight })
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        if ((this.props.boundingElement !== null && prevProps.boundingElement !== this.props.boundingElement) ||
-            (prevState.lineBoundary !== this.state.lineBoundary)
-        ) {
-            const { lineBoundary } = this.state
-            const nearestLineToBoundary = findNearestLineToBoundary(lineBoundary)
-            const lineOffset = Math.abs(nearestLineToBoundary) - Math.abs(lineBoundary)
-            const boundingWidth = this.props.boundingElement.clientWidth
-            const {
-                left: leftOuterBoundary,
-                right: rightOuterBoundary
-            } = findOuterAccentBoundaries(nearestLineToBoundary, boundingWidth)
-            const lineDistance = leftOuterBoundary - nearestLineToBoundary
-            const leftInnerBoundary = nearestLineToBoundary - lineDistance - 2
-            const rightInnerBoundary = rightOuterBoundary + (lineDistance*2) + 2
-
-            this.setState({
-                boundingWidth,
-                nearestLineToBoundary,
-                lineOffset,
-                outerAccentBoundaries: {
-                    leftOuterBoundary,
-                    rightOuterBoundary,
-                },
-                innerAccentBoundaries: {
-                    leftInnerBoundary,
-                    rightInnerBoundary,
-                }
-            })
+  render() {
+    return (
+      <StaticQuery
+        query={
+          graphql`
+            query { ...contentQuery }
+          `
         }
-    }
-
-    render() {
-        return(
-            <StaticQuery
-                query={
-                    graphql`
-                    query { ...contentQuery }
-                    `
+        render={
+          (data) =>
+            <Provider
+              value={{
+                state: this.state,
+                domain: data,
+                actions: {
+                  setLineBoundary: (lineBoundary) =>
+                    this.setState({ lineBoundary })
+                  ,
+                  registerSection: (sectionName, sectionNode) =>
+                    this.setState(registerSection(sectionName, sectionNode))
                 }
-                render={
-                    (data) =>
-                        <Provider
-                            value={{
-                                state: this.state,
-                                domain: data,
-                                actions: {
-                                    setLineBoundary: (lineBoundary) => 
-                                        this.setState({ lineBoundary })
-                                    ,
-                                    registerSection: (sectionName, sectionNode) =>
-                                        this.setState(registerSection(sectionName, sectionNode))
-                                }
-                            }}
-                        >
-                        {this.props.children}
-                    </Provider>
-                }
+              }}
             >
-            </StaticQuery>
-        )
-    }
-}
-
-PortfolioState.propTypes = {
-    boundingElement: PropTypes.node,
+              {this.props.children}
+            </Provider>
+        }
+      >
+      </StaticQuery>
+    )
+  }
 }
 
 export {
-    PortfolioState as default, 
-    Consumer,
+  PortfolioState as default,
+  Consumer,
 }

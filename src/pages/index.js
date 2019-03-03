@@ -1,55 +1,29 @@
 
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
 import 'common/styles/index.scss'
 import PortfolioState, { Consumer } from 'store'
+import { Page } from 'components'
 import { Hero, Experience, Skills, Contact } from 'sections'
 
-import styles from './portfolio.module.scss'
-
-class Index extends Component {
-  constructor() {
-    super()
-    this.state = {
-      boundingElement: null,
-    }
-  }
-
-  componentDidMount() {
-    this.setState({ boundingElement: document.documentElement })
-  }
-
-  render() {
-    const { boundingElement } = this.state
-    return (
-      <PortfolioState boundingElement={boundingElement}>
-        <Consumer>
-          {({ state: { lineBoundary, lineOffset, nearestLineToBoundary, boundingWidth, boundingHeight, sections }, actions }) => (
-            <div className={styles.app}>
-              <Hero
-                setLineBoundary={actions.setLineBoundary}
-                lineBoundary={lineBoundary}
-                nearestLineToBoundary={nearestLineToBoundary}
-                boundingWidth={boundingWidth}
-                boundingHeight={boundingHeight}
-                lineOffset={lineOffset}
-                className={styles.appHeader}
-                elementType="header"
-                sections={sections}
-              />
-              <Experience lineOffset={lineOffset} name="Experience" />
-              <Skills lineOffset={lineOffset} name="Skills" />
-              <Contact name="Contact" />
-            </div>
-          )}
-        </Consumer>
-      </PortfolioState>
-    )
-  }
-}
-
-Index.propTypes = {
-  boundingElement: PropTypes.node,
-}
+const Index = () => (
+  <PortfolioState>
+    <Consumer>
+      {({ domain: {
+          intro: { edges: [{ node: introduction }] },
+          jobs: { edges: jobs },
+          skillGroups: { edges: skillGroups },
+          contact: { edges: [{node: contactInfo}] },
+        }
+      }) => (
+        <Page>
+          <Hero elementType="header" introduction={introduction} />
+          <Experience name="Experience" jobs={jobs} />
+          <Skills name="Skills" skillGroups={skillGroups} />
+          <Contact name="Contact" contactInfo={contactInfo} />
+        </Page>
+      )}
+    </Consumer>
+  </PortfolioState>
+)
 
 export default Index

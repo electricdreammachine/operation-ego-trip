@@ -1,24 +1,24 @@
 @import 'src/common/styles/mixins';
 
 .graphic {
-    display: none;
-
-    @include set-mid-breakpoint {
-        display: block;
-        transform: translate3d(0, 0, 0);
-        perspective: 1000;
-    }
+  display: none;
+  
+  @include set-mid-breakpoint {
+    display: block;
+    transform: translate3d(0, 0, 0);
+    perspective: 1000;
+  }
 }
 
 .pillars-template {
-    margin-top: 2rem;
-
-    @include set-mid-breakpoint {
-        margin-top: 0;
-        position: relative;
-        height: calc(100vh - 60px);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
+  margin-top: 2rem;
+  
+  @include set-mid-breakpoint {
+    margin-top: 0;
+    position: relative;
+    height: calc(100vh - 60px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 }
