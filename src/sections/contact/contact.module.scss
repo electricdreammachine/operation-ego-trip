@@ -5,13 +5,14 @@
   
   @include set-mid-breakpoint {
     display: block;
-    transform: translate3d(0, 0, 0);
-    perspective: 1000;
   }
 }
 
 .pillars-template {
   margin-top: 2rem;
+  transform: translate3d(0, 0, 0);
+  perspective: 1000;
+  contain: paint;
   
   @include set-mid-breakpoint {
     margin-top: 0;

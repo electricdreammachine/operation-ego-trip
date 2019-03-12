@@ -14,14 +14,14 @@ class Contact extends Component {
   }
 
   setLeafPositions = (elementWidth, height) => {
-    const distance = 20
+    const distance = 30
     const leafPositions = []
     const calculateNextLeafPosition = (lineNumber) => 1 + (lineNumber * distance)
 
     while (pipe(
       last,
       pathOr(0, ['props', 'x'])
-    )(leafPositions) < elementWidth - distance) {
+    )(leafPositions) < elementWidth) {
       const leafXPosition = calculateNextLeafPosition(leafPositions.length)
       const isFlipped = Math.random() > 0.5
       const rotation = randomNumberInRange(180, 0)
@@ -61,7 +61,7 @@ class Contact extends Component {
 
     return (
       <div className={styles.pillarsTemplate} ref={this.localBoundingElement}>
-        <FullBleedGraphic className={styles.graphic}>
+        <FullBleedGraphic>
           <rect x={0} y="0" width={leftOuterBoundary} height="100%" style={{ 'fill': 'url(#star)', 'strokeWidth': '0' }} />
           <rect x={rightOuterBoundary} y="0" width={boundingWidth - rightOuterBoundary} height="100%" style={{ 'fill': 'url(#star)', 'strokeWidth': '0' }} />
           {this.setLeafPositions(width, height)}

@@ -28,7 +28,7 @@ class Hero extends Component {
 
   componentDidMount() {
     this.getLineBoundary()
-    root.requestIdleCallback(this.loop)
+    root.requestAnimationFrame(this.loop)
     window.addEventListener('orientationchange', () => root.location.reload())
   }
 
@@ -48,7 +48,7 @@ class Hero extends Component {
 
   loop = () => {
     this.getLineBoundary()
-    return root.requestIdleCallback(this.loop)
+    return root.requestAnimationFrame(this.loop)
   }
 
   getLineBoundary = () => {
