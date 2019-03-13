@@ -5,9 +5,7 @@ import { StaticQuery, graphql } from 'gatsby'
 import { registerSection } from './register-section'
 import { findNearestLineToBoundary, findOuterAccentBoundaries } from '../components/pattern'
 
-const Context = createContext()
-
-const { Provider, Consumer } = Context
+const StoreContext = createContext()
 
 class PortfolioState extends Component {
   constructor() {
@@ -80,7 +78,7 @@ class PortfolioState extends Component {
         }
         render={
           (data) =>
-            <Provider
+            <StoreContext.Provider
               value={{
                 state: this.state,
                 domain: data,
@@ -94,7 +92,7 @@ class PortfolioState extends Component {
               }}
             >
               {this.props.children}
-            </Provider>
+            </StoreContext.Provider>
         }
       >
       </StaticQuery>
@@ -104,5 +102,5 @@ class PortfolioState extends Component {
 
 export {
   PortfolioState as default,
-  Consumer,
+  StoreContext,
 }

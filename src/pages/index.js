@@ -1,29 +1,44 @@
 
-import React from 'react'
+import React, { Fragment, useContext } from 'react'
+import { isNil } from 'ramda'
 import 'common/styles/index.scss'
-import PortfolioState, { Consumer } from 'store'
+import { withStore, StoreContext } from 'store'
 import { Page } from 'components'
 import { Hero, Experience, Skills, Contact } from 'sections'
 
-const Index = () => (
-  <PortfolioState>
-    <Consumer>
-      {({ domain: {
-          intro: { edges: [{ node: introduction }] },
-          jobs: { edges: jobs },
-          skillGroups: { edges: skillGroups },
-          contact: { edges: [{node: contactInfo}] },
-        }
-      }) => (
-        <Page>
-          <Hero elementType="header" introduction={introduction} />
-          <Experience name="Experience" jobs={jobs} />
-          <Skills name="Skills" skillGroups={skillGroups} />
-          <Contact name="Contact" contactInfo={contactInfo} />
-        </Page>
-      )}
-    </Consumer>
-  </PortfolioState>
-)
+const Index = () => {
+  const availableData = useContext(StoreContext)
 
-export default Index
+  let PopulatedSections = null
+
+  console.log('nonono')
+
+  if (!isNil(availableData)) {
+    console.log('yes')
+    const {
+      domain: {
+        intro: { edges: [{ node: introduction }] },
+        jobs: { edges: jobs },
+        skillGroups: { edges: skillGroups },
+        contact: { edges: [{node: contactInfo}] },
+      }
+    } = availableData
+
+    PopulatedSections = (
+      <Fragment>
+        <Hero elementType="header" introduction={introduction} />
+        <Experience name="Experience" jobs={jobs} />
+        <Skills name="Skills" skillGroups={skillGroups} />
+        <Contact name="Contact" contactInfo={contactInfo} />
+      </Fragment>
+    )
+  }
+
+  return (
+    <Page>
+      {PopulatedSections}
+    </Page>
+  )
+}
+
+export default withStore(Index)

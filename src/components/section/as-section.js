@@ -1,20 +1,20 @@
-import React from 'react'
-import { Consumer } from 'store'
+import React, { useContext } from 'react'
+import { StoreContext } from 'store'
 import Section from './section'
 
-const asSection = Component => ({ name, elementType, className, ...props}) => (
-  <Consumer>
-    {({ actions: { registerSection }, actions, state }) => (
-      <Section
-        elementType={elementType}
-        name={name}
-        className={className}
-        registerSection={registerSection}
-      >
-        <Component {...props} {...state} {...actions} />
-      </Section>
-    )}
-  </Consumer>
-)
+const asSection = Component => ({ name, elementType, className, ...props}) => {
+  const { actions: { registerSection }, actions, state } = useContext(StoreContext)
+  
+  return (
+    <Section
+      elementType={elementType}
+      name={name}
+      className={className}
+      registerSection={registerSection}
+    >
+      <Component {...props} {...state} {...actions} />
+    </Section>
+  )
+}
 
 export default asSection
