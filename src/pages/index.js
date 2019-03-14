@@ -11,10 +11,7 @@ const Index = () => {
 
   let PopulatedSections = null
 
-  console.log('nonono')
-
   if (!isNil(availableData)) {
-    console.log('yes')
     const {
       domain: {
         intro: { edges: [{ node: introduction }] },

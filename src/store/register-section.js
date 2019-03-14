@@ -1,11 +1,7 @@
-import { uniqBy, prop, isEmpty } from 'ramda'
+import { isEmpty } from 'ramda'
 
-export const registerSection = (sectionName, sectionNode) => state => {
-  if (isEmpty(sectionName)) return null
-  
-  const { sections: existingSections } = state
+export const registerSection = (sectionName, sectionNode) => {
+  if (isEmpty(sectionName)) return
 
-  return {
-    sections: uniqBy(prop('name'), [...existingSections, { name: sectionName, node: sectionNode }]),
-  }
+  return { name: sectionName, node: sectionNode }
 }
