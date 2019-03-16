@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, Fragment, useContext } from 'react'
+import React, { useLayoutEffect, useRef, Fragment, useContext, useState } from 'react'
 import { isNil, all, complement, propOr, pathOr, and } from 'ramda'
 import canvg from 'canvg'
 import { StoreContext } from 'store'
@@ -9,6 +9,9 @@ import styles from './rasterising-pattern-fill.module.scss'
 
 const RasterisingPatternFill = React.forwardRef(
   ({ children, className }, ref) => {
+    const [state, setState] = useState({
+      hasCompletedFirstMeaningfulRender: false,
+    })
     const canvasRef = useRef(null)
     const svgRef = isNil(ref) ? useRef(null) : ref
     const { state: { boundingWidth, patternRef } } = useContext(StoreContext)
@@ -16,10 +19,14 @@ const RasterisingPatternFill = React.forwardRef(
     useLayoutEffect(() => {
       if (
         and(
-          all(complement(isNil), [propOr(null, 'current', canvasRef), propOr(null, 'current', svgRef), propOr(null, 'current', patternRef)]),
-          pathOr(0, ['current', 'childNodes', 'length'], patternRef) > 1
-        )
+            all(complement(isNil), [propOr(null, 'current', canvasRef), propOr(null, 'current', svgRef), propOr(null, 'current', patternRef)]),
+            pathOr(0, ['current', 'childNodes', 'length'], patternRef) > 1
+          )
         ) {
+        if (!state.hasCompletedFirstMeaningfulRender) {
+          setState({ hasCompletedFirstMeaningfulRender: true })
+        }
+
         const s = new XMLSerializer()
         const svgToRasterise = svgRef.current.cloneNode(true)
         const pattern = patternRef.current.cloneNode(true)
@@ -50,6 +57,7 @@ const RasterisingPatternFill = React.forwardRef(
         <canvas className={
           classnames(
             styles.fullBleedGraphic,
+            { [styles.enter]: state.hasCompletedFirstMeaningfulRender },
             className
           )
         } ref={canvasRef} />

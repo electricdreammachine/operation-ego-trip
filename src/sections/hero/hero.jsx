@@ -98,7 +98,7 @@ const Hero = ({ boundingWidth, boundingHeight, lineOffset = 0, lineBoundary, sec
       />
       <MaxWidthContainer className={styles.gridInherit}>
         <div className={styles.navList}>
-          <div className={styles.wordMarkWrapper} ref={cutOutNode} style={{ 'left': lineOffset + 'px' }}>
+          <div className={styles.wordMarkWrapper} ref={cutOutNode} style={{ 'transform': `translateX(${lineOffset + 'px'}) rotate(44.5deg)` }}>
             <span className={styles.wordMark}>
               Oliver Smith
               <span className={styles.tagline}>

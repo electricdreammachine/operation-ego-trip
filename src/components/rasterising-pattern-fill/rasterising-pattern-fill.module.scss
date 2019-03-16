@@ -2,7 +2,13 @@
   visibility: hidden;
 }
 
+.enter {
+  opacity: 1 !important;
+  transition: opacity 2s ease-out;
+}
+
 .full-bleed-graphic {
+  opacity: 0;
   height: 100%;
   width: 100%;
   position: absolute;
