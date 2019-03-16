@@ -1,12 +1,19 @@
-import React from 'react'
+import React, { useRef, useContext, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { last, pipe, pathOr } from 'ramda'
+import { StoreContext } from 'store'
 import { calculateLinePosition, gutter, isLineWithinBoundaryRange } from './pattern-utils'
 
 import styles from './pattern.scss'
 
 const Pattern = ({ boundingWidth, lineBoundary, patternId }) => {
+  const { actions: { setInStore } } = useContext(StoreContext)
+  const patternRef = useRef(null)
   const lines = []
+
+  useEffect(() => {
+    setInStore({ patternRef })
+  }, [patternRef.current])
 
   while (
     pipe(
@@ -39,6 +46,7 @@ const Pattern = ({ boundingWidth, lineBoundary, patternId }) => {
       patternUnits="userSpaceOnUse"
       patternContentUnits="userSpaceOnUse"
       preserveAspectRatio="xMinYMin meet"
+      ref={patternRef}
     >
       {lines}
     </pattern>

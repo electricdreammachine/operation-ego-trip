@@ -87,10 +87,9 @@ const PortfolioState = ({ children }) => {
               state,
               domain: data,
               actions: {
-                setLineBoundary: (lineBoundary) => {
-                  updateStore({ lineBoundary })
-                }
-                ,
+                setInStore: newState => {
+                  updateStore(newState)
+                },
                 registerSection: (sectionName, sectionNode) => {
                   updateSections(registerSection(sectionName, sectionNode))
                 }

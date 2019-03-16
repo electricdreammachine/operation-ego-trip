@@ -1,6 +1,7 @@
 import Page from './page'
 import Badge from './badge'
 import FullBleedGraphic from './full-bleed-graphic'
+import RasterisingPatternFill from './rasterising-pattern-fill'
 import Heading from './heading'
 import MaxWidthContainer from './max-width-container'
 import AlignedDiamondBlock from './aligned-diamond-block'
@@ -12,6 +13,7 @@ export {
   Page,
   Badge,
   FullBleedGraphic,
+  RasterisingPatternFill,
   Heading,
   MaxWidthContainer,
   AlignedDiamondBlock,

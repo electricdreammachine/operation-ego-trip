@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { StoreContext } from 'store'
+import RasterisingPatternFill from '../../rasterising-pattern-fill'
 import Heading from '../../heading'
 import styles from './section-header.module.scss'
 
@@ -18,7 +19,7 @@ const SectionHeader = ({
 
   return (
     <header className={styles.sectionHeader}>
-      <svg className={styles.sectionHeaderGraphic}>
+      <RasterisingPatternFill className={styles.sectionHeaderGraphic}>
         <rect
           x="0"
           y="0"
@@ -33,7 +34,7 @@ const SectionHeader = ({
           height="100%"
           style={{ 'fill': 'url(#star)', 'strokeWidth': '0' }}
         />
-      </svg>
+      </RasterisingPatternFill>
       <Heading headingLevel="h2" className={styles.sectionHeaderTitle}>
         {children}
       </Heading>
