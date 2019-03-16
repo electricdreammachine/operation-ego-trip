@@ -37,10 +37,12 @@
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "deploy": "gatsby build && npm run push",
-    "push": "gh-pages -d public -b master -r https://github.com/electricdreammachine/electricdreammachine.github.io.git",
+    "deploy": "npm run clean && npm run build && npm run gatherStaticDist && npm run push",
+    "push": "gh-pages -d public -b master -r git@github.com:electricdreammachine/electricdreammachine.github.io.git",
     "format": "prettier --write 'src/**/*.js'",
     "test": "jest",
+    "clean": "rimraf public/*",
+    "gatherStaticDist": "cp static/* public/",
     "test:watch": "jest --watch"
   },
   "devDependencies": {
@@ -52,7 +54,8 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.1.0",
     "prettier": "^1.13.7",
-    "react-test-renderer": "^16.8.2"
+    "react-test-renderer": "^16.8.2",
+    "rimraf": "^2.6.3"
   },
   "repository": {
     "type": "git",

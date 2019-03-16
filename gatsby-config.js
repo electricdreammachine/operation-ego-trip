@@ -14,13 +14,6 @@ module.exports = {
     `gatsby-transformer-remark`,
     'gatsby-plugin-sass',
     {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/content`,
-        name: 'content',
-      },
-    },
-    {
       resolve: `gatsby-source-contentful`,
       options: {
         spaceId: process.env.SPACE_ID,
