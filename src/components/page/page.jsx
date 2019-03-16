@@ -1,10 +1,26 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { CSSTransition } from 'react-transition-group'
+import { isNil, propOr } from 'ramda'
+import { StoreContext } from 'store'
 import styles from './page.module.scss'
 
-const Page = ({ children }) => (
-  <div className={styles.page}>
-    {children}
-  </div>
-)
+const Page = ({ children }) => {
+  const { state: { patternRef } } = useContext(StoreContext)
+
+  return (
+    <div className={styles.page}>
+      <CSSTransition
+        in={!isNil(propOr(null, 'current', patternRef))}
+        classNames={{
+          enter: styles.enter,
+          enterActive: styles.enterActive,
+        }}
+        timeout={1000}
+      >
+        {children}
+      </CSSTransition>
+    </div>
+  )
+}
 
 export default Page

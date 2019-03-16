@@ -27,6 +27,7 @@
     "react-dom": "^16.8.x",
     "react-helmet": "^5.2.0",
     "react-html-parser": "^2.0.2",
+    "react-transition-group": "^2.6.1",
     "throttle-debounce": "^2.0.1",
     "window-or-global": "^1.0.1"
   },

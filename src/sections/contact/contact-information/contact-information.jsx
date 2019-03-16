@@ -14,17 +14,17 @@ const ContactInformation = ({ contactInfo }) => (
     <div className={styles.socialNetworks}>
       {map(
         ({ networkName, username, url }) => (
-          <a className={styles.socialNetwork} href={url}>
-            <div className={styles.accountDetails}>
-              <span>{networkName}</span>
-              <Text isLink>
+          <Text className={styles.socialNetwork}>
+            <a href={url}>
+              <div className={styles.accountDetails}>
+                <span>{networkName}</span>
                 <Username username={username} styles={styles} />
-              </Text>
-            </div>
-            <svg className={styles.icon}>
-              <use xlinkHref={`#social-icons-sprite_${networkName.toLowerCase()}`} key={networkName} />
-            </svg>
-          </a>
+              </div>
+              <svg className={styles.icon}>
+                <use xlinkHref={`#social-icons-sprite_${networkName.toLowerCase()}`} key={networkName} />
+              </svg>
+            </a>
+          </Text>
         ),
         contactInfo.contactLinks
       )}

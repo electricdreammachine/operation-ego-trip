@@ -11,6 +11,13 @@
     color: $link-color;
     text-decoration: none;
     font-weight: 500;
+  
+    &:hover,
+    &:focus {
+      color: $link-color--hover;
+      text-decoration: underline;
+      transition: color 0.1s linear;
+    }
   }
 
   p + p {

@@ -2,13 +2,14 @@ import React, { createElement } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { isNil } from 'ramda'
+import Text from '../text'
 
 import styles from './heading.module.scss'
 
-const Heading = ({ children, headingLevel, className, textSized }) => {
+const Heading = ({ children, headingLevel, className, textSized, ...textProps }) => {
   if (isNil(headingLevel)) {
     return (
-      <span
+      <Text {...textProps}
         className={
           classNames(
             styles.heading,
@@ -18,14 +19,14 @@ const Heading = ({ children, headingLevel, className, textSized }) => {
         }
       >
         {children}
-      </span>
+      </Text>
     )
   }
 
   return createElement(
     headingLevel,
     { className: classNames(styles.heading, className) },
-    children
+    <Text {...textProps} classLess>{children}</Text>,
   )
 }
 

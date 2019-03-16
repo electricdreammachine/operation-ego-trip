@@ -20,8 +20,6 @@ const RasterisingPatternFill = React.forwardRef(
           pathOr(0, ['current', 'childNodes', 'length'], patternRef) > 1
         )
         ) {
-        console.log('tryna do it')
-        console.log(patternRef.current)
         const s = new XMLSerializer()
         const svgToRasterise = svgRef.current.cloneNode(true)
         const pattern = patternRef.current.cloneNode(true)

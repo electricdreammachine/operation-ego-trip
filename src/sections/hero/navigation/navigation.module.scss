@@ -11,15 +11,21 @@
   }
 }
 
+.nav-item-text {
+  padding-bottom: 0.2rem;
+  text-decoration: none !important;
+  border-bottom: 2px solid transparent;
+
+  &:hover {
+    border-bottom: 2px solid;
+  }
+}
+
 .nav-item {
   background: none;
   border: none;
   cursor: pointer;
   text-decoration: none;
-
-  .nav-item-text {
-    color: $link-color;
-  }
 
   & + .nav-item {
     margin-top: 1rem;

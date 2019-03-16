@@ -12,6 +12,7 @@ $background-color: $dark-blue;
 $pattern-color: $turqoise;
 $accent-color: $gold;
 $link-color: mix(white, lighten($turqoise, 10%), 25%);
+$link-color--hover: lighten($gold, 10%);
 
 $primary-text-color: $light-grey;
 

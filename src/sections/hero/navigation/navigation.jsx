@@ -15,7 +15,7 @@ const Navigation = forwardRef(({ sections }, ref) => (
       map(
         ({ name, node }) => (
           <button onClick={() => scrollToNode(node)} className={styles.navItem}>
-            <Heading className={styles.navItemText}>
+            <Heading className={styles.navItemText} isLink>
               {name}
             </Heading>
           </button>
