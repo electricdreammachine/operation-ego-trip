@@ -24,15 +24,15 @@ const PortfolioState = ({ children }) => {
       leftInnerBoundary: 0,
       rightInnerBoundary: 0,
     },
-    sections: [],
+    sectionsOnPage: [],
   })
 
   const updateStore = (newStoreProps) => batch(() => setState(prevState => mergeDeepRight(prevState, newStoreProps)))
   const updateSections = newSection => batch(() => setState(prevState => mergeDeepRight(prevState, {
-    sections: pipe(
+    sectionsOnPage: pipe(
       uniqBy(prop('name')),
       reject(isNil)
-    )([...prevState.sections, newSection])
+    )([...prevState.sectionsOnPage, newSection])
   })))
 
   useLayoutEffect(() => {

@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
+    "animate-css-grid": "^1.4.0",
     "animejs": "^3.0.1",
     "array-sort": "^1.0.0",
     "canvg": "^1.5.3",
@@ -22,7 +23,7 @@
     "gh-pages": "^2.0.1",
     "intersection": "0.0.1",
     "node-sass": "^4.9.2",
-    "ramda": "^0.25.0",
+    "ramda": "^0.26.0",
     "react": "^16.8.x",
     "react-dom": "^16.8.x",
     "react-helmet": "^5.2.0",

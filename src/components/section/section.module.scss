@@ -2,6 +2,8 @@
 @import 'src/common/styles/variables';
 
 .section {
+    position: relative;
+    
    &:nth-of-type(n + 2) {
         margin-top: 50px;
    }

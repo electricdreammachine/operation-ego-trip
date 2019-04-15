@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { createContext } from 'react'
 import { shallow } from 'enzyme'
+import store from 'store'
 import Pattern from './pattern'
 import { accentColor } from './pattern.scss'
+
+jest.mock('store', () => jest.fn())
 
 describe('Pattern component', () => {
   const defaultProps = {
@@ -16,6 +19,14 @@ describe('Pattern component', () => {
     }
     return shallow(<Pattern {...props} />)
   }
+
+  beforeAll(() => {
+    store.StoreContext = createContext({
+      actions: {
+        setInStore: () => {},
+      },
+    })
+  })
 
   describe('base functionality', () => {
     it('renders a line every 10 pixels from x 0 to x boundingWidth', () => {

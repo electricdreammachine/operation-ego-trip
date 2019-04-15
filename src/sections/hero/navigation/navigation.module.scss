@@ -7,17 +7,91 @@
   align-items: center;
 
   @include set-min-breakpoint {
-    display: inline-block;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.nav-section {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  
+  @include set-min-breakpoint {
+    align-items: flex-end;
+  }
+
+  .nav-section-header {
+    flex: 0 0 100%;
+    font-size: 0.75rem;
+  }
+
+  &+ .nav-section {
+    margin-top: 1rem;
+    
+    @include set-min-breakpoint {
+      margin-top: 0;
+      margin-left: 2.5rem;
+      align-items: flex-start;
+
+      &:first-of-type {
+        justify-content: flex-end;
+    
+        .nav-section-header {
+          text-align: right;
+        }
+      }
+
+      &:before {
+        content: '';
+        width: 1px;
+        height: 100vh;
+        display: block;
+        position: absolute;
+        bottom: -10px;
+        transform: translateX(-1px);
+        left: -1.25rem;
+        background: rgba($accent-color, 0.6);
+      }
+    }
+
+    .leaf {
+      display: none;
+
+      @include set-min-breakpoint {
+        width: 50px;
+        height: 50px;
+        display: block;
+        position: absolute;
+        bottom: 0;
+        transform: translateX(-25px);
+        left: -1.25rem;
+        background: url('%23leaf-motif-sprite_single-leaf');
+  
+        @for $i from 0 to 3 {
+          &:nth-of-type(#{$i + 1}) {
+            bottom: #{-58 + (100 - (10 * ($i))) * $i}px;
+  
+            @if $i % 2 == 0 {
+              transform: scaleX(-1) translateX(1px);
+            } @else {
+              transform: translateX(-51px);
+            }
+          }
+        }
+      }
+    }
   }
 }
 
 .nav-item-text {
-  padding-bottom: 0.2rem;
   text-decoration: none !important;
-  border-bottom: 2px solid transparent;
+  border-bottom: 1px solid transparent;
 
   &:hover {
-    border-bottom: 2px solid;
+    border-bottom: 1px solid;
   }
 }
 
@@ -26,13 +100,13 @@
   border: none;
   cursor: pointer;
   text-decoration: none;
+  padding: 0;
 
   & + .nav-item {
-    margin-top: 1rem;
+    margin-top: 0.5rem;
 
     @include set-min-breakpoint {
-      margin-top: 0;
-      margin-left: 2rem;
+      margin-top: 0.3rem;
     }
   }
 }

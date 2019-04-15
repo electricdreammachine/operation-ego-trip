@@ -26,7 +26,7 @@ const Section = ({ children, elementType, className, name, registerSection }) =>
 
   return createElement(
     elementType,
-    { className: classnames(styles.section, className), ref: sectionRef },
+    { className: classnames(styles.section, className), ref: sectionRef, id: name },
     (
       <Fragment>
         {header}

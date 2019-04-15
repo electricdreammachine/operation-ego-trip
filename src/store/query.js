@@ -2,6 +2,15 @@ import { graphql } from "gatsby";
 
 export const query = graphql`
 fragment contentQuery on Query {
+  site {
+    siteMetadata {
+      menuLinks {
+        name
+        link
+        sections
+      }
+    }
+  }
   intro: allContentfulIntroduction {
     edges {
       node {

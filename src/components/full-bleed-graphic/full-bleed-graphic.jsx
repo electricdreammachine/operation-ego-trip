@@ -4,13 +4,13 @@ import classnames from 'classnames'
 import styles from './full-bleed-graphic.module.scss'
 
 const FullBleedGraphic = React.forwardRef(
-  ({ children, className }, ref) => (
+  ({ children, className, ...svgProps }, ref) => (
     <svg className={
       classnames(
         styles.fullBleedGraphic,
         className
       )
-    } ref={ref}>
+    } ref={ref} {...svgProps}>
       {children}
     </svg>
   )

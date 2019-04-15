@@ -10,7 +10,7 @@ import Animation from './animation'
 
 import styles from './hero.module.scss'
 
-const Hero = ({ boundingWidth, boundingHeight, lineOffset = 0, lineBoundary, sections, introduction, setInStore }) => {
+const Hero = ({ boundingWidth, boundingHeight, lineOffset = 0, lineBoundary, sectionsOnPage, introduction, setInStore, title }) => {
   const [state, setState] = useState({
     offsetTop: 0,
     paths: {
@@ -102,12 +102,12 @@ const Hero = ({ boundingWidth, boundingHeight, lineOffset = 0, lineBoundary, sec
             <span className={styles.wordMark}>
               Oliver Smith
               <span className={styles.tagline}>
-                Software Engineeer
+                {title}
               </span>
             </span>
           </div>
           <div className={styles.navigationWrapper}>
-            <Navigation sections={sections} ref={navigationNode} />
+            <Navigation sectionsOnPage={sectionsOnPage} ref={navigationNode} />
           </div>
         </div>
         <Introduction className={styles.introduction} introduction={introduction} />
@@ -121,6 +121,11 @@ Hero.propTypes = {
   boundingWidth: PropTypes.number,
   boundingHeight: PropTypes.number,
   lineBoundary: PropTypes.number,
+  title: PropTypes.string,
+}
+
+Hero.defaultProps = {
+  title: 'Software Engineeer',
 }
 
 export default Hero

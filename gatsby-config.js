@@ -5,6 +5,24 @@ require("dotenv").config({
 module.exports = {
   siteMetadata: {
     title: 'Gatsby Default Starter',
+    menuLinks: [
+      {
+        name:'Software',
+        link:'/',
+        sections: [
+          'Experience',
+          'Skills',
+          'Contact'
+        ],
+      },
+      {
+        name:'art',
+        link:'/art',
+        sections: [
+          'Gallery',
+        ],
+      }
+    ],
   },
   plugins: [
     'gatsby-plugin-react-helmet',

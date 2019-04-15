@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactHtmlParser from 'react-html-parser'
-import { map } from 'ramda'
+import { map, defaultTo } from 'ramda'
 import classNames from 'classnames'
 import { Text } from 'components'
 import { mapElementToComponent } from './map-element-to-component'
@@ -23,7 +23,7 @@ const Introduction = ({ className, introduction: { mainContentBody, introduction
             )}
           </div>
         ),
-        introductionAdditionalContent
+        defaultTo([], introductionAdditionalContent)
       )}
     </div>
   </div>
