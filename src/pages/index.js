@@ -1,41 +1,36 @@
 
-import React, { Fragment, useContext } from 'react'
-import { isNil } from 'ramda'
+import React from 'react'
 import 'common/styles/index.scss'
-import { withStore, StoreContext } from 'store'
+import { withStore } from 'store'
 import { Page } from 'components'
+import { graphql } from 'gatsby'
 import { Hero, Experience, Skills, Contact } from 'sections'
 
-const Index = () => {
-  const availableData = useContext(StoreContext)
-
-  let PopulatedSections = null
-
-  if (!isNil(availableData)) {
-    const {
-      domain: {
-        intro: { edges: [{ node: introduction }] },
-        jobs: { edges: jobs },
-        skillGroups: { edges: skillGroups },
-        contact: { edges: [{node: contactInfo}] },
-      }
-    } = availableData
-
-    PopulatedSections = (
-      <Fragment>
-        <Hero elementType="header" introduction={introduction} />
-        <Experience name="Experience" jobs={jobs} />
-        <Skills name="Skills" skillGroups={skillGroups} />
-        <Contact name="Contact" contactInfo={contactInfo} />
-      </Fragment>
-    )
-  }
+const Index = ({ data }) => {
+  const {
+    intro: { edges: [{ node: introduction }] },
+    jobs: { edges: jobs },
+    skillGroups: { edges: skillGroups },
+    contact: { edges: [{node: contactInfo}] },
+  } = data
 
   return (
     <Page>
-      {PopulatedSections}
+      <Hero elementType="header" introduction={introduction} />
+      <Experience name="Experience" jobs={jobs} />
+      <Skills name="Skills" skillGroups={skillGroups} />
+      <Contact name="Contact" contactInfo={contactInfo} />
     </Page>
   )
 }
 
 export default withStore(Index)
+
+export const query = graphql`
+  query ( $pageName: String ) {
+    intro: allContentfulIntroduction(filter: { forPage:{ eq: $pageName }}) {
+      ...intro
+    }
+    ...contentQuery
+  }
+`

@@ -2,7 +2,7 @@ import React from 'react'
 import PortfolioState from './store'
 
 const withStore = Component => props => (
-  <PortfolioState>
+  <PortfolioState data={props.data}>
     <Component {...props} />
   </PortfolioState>
 )

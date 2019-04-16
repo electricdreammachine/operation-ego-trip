@@ -1,7 +1,6 @@
 import React, { createContext, useState, useEffect, useLayoutEffect } from 'react'
 import { unstable_batchedUpdates as batch } from 'react-dom'
 import root from 'window-or-global'
-import { StaticQuery, graphql } from 'gatsby'
 import { mergeDeepRight, uniqBy, prop, reject, isNil, pipe } from 'ramda'
 
 import { registerSection } from './register-section'
@@ -9,7 +8,7 @@ import { findNearestLineToBoundary, findOuterAccentBoundaries } from '../compone
 
 const StoreContext = createContext()
 
-const PortfolioState = ({ children }) => {
+const PortfolioState = ({ children, data }) => {
   const [state, setState] = useState({
     boundingElement: null,
     boundingWidth: 0,
@@ -74,33 +73,22 @@ const PortfolioState = ({ children }) => {
   )
 
   return (
-    <StaticQuery
-      query={
-        graphql`
-          query { ...contentQuery }
-        `
-      }
-      render={
-        (data) =>
-          <StoreContext.Provider
-            value={{
-              state,
-              domain: data,
-              actions: {
-                setInStore: newState => {
-                  updateStore(newState)
-                },
-                registerSection: (sectionName, sectionNode) => {
-                  updateSections(registerSection(sectionName, sectionNode))
-                }
-              }
-            }}
-          >
-            {children}
-          </StoreContext.Provider>
-      }
+    <StoreContext.Provider
+      value={{
+        state,
+        domain: data,
+        actions: {
+          setInStore: newState => {
+            updateStore(newState)
+          },
+          registerSection: (sectionName, sectionNode) => {
+            updateSections(registerSection(sectionName, sectionNode))
+          }
+        }
+      }}
     >
-    </StaticQuery>
+      {children}
+    </StoreContext.Provider>
   )
 }
 

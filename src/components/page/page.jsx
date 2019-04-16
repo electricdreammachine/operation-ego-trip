@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, Fragment } from 'react'
 import { CSSTransition } from 'react-transition-group'
 import { isNil, propOr } from 'ramda'
 import { StoreContext } from 'store'
@@ -17,7 +17,9 @@ const Page = ({ children }) => {
         }}
         timeout={1000}
       >
-        {children}
+        <Fragment>
+          {children}
+        </Fragment>
       </CSSTransition>
     </div>
   )

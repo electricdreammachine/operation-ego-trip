@@ -1,36 +1,30 @@
-import React, { useContext, Fragment } from 'react'
+import React from 'react'
 import 'common/styles/index.scss'
-import { isNil } from 'ramda'
-import { withStore, StoreContext } from 'store'
+import { withStore } from 'store'
 import { Page } from 'components'
 import { Hero, Art as ArtSection } from 'sections'
 
-const Art = () => {
-  const availableData = useContext(StoreContext)
-
-  let PopulatedSections = null
-
-  if (!isNil(availableData)) {
-    const {
-      domain: {
-        intro: { edges: [, { node: introduction }] },
-        art: { pieces },
-      }
-    } = useContext(StoreContext)
-
-    PopulatedSections = (
-      <Fragment>
-        <Hero elementType="header" title="Hobby artist" introduction={introduction} />
-        <ArtSection name="Gallery" art={pieces}/>
-      </Fragment>
-    )
-  }
+const Art = ({ data }) => {
+  const {
+    intro: { edges: [{ node: introduction }] },
+    art: { pieces },
+  } = data
 
   return (
     <Page>
-      {PopulatedSections}
+      <Hero elementType="header" title="Hobby artist" introduction={introduction} />
+      <ArtSection name="Gallery" art={pieces}/>
     </Page>
   )
 }
 
 export default withStore(Art)
+
+export const query = graphql`
+  query ( $pageName: String ) {
+    intro: allContentfulIntroduction(filter: { forPage:{ eq: $pageName }}) {
+      ...intro
+    }
+    ...contentQuery
+  }
+`

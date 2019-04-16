@@ -11,24 +11,6 @@ fragment contentQuery on Query {
       }
     }
   }
-  intro: allContentfulIntroduction {
-    edges {
-      node {
-        mainContentBody {
-          childMarkdownRemark {
-            html
-          }
-        }
-      introductionAdditionalContent {
-        additionalContentItem: childContentfulAdditionalIntroductionContentMainContentBodyTextNode {
-          childMarkdownRemark {
-            htmlAst
-          }
-        }
-      }
-      }
-    }
-  } 
   jobs: allContentfulJob {
     edges {
       node {
@@ -117,6 +99,24 @@ fragment contentQuery on Query {
           networkName
           url
           username
+        }
+      }
+    }
+  }
+}
+fragment intro on ContentfulIntroductionConnection {
+  edges {
+    node {
+      mainContentBody {
+        childMarkdownRemark {
+          html
+        }
+      }
+      introductionAdditionalContent {
+        additionalContentItem: childContentfulAdditionalIntroductionContentMainContentBodyTextNode {
+          childMarkdownRemark {
+            htmlAst
+          }
         }
       }
     }
