@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
 import classnames from 'classnames'
-import { wrapGrid } from 'animate-css-grid'
 import { map, includes, addIndex, mergeDeepRight, without, ifElse, append, isNil } from 'ramda'
 import { MaxWidthContainer, Text, Heading, Badge } from 'components/'
 
@@ -15,8 +14,10 @@ const GridTemplate = ({ art }) => {
   const gridEl = useRef(null)
 
   useEffect(() => {
-    if (!isNil(gridEl.current)) {
-      wrapGrid(gridEl.current)
+    if (!isNil(gridEl.current) && process.env !== 'production') {
+      import('animate-css-grid').then(({ wrapGrid }) => {
+        wrapGrid(gridEl.current)
+      })
     }
   }, [gridEl])
 

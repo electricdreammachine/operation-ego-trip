@@ -2,6 +2,7 @@ import React from 'react'
 import 'common/styles/index.scss'
 import { withStore } from 'store'
 import { Page } from 'components'
+import { graphql } from 'gatsby'
 import { Hero, Art as ArtSection } from 'sections'
 
 const Art = ({ data }) => {

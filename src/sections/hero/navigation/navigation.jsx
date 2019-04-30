@@ -20,11 +20,13 @@ const Navigation = forwardRef(({ sectionsOnPage }, ref) => {
     <nav className={styles.navigation} ref={ref}>
     {
       addIndex(map)(
-        ({ name, sections }, index) => (
+        ({ name, sections, link }, index) => (
           <div className={styles.navSection}>
-          <Heading className={styles.navSectionHeader} textSized>
-            {name}
-          </Heading>
+          <Link className={styles.navItem} to={link}>
+            <Heading className={styles.navSectionHeader} textSized>
+              {name}
+            </Heading>
+          </Link>
           {map(
             ({ name, isFoundInPage, node = null, link = '' }) => {
               const linkComponent = isFoundInPage

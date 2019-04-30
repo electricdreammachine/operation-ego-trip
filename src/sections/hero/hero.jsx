@@ -1,5 +1,6 @@
 import React, { useState, useLayoutEffect, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import root from 'window-or-global'
 import { complement, isNil, all, mergeDeepRight } from 'ramda'
 import { Pattern, FullBleedGraphic, MaxWidthContainer, RasterisingPatternFill } from 'components'
@@ -97,7 +98,7 @@ const Hero = ({ boundingWidth, boundingHeight, lineOffset = 0, lineBoundary, sec
         yAxisBoundingElement={SVGNode.current}
       />
       <MaxWidthContainer className={styles.gridInherit}>
-        <div className={styles.navList}>
+        <div className={classnames(styles.navList, styles.gridInherit)}>
           <div className={styles.wordMarkWrapper} ref={cutOutNode} style={{ 'transform': `translateX(${lineOffset + 'px'}) rotate(44.5deg)` }}>
             <span className={styles.wordMark}>
               Oliver Smith

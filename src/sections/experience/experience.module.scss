@@ -13,11 +13,11 @@
   margin-bottom: 3rem;
 
   @include set-mid-breakpoint {
+      /* autoprefixer grid: autoplace */
     display: grid;
     height: 100%;
     grid-template-columns: 1fr 4fr;
     grid-template-rows: 1fr;
-    grid-template-areas: ". .";
     margin-bottom: 5rem;
     
     &:last-of-type:not(.timeline-item-compact) {
