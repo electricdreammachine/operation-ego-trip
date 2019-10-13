@@ -14,6 +14,9 @@ jobs:
     - name: Run enzyme/jest unit tests
       run: npm run test
     - name: Build static files
+      env:
+        SPACE_ID: ${{ secrets.SPACE_ID }}
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
       run: npm run build SPACE_ID=$SPACE_ID ACCESS_TOKEN=$ACCESS_TOKEN
 #     - name: Deploy to github pages
 #       run: npm run deploy
