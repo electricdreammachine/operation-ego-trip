@@ -13,5 +13,7 @@ jobs:
       run: npm i
     - name: Run enzyme/jest unit tests
       run: npm run test
+    - name: Build static files
+      run: npm run build
 #     - name: Deploy to github pages
 #       run: npm run deploy
