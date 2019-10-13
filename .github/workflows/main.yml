@@ -1,9 +1,6 @@
 name: deploy
 
-on:
-  push:
-    branches:
-    - master
+on: deployment
 
 jobs:
   build:
@@ -12,7 +9,9 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
+    - name: Install app
+      run: npm i
     - name: Run enzyme/jest unit tests
       run: npm run test
-    - name: Deploy to github pages
-      run: npm run deploy
+#     - name: Deploy to github pages
+#       run: npm run deploy
