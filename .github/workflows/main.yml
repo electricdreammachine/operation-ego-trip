@@ -23,7 +23,7 @@ jobs:
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v2.5.0
       env:
-        ACTIONS_DEPLOY_KEY: ${{ secrets.GH_PAT }}
+        PERSONAL_TOKEN: ${{ secrets.GH_PAT }}
         PUBLISH_BRANCH: master
         EXTERNAL_REPOSITORY: electricdreammachine/electricdreammachine.github.io
         PUBLISH_DIR: ./public
