@@ -88,6 +88,32 @@ describe('Pattern component', () => {
       }) 
     })
 
+    describe('even numbered width, odd numbered boundary', () => {
+      it('finds the three nearest lines to the boundary and gives them the accent colour', () => {
+        const boundingWidth = 1680
+        const lineBoundary = 385
+        const renderedPattern = createPattern({ boundingWidth, lineBoundary })
+        const expectedLineIndices = [37, 38, 39]
+  
+        expect(expectedLineIndices.map(index =>
+            renderedPattern.find('line').at(index).props().style.stroke
+          )
+        ).toEqual([accentColor, accentColor, accentColor])
+      })
+  
+      it('finds the three nearest lines to the boundary reflected and gives them the accent colour', () => {
+        const boundingWidth = 1680
+        const lineBoundary = 385
+        const renderedPattern = createPattern({ boundingWidth, lineBoundary })
+        const expectedLineIndices = [128, 129, 130]
+  
+        expect(expectedLineIndices.map(index =>
+            renderedPattern.find('line').at(index).props().style.stroke
+          )
+        ).toEqual([accentColor, accentColor, accentColor])
+      }) 
+    })
+
     describe('odd numbered width and boundary', () => {
       it('finds the three nearest lines to the boundary and gives them the accent colour', () => {
         const boundingWidth = 1483
