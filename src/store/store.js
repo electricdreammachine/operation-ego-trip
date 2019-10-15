@@ -50,7 +50,7 @@ const PortfolioState = ({ children, data }) => {
       const {
         left: leftOuterBoundary,
         right: rightOuterBoundary
-      } = findOuterAccentBoundaries(nearestLineToBoundary, boundingWidth)
+      } = findOuterAccentBoundaries(lineBoundary, boundingWidth)
       const lineDistance = leftOuterBoundary - nearestLineToBoundary
       const leftInnerBoundary = nearestLineToBoundary - lineDistance - 2
       const rightInnerBoundary = rightOuterBoundary + (lineDistance * 2) + 2

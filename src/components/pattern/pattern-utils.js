@@ -1,4 +1,9 @@
-import { last, pipe, slice, reduce } from 'ramda'
+/*
+TODO: rework to be module, encapsulating pattern building and retrieval logic
+enable caching, avoid recalculating by rerunning pattern builder loop
+*/
+
+import { last, pipe, slice, reduce, filter } from 'ramda'
 
 export const gutter = 10
 
@@ -32,14 +37,13 @@ export const findNearestLineToBoundary = (lineBoundary) => {
   return nearestLineToBoundary
 }
 
-export const findOuterAccentBoundaries = (nearestLineToBoundary, width) => {
-  const linePositions = getLinePositions(nearestLineToBoundary + gutter)
-  const leftOuterBoundary = last(linePositions) + 2
-  const rightOuterBoundary = width - leftOuterBoundary - 2
+export const findOuterAccentBoundaries = (lineBoundary, width) => {
+  const linePositions = getLinePositions((width - lineBoundary) + gutter)
+  const boundarisedLinePositions = filter(position => isLineWithinBoundaryRange(position, lineBoundary, width), linePositions)
 
   return {
-    left: leftOuterBoundary,
-    right: rightOuterBoundary
+    left: boundarisedLinePositions[2] + 2,
+    right: boundarisedLinePositions[3] - 2,
   }
 }
 
