@@ -1,6 +1,6 @@
 /*
 TODO: rework to be module, encapsulating pattern building and retrieval logic
-enable caching, avoid recalculating by rerunning pattern builder loop
+enable caching, avoid recalculating and rerunning pattern builder loop
 */
 
 import { last, pipe, slice, reduce, filter } from 'ramda'
