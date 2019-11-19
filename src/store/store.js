@@ -8,7 +8,13 @@ import { findNearestLineToBoundary, findOuterAccentBoundaries } from '../compone
 
 const StoreContext = createContext()
 
+/*
+arguably should be a redux store, but seemed overkill for such a small project
+so seeing how far I can get just using react apis
+*/
+
 const PortfolioState = ({ children, data }) => {
+  // this however should absolutely be a useReducer at this point -> TODO
   const [state, setState] = useState({
     boundingElement: null,
     boundingWidth: 0,
