@@ -4,10 +4,4 @@ import Experience from './experience'
 import Hero from './hero'
 import Skills from './skills'
 
-export {
-  Art,
-  Contact,
-  Experience,
-  Hero,
-  Skills,
-}
+export { Art, Contact, Experience, Hero, Skills }

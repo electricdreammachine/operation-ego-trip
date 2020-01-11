@@ -13,9 +13,7 @@ const Username = ({ username, styles }) => {
     )
   }
 
-  return (
-    <span>{username}</span>
-  )
+  return <span>{username}</span>
 }
 
 Username.propTypes = {
@@ -23,7 +21,7 @@ Username.propTypes = {
   styles: PropTypes.object,
 }
 
-Username.defaultProps ={
+Username.defaultProps = {
   username: '',
   styles: { emailAddress: null },
 }

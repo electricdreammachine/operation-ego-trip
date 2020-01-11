@@ -6,17 +6,22 @@ import Text from '../text'
 
 import styles from './heading.module.scss'
 
-const Heading = ({ children, headingLevel, className, textSized, ...textProps }) => {
+const Heading = ({
+  children,
+  headingLevel,
+  className,
+  textSized,
+  ...textProps
+}) => {
   if (isNil(headingLevel)) {
     return (
-      <Text {...textProps}
-        className={
-          classNames(
-            styles.heading,
-            { [styles.textSized]: textSized },
-            className
-          )
-        }
+      <Text
+        {...textProps}
+        className={classNames(
+          styles.heading,
+          { [styles.textSized]: textSized },
+          className
+        )}
       >
         {children}
       </Text>
@@ -26,7 +31,9 @@ const Heading = ({ children, headingLevel, className, textSized, ...textProps })
   return createElement(
     headingLevel,
     { className: classNames(styles.heading, className) },
-    <Text {...textProps} classLess>{children}</Text>,
+    <Text {...textProps} classLess>
+      {children}
+    </Text>
   )
 }
 

@@ -3,11 +3,15 @@ import { CSSTransition } from 'react-transition-group'
 import { isNil, propOr } from 'ramda'
 import { StoreContext } from 'store'
 import Helmet from 'react-helmet'
+import { PatternContextProvider } from '../pattern'
 import ogImage from 'common/assets/images/share-img.png'
 import styles from './page.module.scss'
+import 'requestidlecallback-polyfill'
 
 const Page = ({ children }) => {
-  const { state: { patternRef } } = useContext(StoreContext)
+  const {
+    state: { patternRef },
+  } = useContext(StoreContext)
 
   return (
     <Fragment>
@@ -20,7 +24,7 @@ const Page = ({ children }) => {
           {
             property: `og:image`,
             content: ogImage,
-          }
+          },
         ]}
       />
       <div className={styles.page}>
@@ -32,9 +36,7 @@ const Page = ({ children }) => {
           }}
           timeout={1000}
         >
-          <Fragment>
-            {children}
-          </Fragment>
+          <PatternContextProvider>{children}</PatternContextProvider>
         </CSSTransition>
       </div>
     </Fragment>

@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
+    "@juggle/resize-observer": "^3.0.2",
     "animate-css-grid": "^1.4.0",
     "animejs": "^3.0.1",
     "array-sort": "^1.0.0",
@@ -28,8 +29,12 @@
     "react-dom": "^16.8.x",
     "react-helmet": "5.1.x",
     "react-html-parser": "^2.0.2",
+    "react-measure": "^2.3.0",
     "react-transition-group": "^2.6.1",
+    "requestidlecallback-polyfill": "^1.0.2",
+    "resize-observer-polyfill": "^1.5.1",
     "throttle-debounce": "^2.0.1",
+    "use-measure": "^0.3.0",
     "window-or-global": "^1.0.1"
   },
   "keywords": [
@@ -55,7 +60,7 @@
     "enzyme-adapter-react-16": "^1.9.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.1.0",
-    "prettier": "^1.13.7",
+    "prettier": "^1.19.1",
     "react-test-renderer": "^16.8.2",
     "rimraf": "^2.6.3"
   },

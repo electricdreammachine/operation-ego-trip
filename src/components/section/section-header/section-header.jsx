@@ -1,38 +1,34 @@
 import React, { useContext } from 'react'
-import { StoreContext } from 'store'
+import { PatternContext } from '../../pattern'
 import RasterisingPatternFill from '../../rasterising-pattern-fill'
 import Heading from '../../heading'
 import styles from './section-header.module.scss'
 
-const SectionHeader = ({
-  children
-}) => {
-  const {
-    state: {
+const SectionHeader = ({ children }) => {
+  const [
+    {
       boundingWidth,
-      outerAccentBoundaries: {
-        leftOuterBoundary,
-        rightOuterBoundary,
+      pattern: {
+        boundaries: { outer: outerBoundaries },
       },
-    }
-  } = useContext(StoreContext)
-
+    },
+  ] = useContext(PatternContext)
   return (
     <header className={styles.sectionHeader}>
       <RasterisingPatternFill className={styles.sectionHeaderGraphic}>
         <rect
           x="0"
           y="0"
-          width={leftOuterBoundary}
+          width={outerBoundaries.left}
           height="100%"
-          style={{ 'fill': 'url(#star)', 'strokeWidth': '0' }}
+          style={{ fill: 'url(#star)', strokeWidth: '0' }}
         />
         <rect
-          x={rightOuterBoundary}
+          x={outerBoundaries.right}
           y="0"
-          width={boundingWidth - rightOuterBoundary}
+          width={boundingWidth - outerBoundaries.right}
           height="100%"
-          style={{ 'fill': 'url(#star)', 'strokeWidth': '0' }}
+          style={{ fill: 'url(#star)', strokeWidth: '0' }}
         />
       </RasterisingPatternFill>
       <Heading headingLevel="h2" className={styles.sectionHeaderTitle}>

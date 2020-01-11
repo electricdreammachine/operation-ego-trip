@@ -1,27 +1,21 @@
-require("dotenv").config({
+require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
-});
+})
 
 module.exports = {
   siteMetadata: {
     title: 'Gatsby Default Starter',
     menuLinks: [
       {
-        name:'Software',
-        link:'/',
-        sections: [
-          'Experience',
-          'Skills',
-          'Contact'
-        ],
+        name: 'Software',
+        link: '/',
+        sections: ['Experience', 'Skills', 'Contact'],
       },
       {
-        name:'art',
-        link:'/art',
-        sections: [
-          'Gallery',
-        ],
-      }
+        name: 'art',
+        link: '/art',
+        sections: ['Gallery'],
+      },
     ],
   },
   plugins: [

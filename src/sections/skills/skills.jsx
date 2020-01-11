@@ -10,24 +10,17 @@ import SkillGroup from './skill-group'
 const Skills = ({ skillGroups }) => {
   const sortedGroups = pipe(
     sortBy(path(['node', 'proficiencyLevel'])),
-    reverse,
+    reverse
   )(skillGroups)
 
   return (
-    <MaxWidthContainer
-      className={styles.skillGroupWrapper}
-    >
-      {
-        map(
-          (skillGroup) => (
-            <SkillGroup
-              {...skillGroup.node}
-              className={styles.skillGroup}
-            />
-          ),
-          sortedGroups
-        )
-      }
+    <MaxWidthContainer className={styles.skillGroupWrapper}>
+      {map(
+        skillGroup => (
+          <SkillGroup {...skillGroup.node} className={styles.skillGroup} />
+        ),
+        sortedGroups
+      )}
     </MaxWidthContainer>
   )
 }

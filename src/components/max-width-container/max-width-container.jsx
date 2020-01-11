@@ -5,13 +5,13 @@ import classNames from 'classnames'
 import styles from './max-width-container.module.scss'
 
 const MaxWidthContainer = ({ maxHeight, className, children }) => (
-  <div className={
-    classNames(
+  <div
+    className={classNames(
       styles.maxWidthContainer,
       { [styles.maxHeight]: maxHeight },
       className
-    )
-  }>
+    )}
+  >
     {children}
   </div>
 )

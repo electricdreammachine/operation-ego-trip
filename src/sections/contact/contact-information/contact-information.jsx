@@ -21,7 +21,10 @@ const ContactInformation = ({ contactInfo }) => (
                 <Username username={username} styles={styles} />
               </div>
               <svg className={styles.icon}>
-                <use xlinkHref={`#social-icons-sprite_${networkName.toLowerCase()}`} key={networkName} />
+                <use
+                  xlinkHref={`#social-icons-sprite_${networkName.toLowerCase()}`}
+                  key={networkName}
+                />
               </svg>
             </a>
           </Text>
