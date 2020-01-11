@@ -40,7 +40,7 @@ const Animation = ({
             loop: true,
             easing: 'easeInOutQuad',
           })
-        }, 2000 * index)
+        }, 3000 * index)
       }, range(0, numberOfAnimatedLeaves))
     }
   }, [xAxisBoundingElement, yAxisBoundingElement])
@@ -80,7 +80,7 @@ const Animation = ({
 }
 
 Animation.defaultProps = {
-  numberOfAnimatedLeaves: 6,
+  numberOfAnimatedLeaves: 5,
 }
 
 export default Animation
