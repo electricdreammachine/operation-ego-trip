@@ -1,8 +1,6 @@
-import { findNearestLineToBoundary, findOuterAccentBoundaries } from './pattern-utils'
+import PatternContextProvider, {
+  PatternContext,
+} from './pattern-context-provider'
 import Pattern from './pattern'
 
-export {
-    findNearestLineToBoundary,
-    findOuterAccentBoundaries,
-    Pattern as default,
-}
+export { PatternContext, PatternContextProvider, Pattern as default }

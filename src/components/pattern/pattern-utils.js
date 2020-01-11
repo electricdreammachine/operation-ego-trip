@@ -1,57 +1,82 @@
-/*
-TODO: rework to be module, encapsulating pattern building and retrieval logic
-enable caching, avoid recalculating and rerunning pattern builder loop
-*/
+import { last, reduce } from 'ramda'
 
-import { last, pipe, slice, reduce, filter } from 'ramda'
+const calculatePattern = (leftAnchorPoint, boundingWidth, gutter, width) => {
+  const calculateLinePosition = lineNumber => lineNumber * gutter
 
-export const gutter = 10
+  const getLinePositions = (xAxisAnchorPoint, boundingWidth) => {
+    const linePositions = [0]
+    const accentedLinePositions = []
 
-export const calculateLinePosition = (lineNumber) => 1 + (lineNumber * gutter)
+    while (last(linePositions) < boundingWidth) {
+      const newLinePosition = calculateLinePosition(linePositions.length)
+      linePositions.push(newLinePosition)
 
-export const getLinePositions = (lineBoundary) => {
-  const linePositions = [0]
+      if (
+        isLineWithinAccentRange(
+          newLinePosition,
+          xAxisAnchorPoint,
+          boundingWidth
+        )
+      ) {
+        accentedLinePositions.push(newLinePosition)
+      }
+    }
 
-  while (last(linePositions) < lineBoundary) {
-    linePositions.push(calculateLinePosition(linePositions.length))
+    return {
+      linePositions,
+      accentedLinePositions,
+    }
   }
 
-  return linePositions
-}
+  const findNearestLineToAnchor = (xAxisAnchorPoint, linePositions) =>
+    reduce(
+      (acc, value) => {
+        const currentClosestValue = Math.abs(xAxisAnchorPoint - acc)
+        const distanceFromBoundary = Math.abs(xAxisAnchorPoint - value)
 
-export const findNearestLineToBoundary = (lineBoundary) => {
-  const linePositions = getLinePositions(lineBoundary)
-
-  const nearestLineToBoundary = pipe(
-    slice(linePositions.length - 2, linePositions.length),
-    reduce((acc, value) => {
-      const currentClosestValue = Math.abs(lineBoundary - acc)
-      const distanceFromBoundary = Math.abs(lineBoundary - value)
-
-      return distanceFromBoundary < currentClosestValue ? value : acc
-    },
-      0
+        return distanceFromBoundary < currentClosestValue ? value : acc
+      },
+      0,
+      linePositions
     )
-  )(linePositions)
 
-  return nearestLineToBoundary
-}
+  const isLineWithinAccentRange = (
+    lineXPosition,
+    xAxisAnchorPoint,
+    boundingWidth
+  ) => {
+    const isLowerBoundary =
+      lineXPosition >= xAxisAnchorPoint - gutter * 1.5 &&
+      lineXPosition < xAxisAnchorPoint + gutter * 1.5
+    const isUpperBoundary =
+      lineXPosition >= boundingWidth - xAxisAnchorPoint - gutter * 1.5 &&
+      lineXPosition < boundingWidth - xAxisAnchorPoint + gutter * 1.5
 
-export const findOuterAccentBoundaries = (lineBoundary, width) => {
-  const linePositions = getLinePositions((width - lineBoundary) + gutter)
-  const boundarisedLinePositions = filter(position => isLineWithinBoundaryRange(position, lineBoundary, width), linePositions)
+    return isLowerBoundary || isUpperBoundary
+  }
+
+  const linePositions = getLinePositions(leftAnchorPoint, boundingWidth)
+  const nearestLineToAnchor = findNearestLineToAnchor(
+    leftAnchorPoint,
+    linePositions.accentedLinePositions
+  )
+  const anchorToLineOffset =
+    Math.abs(nearestLineToAnchor) - Math.abs(leftAnchorPoint)
 
   return {
-    left: boundarisedLinePositions[2] + 2,
-    right: boundarisedLinePositions[3] - 2,
+    ...linePositions,
+    anchorToLineOffset,
+    boundaries: {
+      outer: {
+        left: linePositions.accentedLinePositions[2] + width,
+        right: linePositions.accentedLinePositions[3] - width,
+      },
+      inner: {
+        left: linePositions.accentedLinePositions[0] - width,
+        right: linePositions.accentedLinePositions[5] + width,
+      },
+    },
   }
 }
 
-export const isLineWithinBoundaryRange = (lineXPosition, lineBoundary, boundingWidth) => {
-  const isLowerBoundary = lineXPosition >= lineBoundary - gutter * 1.5 &&
-    lineXPosition < lineBoundary + gutter * 1.5
-  const isUpperBoundary = lineXPosition >= (boundingWidth - lineBoundary) - gutter * 1.5 &&
-    lineXPosition < (boundingWidth - lineBoundary) + gutter * 1.5
-
-  return isLowerBoundary || isUpperBoundary
-}
+export default calculatePattern

@@ -12,16 +12,19 @@ const SkillGroup = ({ proficiencyLevel, skillSet, name, description }) => (
     <div>
       <AlignedDiamondBlock className={styles.skillGroupProficiencyIconWrapper}>
         <svg className={styles.skillGroupProficiencyIcon}>
-          <use xlinkHref={`#tree-motif-sprite_proficiency-level-${proficiencyLevel}`} key={`#tree-motif-sprite_${proficiencyLevel}`} />
+          <use
+            xlinkHref={`#tree-motif-sprite_proficiency-level-${proficiencyLevel}`}
+            key={`#tree-motif-sprite_${proficiencyLevel}`}
+          />
         </svg>
-        <Heading className={styles.skillGroupHeading}>
-          {name}
-        </Heading>
+        <Heading className={styles.skillGroupHeading}>{name}</Heading>
       </AlignedDiamondBlock>
     </div>
     <div className={styles.skillInformationWrapper}>
       <Text className={styles.skillGroupDescription}>
-        {ReactHtmlParser(pathOr('', ['childMarkdownRemark', 'html'], description))}
+        {ReactHtmlParser(
+          pathOr('', ['childMarkdownRemark', 'html'], description)
+        )}
       </Text>
       <div className={styles.skillSetWrapper}>
         <SkillSet skills={skillSet} />

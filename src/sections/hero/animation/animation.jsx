@@ -3,7 +3,7 @@ import AnimationPath from './animation-path'
 import { FullBleedGraphic } from 'components'
 import { forEach, map, range, any, isNil, complement, all, pluck } from 'ramda'
 import anime from 'animejs'
-
+import useCachedBoundingClientRect from 'lib/hooks/get-cached-bounding-client-rect'
 import styles from './animation.module.scss'
 
 const Animation = ({
@@ -23,33 +23,30 @@ const Animation = ({
 
   useEffect(() => {
     if (all(complement(isNil), [xAxisBoundingElement, yAxisBoundingElement])) {
-      forEach(
-        index => {
-          const path = anime.path(leafPathRefs[index].path.current)
+      forEach(index => {
+        const path = anime.path(leafPathRefs[index].path.current)
 
-          setTimeout(() => {
-            anime({
-              targets: leafPathRefs[index].leaf.current,
-              translateX: path('x'),
-              translateY: path('y'),
-              rotate: path('angle'),
-              duration: 15000,
-              opacity: {
-                value: 0,
-                duration: 10000,
-              },
-              loop: true,
-              easing: 'easeInOutQuad'
-            })
-          }, 2000 * index)
-        },
-        range(0, numberOfAnimatedLeaves)
-      )
+        setTimeout(() => {
+          anime({
+            targets: leafPathRefs[index].leaf.current,
+            translateX: path('x'),
+            translateY: path('y'),
+            rotate: path('angle'),
+            duration: 15000,
+            opacity: {
+              value: 0,
+              duration: 10000,
+            },
+            loop: true,
+            easing: 'easeInOutQuad',
+          })
+        }, 2000 * index)
+      }, range(0, numberOfAnimatedLeaves))
     }
   }, [xAxisBoundingElement, yAxisBoundingElement])
 
-  const { top, bottom } = yAxisBoundingElement.getBoundingClientRect()
-  const { left, right } = xAxisBoundingElement.getBoundingClientRect()
+  const { top, bottom } = useCachedBoundingClientRect(yAxisBoundingElement)
+  const { left, right } = useCachedBoundingClientRect(xAxisBoundingElement)
 
   const animations = map(
     index => ({
@@ -69,23 +66,21 @@ const Animation = ({
             <use y={0} x={0} xlinkHref={`#leaf-motif-sprite_single-leaf`} />
           </svg>
         </div>
-      )
+      ),
     }),
     range(0, numberOfAnimatedLeaves)
   )
 
   return (
     <Fragment>
-      <FullBleedGraphic>
-        {pluck('path', animations)}
-      </FullBleedGraphic>
+      <FullBleedGraphic>{pluck('path', animations)}</FullBleedGraphic>
       {pluck('leaf', animations)}
     </Fragment>
   )
 }
 
 Animation.defaultProps = {
-  numberOfAnimatedLeaves: 3,
+  numberOfAnimatedLeaves: 6,
 }
 
 export default Animation

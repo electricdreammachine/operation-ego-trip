@@ -1,10 +1,8 @@
-import React, { createContext, useState, useEffect, useLayoutEffect } from 'react'
+import React, { createContext, useState } from 'react'
 import { unstable_batchedUpdates as batch } from 'react-dom'
-import root from 'window-or-global'
 import { mergeDeepRight, uniqBy, prop, reject, isNil, pipe } from 'ramda'
 
 import { registerSection } from './register-section'
-import { findNearestLineToBoundary, findOuterAccentBoundaries } from '../components/pattern'
 
 const StoreContext = createContext()
 
@@ -16,67 +14,23 @@ so seeing how far I can get just using react apis
 const PortfolioState = ({ children, data }) => {
   // this however should absolutely be a useReducer at this point -> TODO
   const [state, setState] = useState({
-    boundingElement: null,
-    boundingWidth: 0,
-    boundingHeight: 0,
-    lineBoundary: 0,
-    nearestLineToBoundary: 0,
-    outerAccentBoundaries: {
-      leftOuterBoundary: 0,
-      rightOuterBoundary: 0,
-    },
-    innerAccentBoundaries: {
-      leftInnerBoundary: 0,
-      rightInnerBoundary: 0,
-    },
+    patternRef: null,
     sectionsOnPage: [],
   })
 
-  const updateStore = (newStoreProps) => batch(() => setState(prevState => mergeDeepRight(prevState, newStoreProps)))
-  const updateSections = newSection => batch(() => setState(prevState => mergeDeepRight(prevState, {
-    sectionsOnPage: pipe(
-      uniqBy(prop('name')),
-      reject(isNil)
-    )([...prevState.sectionsOnPage, newSection])
-  })))
-
-  useLayoutEffect(() => {
-    updateStore({
-      boundingHeight: root.innerHeight,
-      boundingElement: document.documentElement,
-    })
-  }, [])
-
-  useEffect(() => {
-    if (state.boundingElement !== null) {
-      const { lineBoundary } = state
-      const nearestLineToBoundary = findNearestLineToBoundary(lineBoundary)
-      const lineOffset = Math.abs(nearestLineToBoundary) - Math.abs(lineBoundary)
-      const boundingWidth = state.boundingElement.clientWidth
-      const {
-        left: leftOuterBoundary,
-        right: rightOuterBoundary
-      } = findOuterAccentBoundaries(lineBoundary, boundingWidth)
-      const lineDistance = leftOuterBoundary - nearestLineToBoundary
-      const leftInnerBoundary = nearestLineToBoundary - lineDistance - 2
-      const rightInnerBoundary = rightOuterBoundary + (lineDistance * 2) + 2
-
-      updateStore({
-        boundingWidth,
-        nearestLineToBoundary,
-        lineOffset,
-        outerAccentBoundaries: {
-          leftOuterBoundary,
-          rightOuterBoundary,
-        },
-        innerAccentBoundaries: {
-          leftInnerBoundary,
-          rightInnerBoundary,
-        }
-      })
-    }
-  }, [state.boundingElement, state.lineBoundary]
-  )
+  const updateStore = newStoreProps =>
+    batch(() => setState(prevState => mergeDeepRight(prevState, newStoreProps)))
+  const updateSections = newSection =>
+    batch(() =>
+      setState(prevState =>
+        mergeDeepRight(prevState, {
+          sectionsOnPage: pipe(
+            uniqBy(prop('name')),
+            reject(isNil)
+          )([...prevState.sectionsOnPage, newSection]),
+        })
+      )
+    )
 
   return (
     <StoreContext.Provider
@@ -89,8 +43,8 @@ const PortfolioState = ({ children, data }) => {
           },
           registerSection: (sectionName, sectionNode) => {
             updateSections(registerSection(sectionName, sectionNode))
-          }
-        }
+          },
+        },
       }}
     >
       {children}
@@ -98,7 +52,4 @@ const PortfolioState = ({ children, data }) => {
   )
 }
 
-export {
-  PortfolioState as default,
-  StoreContext,
-}
+export { PortfolioState as default, StoreContext }

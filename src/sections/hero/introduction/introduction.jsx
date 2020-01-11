@@ -7,12 +7,12 @@ import { Text } from 'components'
 import { mapElementToComponent } from './map-element-to-component'
 import styles from './introduction.module.scss'
 
-
-const Introduction = ({ className, introduction: { mainContentBody, introductionAdditionalContent } }) => (
+const Introduction = ({
+  className,
+  introduction: { mainContentBody, introductionAdditionalContent },
+}) => (
   <div className={classNames(className, styles.introductionWrapper)}>
-    <Text>
-      {ReactHtmlParser(mainContentBody.childMarkdownRemark.html)}
-    </Text>
+    <Text>{ReactHtmlParser(mainContentBody.childMarkdownRemark.html)}</Text>
     <div className={styles.additionalIntroductionContent}>
       {map(
         ({ additionalContentItem }) => (

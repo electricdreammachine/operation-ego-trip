@@ -3,28 +3,22 @@ import constructNavigationWithInPageSections from './construct-navigation-with-i
 describe('constructNavigationWithInPageSections', () => {
   const menuLinks = [
     {
-      name:'Software',
-      link:'/',
-      sections: [
-        'Experience',
-        'Skills',
-        'Contact'
-      ],
+      name: 'Software',
+      link: '/',
+      sections: ['Experience', 'Skills', 'Contact'],
     },
     {
-      name:'art',
-      link:'/art',
-      sections: [
-        'Gallery'
-      ],
-    }
+      name: 'art',
+      link: '/art',
+      sections: ['Gallery'],
+    },
   ]
 
   it('creates an array of top level navigation items, with a property for sections if defined', () => {
     const expectedLinks = [
       {
-        name:'Software',
-        link:'/',
+        name: 'Software',
+        link: '/',
         sections: [
           {
             name: 'Experience',
@@ -44,8 +38,8 @@ describe('constructNavigationWithInPageSections', () => {
         ],
       },
       {
-        name:'art',
-        link:'/art',
+        name: 'art',
+        link: '/art',
         sections: [
           {
             name: 'Gallery',
@@ -53,7 +47,7 @@ describe('constructNavigationWithInPageSections', () => {
             isFoundInPage: false,
           },
         ],
-      }
+      },
     ]
 
     const sectionsInPage = [
@@ -62,35 +56,37 @@ describe('constructNavigationWithInPageSections', () => {
       { name: 'Contact', node: 'node' },
     ]
 
-    expect(constructNavigationWithInPageSections(menuLinks, sectionsInPage)).toEqual(expectedLinks)
+    expect(
+      constructNavigationWithInPageSections(menuLinks, sectionsInPage)
+    ).toEqual(expectedLinks)
   })
 
   it('creates an array of top level navigation items, with the parent page link when section not found in page', () => {
     const expectedLinks = [
       {
-        name:'Software',
-        link:'/',
+        name: 'Software',
+        link: '/',
         sections: [
           {
             name: 'Experience',
-            link:'/',
+            link: '/',
             isFoundInPage: false,
           },
           {
             name: 'Skills',
-            link:'/',
+            link: '/',
             isFoundInPage: false,
           },
           {
             name: 'Contact',
-            link:'/',
+            link: '/',
             isFoundInPage: false,
           },
         ],
       },
       {
-        name:'art',
-        link:'/art',
+        name: 'art',
+        link: '/art',
         sections: [
           {
             name: 'Gallery',
@@ -98,9 +94,11 @@ describe('constructNavigationWithInPageSections', () => {
             isFoundInPage: false,
           },
         ],
-      }
+      },
     ]
 
-    expect(constructNavigationWithInPageSections(menuLinks, [])).toEqual(expectedLinks)
-  })  
+    expect(constructNavigationWithInPageSections(menuLinks, [])).toEqual(
+      expectedLinks
+    )
+  })
 })

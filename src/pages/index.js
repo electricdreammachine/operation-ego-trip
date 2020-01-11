@@ -1,4 +1,3 @@
-
 import React from 'react'
 import 'common/styles/index.scss'
 import { withStore } from 'store'
@@ -8,10 +7,14 @@ import { Hero, Experience, Skills, Contact } from 'sections'
 
 const Index = ({ data }) => {
   const {
-    intro: { edges: [{ node: introduction }] },
+    intro: {
+      edges: [{ node: introduction }],
+    },
     jobs: { edges: jobs },
     skillGroups: { edges: skillGroups },
-    contact: { edges: [{node: contactInfo}] },
+    contact: {
+      edges: [{ node: contactInfo }],
+    },
   } = data
 
   return (
@@ -27,8 +30,8 @@ const Index = ({ data }) => {
 export default withStore(Index)
 
 export const query = graphql`
-  query ( $pageName: String ) {
-    intro: allContentfulIntroduction(filter: { forPage:{ eq: $pageName }}) {
+  query($pageName: String) {
+    intro: allContentfulIntroduction(filter: { forPage: { eq: $pageName } }) {
       ...intro
     }
     ...contentQuery

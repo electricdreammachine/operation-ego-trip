@@ -5,7 +5,11 @@ import styles from './text.module.scss'
 
 const Text = ({ children, className, isLink, classLess }) => (
   <div
-    className={classnames({ [styles.text]: !classLess }, { [styles.isLink]: isLink }, className)}
+    className={classnames(
+      { [styles.text]: !classLess },
+      { [styles.isLink]: isLink },
+      className
+    )}
   >
     {children}
   </div>

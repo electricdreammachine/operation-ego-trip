@@ -11,18 +11,18 @@ const SkillSet = ({ skills }) => {
   const groupedSkillSets = map(
     ({ name, skills }) => (
       <Fragment>
-        <dd><Heading textSized>{name}</Heading></dd>
-        <dt><Text>{join(', ', skills)}</Text></dt>
+        <dd>
+          <Heading textSized>{name}</Heading>
+        </dd>
+        <dt>
+          <Text>{join(', ', skills)}</Text>
+        </dt>
       </Fragment>
     ),
     skills
   )
 
-  return (
-    <dl className={styles.skillSet}>
-      {groupedSkillSets}
-    </dl>
-  )
+  return <dl className={styles.skillSet}>{groupedSkillSets}</dl>
 }
 
 SkillSet.propTypes = {

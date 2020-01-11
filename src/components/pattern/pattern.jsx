@@ -1,41 +1,49 @@
 import React, { useRef, useContext, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { last, pipe, pathOr } from 'ramda'
+import { map } from 'ramda'
+import { PatternContext } from './pattern-context-provider'
 import { StoreContext } from 'store'
-import { calculateLinePosition, gutter, isLineWithinBoundaryRange } from './pattern-utils'
 
 import styles from './pattern.scss'
 
-const Pattern = ({ boundingWidth, lineBoundary, patternId }) => {
-  const { actions: { setInStore } } = useContext(StoreContext)
+const Pattern = ({ patternId }) => {
+  const {
+    actions: { setInStore },
+  } = useContext(StoreContext)
+  const [{ pattern }] = useContext(PatternContext)
   const patternRef = useRef(null)
-  const lines = []
 
   useEffect(() => {
     setInStore({ patternRef })
   }, [patternRef.current])
 
-  while (
-    pipe(
-      last,
-      pathOr(0, ['props', 'x1'])
-    )(lines) < boundingWidth - (gutter + 1)) {
-    const lineXPosition = calculateLinePosition(lines.length)
+  let lines
+  if (pattern.linePositions) {
+    lines = map(line => {
+      const strokeStyle =
+        pattern.accentedLinePositions.indexOf(line) !== -1
+          ? {
+              stroke: styles.accentColor,
+              strokeWidth: '2',
+              opacity: '1',
+            }
+          : {
+              stroke: styles.patternColor,
+              strokeWidth: '2',
+              opacity: '0.2',
+            }
 
-    const strokeStyle = isLineWithinBoundaryRange(lineXPosition, lineBoundary, boundingWidth) ?
-      {
-        'stroke': styles.accentColor,
-        'strokeWidth': '2',
-        'opacity': '1'
-      } : {
-        'stroke': styles.patternColor,
-        'strokeWidth': '2',
-        'opacity': '0.2'
-      }
-
-    lines.push(
-      <line x1={lineXPosition} y1="0" x2={lineXPosition} y2="100%" key={`line-${lines.length}`} style={strokeStyle} />
-    )
+      return (
+        <line
+          x1={line}
+          y1="0"
+          x2={line}
+          y2="100%"
+          key={`line-${line}`}
+          style={strokeStyle}
+        />
+      )
+    }, pattern.linePositions)
   }
 
   return (

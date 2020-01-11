@@ -7,7 +7,13 @@ import SectionHeader from './section-header'
 
 import styles from './section.module.scss'
 
-const Section = ({ children, elementType, className, name, registerSection }) => {
+const Section = ({
+  children,
+  elementType,
+  className,
+  name,
+  registerSection,
+}) => {
   const sectionRef = useRef(null)
 
   useEffect(() => {
@@ -17,22 +23,20 @@ const Section = ({ children, elementType, className, name, registerSection }) =>
   let header = null
 
   if (!isEmpty(name)) {
-    header = (
-      <SectionHeader>
-        {name}
-      </SectionHeader>
-    )
+    header = <SectionHeader>{name}</SectionHeader>
   }
 
   return createElement(
     elementType,
-    { className: classnames(styles.section, className), ref: sectionRef, id: name },
-    (
-      <Fragment>
-        {header}
-        {children}
-      </Fragment>
-    )
+    {
+      className: classnames(styles.section, className),
+      ref: sectionRef,
+      id: name,
+    },
+    <Fragment>
+      {header}
+      {children}
+    </Fragment>
   )
 }
 
