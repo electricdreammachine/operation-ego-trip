@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import root from 'window-or-global'
 
 const getWindowDimensions = () => {
-  const { innerWidth: width, innerHeight: height } = window
+  const { innerWidth: width, innerHeight: height } = root
   return {
     width,
     height,
