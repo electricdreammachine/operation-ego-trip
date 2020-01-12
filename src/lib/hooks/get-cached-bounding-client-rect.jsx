@@ -8,11 +8,11 @@ const useCachedBoundingClientRect = (element, callback = null) => {
   const [rect, setRect] = useState(emptyDomRect)
 
   const clearCachedClientRect = () =>
-    window.requestIdleCallback(() => setRect(emptyDomRect))
+    root.requestIdleCallback(() => setRect(emptyDomRect))
 
   useEffect(() => {
     if (element && isEmptyRect(rect)) {
-      window.requestAnimationFrame(() => {
+      root.requestAnimationFrame(() => {
         const elementBoundingRect = element.getBoundingClientRect()
         setRect(elementBoundingRect)
 

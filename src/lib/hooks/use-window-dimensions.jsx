@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import root from 'window-or-global'
 
 const getWindowDimensions = () => {
   const { innerWidth: width, innerHeight: height } = window
@@ -18,8 +19,8 @@ export default function useWindowDimensions() {
       setWindowDimensions(getWindowDimensions())
     }
 
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
+    root.addEventListener('resize', handleResize)
+    return () => root.removeEventListener('resize', handleResize)
   }, [])
 
   return windowDimensions
