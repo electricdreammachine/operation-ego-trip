@@ -1,11 +1,18 @@
 import getPattern from './pattern-utils'
 
 describe('get Pattern', () => {
+  const gutter = 10
+  const width = 2
   describe('base functionality', () => {
     it('adds a position every 10 units from x 0 to x boundingWidth', () => {
       const boundingWidth = 500
       const lineBoundary = 100
-      const renderedPattern = getPattern(lineBoundary, boundingWidth)
+      const renderedPattern = getPattern(
+        lineBoundary,
+        boundingWidth,
+        gutter,
+        width
+      )
 
       expect(renderedPattern.linePositions.length).toEqual(
         boundingWidth / 10 + 1
@@ -15,7 +22,12 @@ describe('get Pattern', () => {
     it('finds the three nearest positions to the boundary and adds them to accentedLinePositions', () => {
       const boundingWidth = 500
       const lineBoundary = 100
-      const renderedPattern = getPattern(lineBoundary, boundingWidth)
+      const renderedPattern = getPattern(
+        lineBoundary,
+        boundingWidth,
+        gutter,
+        width
+      )
 
       expect(renderedPattern.accentedLinePositions).toEqual(
         expect.arrayContaining([90, 100, 110])
@@ -25,7 +37,12 @@ describe('get Pattern', () => {
     it('finds the three nearest lines to the boundary reflected and adds them to accentedLinePositions', () => {
       const boundingWidth = 500
       const lineBoundary = 100
-      const renderedPattern = getPattern(lineBoundary, boundingWidth)
+      const renderedPattern = getPattern(
+        lineBoundary,
+        boundingWidth,
+        gutter,
+        width
+      )
 
       expect(renderedPattern.accentedLinePositions).toEqual(
         expect.arrayContaining([390, 400, 410])
@@ -38,7 +55,12 @@ describe('get Pattern', () => {
       it('finds the three nearest lines to the boundary and gives them the accent colour', () => {
         const boundingWidth = 1483
         const lineBoundary = 100
-        const renderedPattern = getPattern(lineBoundary, boundingWidth)
+        const renderedPattern = getPattern(
+          lineBoundary,
+          boundingWidth,
+          gutter,
+          width
+        )
 
         expect(renderedPattern.accentedLinePositions).toEqual(
           expect.arrayContaining([90, 100, 110])
@@ -48,10 +70,15 @@ describe('get Pattern', () => {
       it('finds the three nearest lines to the boundary reflected and gives them the accent colour', () => {
         const boundingWidth = 1483
         const lineBoundary = 100
-        const renderedPattern = getPattern(lineBoundary, boundingWidth)
+        const renderedPattern = getPattern(
+          lineBoundary,
+          boundingWidth,
+          gutter,
+          width
+        )
 
         expect(renderedPattern.accentedLinePositions).toEqual(
-          expect.arrayContaining([390, 400, 410])
+          expect.arrayContaining([1370, 1380, 1390])
         )
       })
     })
@@ -60,7 +87,12 @@ describe('get Pattern', () => {
       it('finds the three nearest lines to the boundary and gives them the accent colour', () => {
         const boundingWidth = 1680
         const lineBoundary = 385
-        const renderedPattern = getPattern(lineBoundary, boundingWidth)
+        const renderedPattern = getPattern(
+          lineBoundary,
+          boundingWidth,
+          gutter,
+          width
+        )
 
         expect(renderedPattern.accentedLinePositions).toEqual(
           expect.arrayContaining([370, 380, 390])
@@ -70,7 +102,12 @@ describe('get Pattern', () => {
       it('finds the three nearest lines to the boundary reflected and gives them the accent colour', () => {
         const boundingWidth = 1680
         const lineBoundary = 385
-        const renderedPattern = getPattern(lineBoundary, boundingWidth)
+        const renderedPattern = getPattern(
+          lineBoundary,
+          boundingWidth,
+          gutter,
+          width
+        )
 
         expect(renderedPattern.accentedLinePositions).toEqual(
           expect.arrayContaining([1280, 1290, 1300])
@@ -82,7 +119,12 @@ describe('get Pattern', () => {
       it('finds the three nearest lines to the boundary and gives them the accent colour', () => {
         const boundingWidth = 1483
         const lineBoundary = 287
-        const renderedPattern = getPattern(lineBoundary, boundingWidth)
+        const renderedPattern = getPattern(
+          lineBoundary,
+          boundingWidth,
+          gutter,
+          width
+        )
 
         expect(renderedPattern.accentedLinePositions).toEqual(
           expect.arrayContaining([280, 290, 300])
@@ -92,7 +134,12 @@ describe('get Pattern', () => {
       it('finds the three nearest lines to the boundary reflected and gives them the accent colour', () => {
         const boundingWidth = 1483
         const lineBoundary = 287
-        const renderedPattern = getPattern(lineBoundary, boundingWidth)
+        const renderedPattern = getPattern(
+          lineBoundary,
+          boundingWidth,
+          gutter,
+          width
+        )
 
         expect(renderedPattern.accentedLinePositions).toEqual(
           expect.arrayContaining([1190, 1200, 1210])
