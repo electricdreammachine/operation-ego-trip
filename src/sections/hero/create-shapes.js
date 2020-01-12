@@ -23,7 +23,6 @@ export const createShapes = (
   anchorToLineOffset,
   rootElement
 ) => {
-  console.log(anchorToLineOffset)
   if (
     any(
       rect => {

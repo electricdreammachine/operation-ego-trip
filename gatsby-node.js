@@ -19,11 +19,4 @@ exports.onCreatePage = ({ page, actions }) => {
         : pageName.charAt(0).toUpperCase() + pageName.slice(1),
     },
   })
-
-  console.log(
-    pageName,
-    isEmpty(pageName)
-      ? 'Software'
-      : pageName.charAt(0).toUpperCase() + pageName.slice(1)
-  )
 }

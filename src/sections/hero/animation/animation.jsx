@@ -1,34 +1,58 @@
-import React, { Fragment, useRef, useEffect } from 'react'
+import React, { Fragment, useEffect, useReducer } from 'react'
 import AnimationPath from './animation-path'
 import { FullBleedGraphic } from 'components'
-import { forEach, map, range, any, isNil, complement, all, pluck } from 'ramda'
+import { forEach, map, range, any, isNil, pluck, pathOr, keys } from 'ramda'
 import anime from 'animejs'
 import useCachedBoundingClientRect from 'lib/hooks/get-cached-bounding-client-rect'
 import styles from './animation.module.scss'
+
+const initialState = {}
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'UPDATE_REF':
+      return {
+        ...state,
+        [action.payload.index]: {
+          ...state[action.payload.index],
+          [action.payload.type]: action.payload.ref,
+        },
+      }
+    default:
+      return state
+  }
+}
 
 const Animation = ({
   xAxisBoundingElement,
   yAxisBoundingElement,
   numberOfAnimatedLeaves,
 }) => {
-  if (any(isNil, [xAxisBoundingElement, yAxisBoundingElement])) return null
+  const [state, dispatch] = useReducer(reducer, initialState)
 
-  const leafPathRefs = map(
-    () => ({
-      leaf: useRef(null),
-      path: useRef(null),
-    }),
-    range(0, numberOfAnimatedLeaves)
-  )
+  const addRef = (type, index) => ref => {
+    if (ref && !pathOr(false, [index, type], state)) {
+      return dispatch({
+        type: 'UPDATE_REF',
+        payload: {
+          index,
+          type,
+          ref,
+        },
+      })
+    }
+
+    return
+  }
 
   useEffect(() => {
-    if (all(complement(isNil), [xAxisBoundingElement, yAxisBoundingElement])) {
+    if (keys(state).length === numberOfAnimatedLeaves) {
       forEach(index => {
-        const path = anime.path(leafPathRefs[index].path.current)
+        const path = anime.path(state[index].path)
 
         setTimeout(() => {
           anime({
-            targets: leafPathRefs[index].leaf.current,
+            targets: state[index].leaf,
             translateX: path('x'),
             translateY: path('y'),
             rotate: path('angle'),
@@ -43,7 +67,12 @@ const Animation = ({
         }, 3000 * index)
       }, range(0, numberOfAnimatedLeaves))
     }
-  }, [xAxisBoundingElement, yAxisBoundingElement])
+  }, [
+    xAxisBoundingElement,
+    yAxisBoundingElement,
+    state,
+    numberOfAnimatedLeaves,
+  ])
 
   const { top, bottom } = useCachedBoundingClientRect(yAxisBoundingElement)
   const { left, right } = useCachedBoundingClientRect(xAxisBoundingElement)
@@ -52,7 +81,7 @@ const Animation = ({
     index => ({
       path: (
         <AnimationPath
-          ref={leafPathRefs[index].path}
+          ref={addRef('path', index)}
           topBound={top}
           bottomBound={bottom}
           leftBound={left}
@@ -61,7 +90,7 @@ const Animation = ({
         />
       ),
       leaf: (
-        <div ref={leafPathRefs[index].leaf} className={styles.animatedLeaf}>
+        <div ref={addRef('leaf', index)} className={styles.animatedLeaf}>
           <svg style={{ width: '50px', height: '50px' }} viewBox="12 12 18 18">
             <use y={0} x={0} xlinkHref={`#leaf-motif-sprite_single-leaf`} />
           </svg>
@@ -70,6 +99,8 @@ const Animation = ({
     }),
     range(0, numberOfAnimatedLeaves)
   )
+
+  if (any(isNil, [xAxisBoundingElement, yAxisBoundingElement])) return null
 
   return (
     <Fragment>

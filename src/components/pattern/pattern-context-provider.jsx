@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useEffect, useRef } from 'react'
+import React, { createContext, useReducer, useEffect } from 'react'
 import useWindowDimensions from 'lib/hooks/use-window-dimensions'
 import getPattern from './pattern-utils'
 
