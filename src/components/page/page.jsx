@@ -6,7 +6,6 @@ import Helmet from 'react-helmet'
 import { PatternContextProvider } from '../pattern'
 import ogImage from 'common/assets/images/share-img.png'
 import styles from './page.module.scss'
-import 'requestidlecallback-polyfill'
 
 const Page = ({ children }) => {
   const {
