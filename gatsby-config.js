@@ -22,11 +22,17 @@ module.exports = {
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-resolve-src',
     'gatsby-plugin-svg-sprite',
-    `gatsby-transformer-json`,
-    `gatsby-transformer-remark`,
+    'gatsby-transformer-json',
+    'gatsby-transformer-remark',
     'gatsby-plugin-sass',
     {
-      resolve: `gatsby-source-contentful`,
+      resole: 'gatsby-plugin-polyfill-io',
+      options: {
+        features: ['DOMRect', 'Element.prototype.prepend'],
+      },
+    },
+    {
+      resolve: 'gatsby-source-contentful',
       options: {
         spaceId: process.env.SPACE_ID,
         accessToken: process.env.ACCESS_TOKEN,
