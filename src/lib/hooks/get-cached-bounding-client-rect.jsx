@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import root from 'window-or-global'
 import isEmptyRect from 'lib/utils/is-empty-rect'
 
-const emptyDomRect = window.DOMRect
+const emptyDomRect = root.DOMRect
   ? new DOMRect()
   : {
       top: 0,
