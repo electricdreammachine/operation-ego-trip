@@ -2,7 +2,18 @@ import { useEffect, useState } from 'react'
 import root from 'window-or-global'
 import isEmptyRect from 'lib/utils/is-empty-rect'
 
-const emptyDomRect = new DOMRect()
+const emptyDomRect = window.DOMRect
+  ? new DOMRect()
+  : {
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+      width: 0,
+      height: 0,
+      x: 0,
+      y: 0,
+    }
 
 const useCachedBoundingClientRect = (element, callback = null) => {
   const [rect, setRect] = useState(emptyDomRect)
