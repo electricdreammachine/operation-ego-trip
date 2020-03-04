@@ -105,16 +105,16 @@ exports.onCreateWebpackConfig = ({
         }),
       ],
     })
-
-    const config = getConfig()
-
-    const newConfig = {
-      ...config,
-      module: {
-        ...config.module,
-        rules: config.module.rules.map(processRule),
-      },
-    }
-    actions.replaceWebpackConfig(newConfig)
   }
+
+  const config = getConfig()
+
+  const newConfig = {
+    ...config,
+    module: {
+      ...config.module,
+      rules: config.module.rules.map(processRule),
+    },
+  }
+  actions.replaceWebpackConfig(newConfig)
 }
