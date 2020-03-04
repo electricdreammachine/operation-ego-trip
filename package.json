@@ -3,6 +3,11 @@
   "description": "Gatsby default starter",
   "version": "1.0.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "browserslist": [
+    "last 2 versions",
+    "IE 11",
+    "not dead"
+  ],
   "dependencies": {
     "animate-css-grid": "^1.4.0",
     "animejs": "^3.0.1",
