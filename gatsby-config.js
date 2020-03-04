@@ -28,7 +28,11 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-polyfill-io',
       options: {
-        features: ['DOMRect', 'Element.prototype.prepend'],
+        features: [
+          'DOMRect',
+          'Element.prototype.prepend',
+          'requestIdleCallback',
+        ],
       },
     },
     {
