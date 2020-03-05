@@ -30,33 +30,38 @@ const Navigation = forwardRef(({ sectionsOnPage }, ref) => {
     <nav className={styles.navigation} ref={ref}>
       {addIndex(map)(
         ({ name, sections, link }, index) => (
-          <div className={styles.navSection}>
+          <div className={styles.navSection} key={name}>
             <Link className={styles.navItem} to={link}>
               <Heading className={styles.navSectionHeader} textSized>
                 {name}
               </Heading>
             </Link>
-            {map(({ name, isFoundInPage, node = null, link = '' }) => {
-              const linkComponent = isFoundInPage ? (
-                <button
-                  onClick={() => scrollToNode(node)}
-                  className={styles.navItem}
-                />
-              ) : (
-                <Link
-                  className={styles.navItem}
-                  to={sections.length > 1 ? `${link}/#${name}` : link}
-                />
-              )
+            {map(
+              ({ name: linkName, isFoundInPage, node = null, link = '' }) => {
+                const linkComponent = isFoundInPage ? (
+                  <button
+                    onClick={() => scrollToNode(node)}
+                    className={styles.navItem}
+                    key={linkName}
+                  />
+                ) : (
+                  <Link
+                    className={styles.navItem}
+                    to={sections.length > 1 ? `${link}/#${linkName}` : link}
+                    key={linkName}
+                  />
+                )
 
-              return cloneElement(
-                linkComponent,
-                null,
-                <Heading className={styles.navItemText} textSized isLink>
-                  {name}
-                </Heading>
-              )
-            }, sections)}
+                return cloneElement(
+                  linkComponent,
+                  null,
+                  <Heading className={styles.navItemText} textSized isLink>
+                    {linkName}
+                  </Heading>
+                )
+              },
+              sections
+            )}
             {index === 1
               ? times(
                   () => (

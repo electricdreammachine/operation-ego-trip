@@ -5,7 +5,7 @@ import {
   complement,
   propOr,
   pathOr,
-  and,
+  equals,
   mergeDeepRight,
 } from 'ramda'
 import canvg from 'canvg'
@@ -33,14 +33,15 @@ const RasterisingPatternFill = React.forwardRef(
       if (
         state.canRasterise &&
         boundingWidth !== 0 &&
-        and(
+        all(equals(true), [
           all(complement(isNil), [
             propOr(null, 'current', canvasRef),
             propOr(null, 'current', svgRef),
             propOr(null, 'current', patternRef),
           ]),
-          pathOr(0, ['current', 'childNodes', 'length'], patternRef) > 1
-        )
+          !equals(0, pathOr('', ['current', 'clientHeight'], svgRef)),
+          pathOr(0, ['current', 'childNodes', 'length'], patternRef) > 1,
+        ])
       ) {
         if (!state.hasCompletedFirstMeaningfulRender) {
           setState(

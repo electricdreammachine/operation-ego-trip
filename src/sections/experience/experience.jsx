@@ -39,6 +39,7 @@ const Experience = ({ jobs }) => {
           const isCompact = index > 1
           return (
             <li
+              key={job.employer}
               className={classnames(styles.timelineItem, {
                 [styles.timelineItemCompact]: isCompact,
               })}

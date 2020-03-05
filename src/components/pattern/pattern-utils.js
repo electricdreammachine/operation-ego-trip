@@ -28,6 +28,10 @@ const calculatePattern = (leftAnchorPoint, boundingWidth, gutter, width) => {
     }
   }
 
+  const percentageXAxisCutOut = (100 * leftAnchorPoint) / boundingWidth
+  const xAxisConstrained =
+    percentageXAxisCutOut >= 45 && percentageXAxisCutOut <= 55
+
   const findNearestLineToAnchor = (xAxisAnchorPoint, linePositions) =>
     reduce(
       (acc, value) => {
@@ -68,14 +72,18 @@ const calculatePattern = (leftAnchorPoint, boundingWidth, gutter, width) => {
     anchorToLineOffset,
     boundaries: {
       outer: {
-        left: linePositions.accentedLinePositions[2] + width,
-        right: linePositions.accentedLinePositions[3] - width,
+        left:
+          linePositions.accentedLinePositions[xAxisConstrained ? 0 : 2] + width,
+        right:
+          linePositions.accentedLinePositions[xAxisConstrained ? 2 : 3] - width,
       },
       inner: {
         left: linePositions.accentedLinePositions[0] - width,
-        right: linePositions.accentedLinePositions[5] + width,
+        right:
+          linePositions.accentedLinePositions[xAxisConstrained ? 3 : 5] + width,
       },
     },
+    xAxisConstrained,
   }
 }
 
