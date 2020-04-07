@@ -85,6 +85,14 @@ export const query = graphql`
             file {
               url
             }
+            fluid {
+              aspectRatio
+              srcSet
+              src
+              sizes
+              srcWebp
+              srcSetWebp
+            }
           }
         }
       }

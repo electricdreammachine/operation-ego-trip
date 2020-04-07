@@ -10,6 +10,7 @@ import {
   append,
   isNil,
 } from 'ramda'
+import Img from 'gatsby-image'
 import { MaxWidthContainer, Text, Heading, Badge } from 'components/'
 
 import 'common/assets/images/expand.svg'
@@ -61,7 +62,11 @@ const GridTemplate = ({ art }) => {
                   className={styles.buttonImageWrapper}
                   onClick={() => toggleContainerExpanded(index)}
                 >
-                  <img src={piece.fullImage.file.url} alt={piece.title} />
+                  <Img
+                    fluid={piece.fullImage.fluid}
+                    alt={piece.title}
+                    className={styles.buttonImageWrapper}
+                  />
                 </button>
                 {isExpanded && (
                   <div className={styles.details}>

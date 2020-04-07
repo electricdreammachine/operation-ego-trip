@@ -48,6 +48,7 @@ const initialState = {
         right: 0,
       },
     },
+    xAxisConstrained: false,
   },
   gutter: 10,
   width: 2,

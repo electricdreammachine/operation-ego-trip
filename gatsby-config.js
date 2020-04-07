@@ -25,10 +25,16 @@ module.exports = {
     'gatsby-transformer-json',
     'gatsby-transformer-remark',
     'gatsby-plugin-sass',
+    'gatsby-transformer-sharp',
+    'gatsby-plugin-sharp',
     {
-      resole: 'gatsby-plugin-polyfill-io',
+      resolve: 'gatsby-plugin-polyfill-io',
       options: {
-        features: ['DOMRect', 'Element.prototype.prepend'],
+        features: [
+          'DOMRect',
+          'Element.prototype.prepend',
+          'requestIdleCallback',
+        ],
       },
     },
     {

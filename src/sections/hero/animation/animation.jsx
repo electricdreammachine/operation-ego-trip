@@ -87,10 +87,15 @@ const Animation = ({
           leftBound={left}
           rightBound={right}
           invertDirection={index % 2 === 0}
+          key={`animation-path-${index}`}
         />
       ),
       leaf: (
-        <div ref={addRef('leaf', index)} className={styles.animatedLeaf}>
+        <div
+          ref={addRef('leaf', index)}
+          className={styles.animatedLeaf}
+          key={`animation-leaf-${index}`}
+        >
           <svg style={{ width: '50px', height: '50px' }} viewBox="12 12 18 18">
             <use y={0} x={0} xlinkHref={`#leaf-motif-sprite_single-leaf`} />
           </svg>
