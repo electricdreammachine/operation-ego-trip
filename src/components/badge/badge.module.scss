@@ -1,8 +1,14 @@
 @import 'src/common/styles/variables';
 
 .badge {
-    display: inline-block;
-    padding: 3px 8px;
-    font-size: 0.8rem;
-    border: 1px solid $primary-text-color;
+  display: inline-block;
+  padding: 3px 8px;
+  font-size: 0.8rem;
+  border: 1px solid $primary-text-color;
+}
+
+.badge-list-item {
+  & + .badge-list-item {
+    margin-left: 1rem;
+  }
 }

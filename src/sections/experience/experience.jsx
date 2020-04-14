@@ -5,7 +5,7 @@ import classnames from 'classnames'
 import ReactHtmlParser from 'react-html-parser'
 import arraySort from 'array-sort'
 import {
-  Badge,
+  BadgeList,
   Heading,
   Text,
   MaxWidthContainer,
@@ -76,12 +76,7 @@ const Experience = ({ jobs }) => {
                               {name}
                             </Heading>
                             <div className={styles.skillsWrapper}>
-                              {map(
-                                skillName => (
-                                  <Badge>{skillName}</Badge>
-                                ),
-                                skillsUsed
-                              )}
+                              <BadgeList listItems={skillsUsed} />
                             </div>
                             <Text>
                               {' '}

@@ -49,7 +49,7 @@
     left: 50%;
     transform: translate(-50%, -50%) rotate(-45deg);
   }
-  
+
   &:before {
     content: '';
     display: block;
@@ -57,5 +57,7 @@
     padding-bottom: 100%;
     border: 2px solid $accent-color;
     box-sizing: border-box;
+    position: relative;
+    z-index: 999;
   }
 }

@@ -1,5 +1,5 @@
 import Page from './page'
-import Badge from './badge'
+import Badge, { BadgeList } from './badge'
 import FullBleedGraphic from './full-bleed-graphic'
 import RasterisingPatternFill from './rasterising-pattern-fill'
 import Heading from './heading'
@@ -12,6 +12,7 @@ import Text from './text'
 export {
   Page,
   Badge,
+  BadgeList,
   FullBleedGraphic,
   RasterisingPatternFill,
   Heading,

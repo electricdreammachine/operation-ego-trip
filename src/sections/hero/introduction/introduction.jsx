@@ -4,7 +4,7 @@ import ReactHtmlParser from 'react-html-parser'
 import { map, defaultTo } from 'ramda'
 import classNames from 'classnames'
 import { Text } from 'components'
-import { mapElementToComponent } from './map-element-to-component'
+import { mapElementsToComponents } from 'lib/utils/map-element-to-component'
 import styles from './introduction.module.scss'
 
 const Introduction = ({
@@ -17,9 +17,9 @@ const Introduction = ({
       {map(
         ({ additionalContentItem }) => (
           <div className={styles.additionalContentItem}>
-            {map(
-              mapElementToComponent,
-              additionalContentItem.childMarkdownRemark.htmlAst.children
+            {mapElementsToComponents(
+              additionalContentItem.childMarkdownRemark.htmlAst,
+              { text: styles.text }
             )}
           </div>
         ),

@@ -29,7 +29,7 @@ Skills.propTypes = {
   skillGroups: PropTypes.array,
 }
 
-Skills.defaultProsp = {
+Skills.defaultProps = {
   skillGroups: [],
 }
 

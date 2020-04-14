@@ -3,7 +3,7 @@ import 'common/styles/index.scss'
 import { withStore } from 'store'
 import { Page } from 'components'
 import { graphql } from 'gatsby'
-import { Hero, Experience, Skills, Contact } from 'sections'
+import { Hero, Experience, FeaturedProject, Skills, Contact } from 'sections'
 
 const Index = ({ data }) => {
   const {
@@ -12,6 +12,9 @@ const Index = ({ data }) => {
     },
     jobs: { edges: jobs },
     skillGroups: { edges: skillGroups },
+    featuredProject: {
+      edges: [featuredProject],
+    },
     contact: {
       edges: [{ node: contactInfo }],
     },
@@ -21,6 +24,10 @@ const Index = ({ data }) => {
     <Page>
       <Hero elementType="header" introduction={introduction} />
       <Experience name="Experience" jobs={jobs} />
+      <FeaturedProject
+        name="Featured Project"
+        featuredProject={featuredProject}
+      />
       <Skills name="Skills" skillGroups={skillGroups} />
       <Contact name="Contact" contactInfo={contactInfo} />
     </Page>

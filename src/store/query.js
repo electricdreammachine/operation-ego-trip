@@ -53,21 +53,30 @@ export const query = graphql`
         }
       }
     }
-    personalProjects: allContentfulProject(
-      filter: { isPersonalProject: { eq: true } }
+    featuredProject: allContentfulProject(
+      filter: { isFeaturedProject: { eq: true } }
+      limit: 1
     ) {
       edges {
         node {
           name
           description {
-            description
+            childMarkdownRemark {
+              htmlAst
+            }
           }
           skillsUsed
           url
           image {
-            id
+            fluid {
+              aspectRatio
+              srcSet
+              src
+              sizes
+              srcWebp
+              srcSetWebp
+            }
           }
-          isPersonalProject
         }
       }
     }

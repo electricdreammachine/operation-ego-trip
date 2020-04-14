@@ -9,7 +9,7 @@ module.exports = {
       {
         name: 'Software',
         link: '/',
-        sections: ['Experience', 'Skills', 'Contact'],
+        sections: ['Experience', 'Featured Project', 'Skills', 'Contact'],
       },
       {
         name: 'art',

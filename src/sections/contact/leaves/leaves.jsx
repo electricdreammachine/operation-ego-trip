@@ -1,6 +1,6 @@
 import React from 'react'
 import { pipe, last, pathOr } from 'ramda'
-import { randomNumberInRange } from 'common/utils/random-number-in-range'
+import { randomNumberInRange } from 'lib/utils/random-number-in-range'
 
 const Leaves = ({ elementWidth, height }) => {
   const distance = 30

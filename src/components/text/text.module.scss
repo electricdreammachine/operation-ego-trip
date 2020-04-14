@@ -5,13 +5,15 @@
   color: $primary-text-color;
   @include set-primary-font;
   line-height: 1.3;
+  white-space: pre-line;
 
   a,
   &.is-link {
     color: $link-color;
     text-decoration: none;
     font-weight: 500;
-  
+    display: inline-block;
+
     &:hover,
     &:focus {
       color: $link-color--hover;
@@ -48,7 +50,7 @@
         top: 7px;
       }
     }
-    
+
     li + li {
       margin-top: 0.5rem;
     }

@@ -1,12 +1,12 @@
 import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 import { until, isNil, any, gt, __, last, pathOr, map, sum } from 'ramda'
-import { randomNumberInRange } from 'common/utils/random-number-in-range'
+import { randomNumberInRange } from 'lib/utils/random-number-in-range'
 
 const makeCubicBezierCurvePath = ({
   commandPoint: { x: commandPointX, y: commandPointY },
   lineCoords: { x: lineCoordX, y: lineCoordY },
-}) => `Q ${commandPointX}, ${commandPointY} ${lineCoordX}, ${lineCoordY}`
+}) => `Q ${commandPointX} ${commandPointY} ${lineCoordX} ${lineCoordY}`
 
 const AnimationPath = forwardRef(
   (
@@ -37,10 +37,10 @@ const AnimationPath = forwardRef(
 
       const newCurve = {
         commandPoint: {
-          x: pathOr(XStart, ['lineCoords', 'x'], last(paths)),
-          y: fuzzyYCoord - alternateCurveInterval / 4,
+          x: Math.round(pathOr(XStart, ['lineCoords', 'x'], last(paths))),
+          y: Math.round(fuzzyYCoord - alternateCurveInterval / 4),
         },
-        lineCoords: { x: XCoord, y: fuzzyYCoord },
+        lineCoords: { x: Math.round(XCoord), y: Math.round(fuzzyYCoord) },
       }
 
       paths.push(newCurve)
@@ -51,7 +51,7 @@ const AnimationPath = forwardRef(
     return (
       <path
         ref={ref}
-        d={[[`M ${XStart}, 0`], map(makeCubicBezierCurvePath, paths)].join(' ')}
+        d={[`M ${XStart} 0`, ...map(makeCubicBezierCurvePath, paths)].join(' ')}
         style={{ strokeWidth: '0', fill: 'none' }}
       />
     )

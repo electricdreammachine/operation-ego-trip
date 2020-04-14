@@ -1,0 +1,43 @@
+@import 'src/common/styles/mixins';
+@import 'src/common/styles/variables';
+
+.project-wrapper {
+  display: grid;
+  height: 100%;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: 1fr;
+  margin-bottom: 5rem;
+  margin-top: 5rem;
+}
+
+.project-details {
+  padding-left: 4rem;
+}
+
+.project-name {
+  margin-bottom: 1rem;
+  line-height: 1.4rem;
+  color: $primary-text-color;
+}
+
+.project-details-heading {
+  margin: 1.5rem 0 0.5rem;
+}
+
+.project-details-text {
+  & + .project-details-text {
+    margin-top: 0.5rem;
+  }
+}
+
+.project-image-wrapper {
+  position: relative;
+  overflow: hidden;
+  mix-blend-mode: exclusion;
+}
+
+.project-image {
+  position: absolute !important;
+  width: 150%;
+  height: 150%;
+}
