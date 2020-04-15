@@ -2,16 +2,24 @@
 @import 'src/common/styles/variables';
 
 .project-wrapper {
-  display: grid;
-  height: 100%;
-  grid-template-columns: 1fr 4fr;
-  grid-template-rows: 1fr;
-  margin-bottom: 5rem;
-  margin-top: 5rem;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+
+  @include set-mid-breakpoint {
+    /* autoprefixer grid: autoplace */
+    display: grid;
+    height: 100%;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: 1fr;
+    margin-bottom: 5rem;
+    margin-top: 5rem;
+  }
 }
 
 .project-details {
-  padding-left: 4rem;
+  @include set-mid-breakpoint {
+    padding-left: 4rem;
+  }
 }
 
 .project-name {

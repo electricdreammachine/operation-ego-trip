@@ -63,13 +63,6 @@ export const mapElementsToComponents = curry(
   ) => {
     const components = getComponentsWithBoundClassNames(classNames)
 
-    console.log(
-      map(
-        element => getComponentForElementAndChildren(element, components),
-        elementTree.children
-      )
-    )
-
     return map(
       element => getComponentForElementAndChildren(element, components),
       elementTree.children
