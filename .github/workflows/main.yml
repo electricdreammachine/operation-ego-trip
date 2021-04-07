@@ -1,6 +1,6 @@
 name: deploy
 
-on: deployment
+on: workflow_dispatch
 
 jobs:
   build:
