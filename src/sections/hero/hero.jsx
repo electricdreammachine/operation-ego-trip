@@ -138,7 +138,7 @@ Hero.propTypes = {
 }
 
 Hero.defaultProps = {
-  title: 'Software Engineeer',
+  title: 'Software Engineer',
 }
 
 export default Hero
