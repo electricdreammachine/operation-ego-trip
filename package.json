@@ -31,7 +31,7 @@
     "gatsby-transformer-sharp": "^2.3.16",
     "gh-pages": "^2.0.1",
     "intersection": "0.0.1",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "ramda": "^0.26.0",
     "react": "^16.12.x",
     "react-dom": "^16.12.x",
